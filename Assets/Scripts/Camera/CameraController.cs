@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private bool canControll;
+    [SerializeField] private Vector3 levelCenterPoint;
+    [SerializeField] private float maxDistanceFromCenter;
+
     [Header("²¾°Ê³]©w")]
     [SerializeField] private float movementSpeed = 120;
     [SerializeField] private float mouseMovementSpeed = 5;
@@ -40,14 +44,21 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
+        if (canControll == false)
+            return;
+
         HandleRotation();
         HandleZoom();
-        HandleEdgeMovement();
+        //HandleEdgeMovement();
         HandleMouseMovement();
         HandleMovement();
 
         focusPoint.position = transform.position + (transform.forward * GetFocusPointDistane());
     }
+
+    public void EnableCameraControlls(bool enable) => canControll = enable;
+
+    public float AdjustPitchValue(float value) => pitch = value;
 
     private void HandleZoom()
     {
@@ -96,6 +107,9 @@ public class CameraController : MonoBehaviour
         float vInput = Input.GetAxisRaw("Vertical");
         float hInput = Input.GetAxisRaw("Horizontal");
 
+        if (vInput == 0 && hInput == 0)
+            return;
+
         Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
 
         if (vInput > 0)
@@ -108,6 +122,12 @@ public class CameraController : MonoBehaviour
             targetPosition += transform.right * movementSpeed * Time.deltaTime;
         if (hInput < 0)
             targetPosition -= transform.right * movementSpeed * Time.deltaTime;
+
+
+        if (Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+        {
+            targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+        }
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref movementVelocity, smoothTime);
     }
@@ -153,6 +173,11 @@ public class CameraController : MonoBehaviour
 
         if (mousePosition.y < edgeThreshold)
             targetPosition -= flatForward * edgeMovementSpeed * Time.deltaTime;
+
+        if (Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+        {
+            targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+        }
 
         transform.position =Vector3.SmoothDamp(transform.position, targetPosition, ref edgeMovementVelocity, smoothTime);
     }
