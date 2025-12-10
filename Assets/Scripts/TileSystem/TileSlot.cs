@@ -10,7 +10,10 @@ public class TileSlot : MonoBehaviour
     private MeshRenderer meshRenderer => GetComponent<MeshRenderer>();
     private MeshFilter meshFilter => GetComponent<MeshFilter>();
     private Collider myCollder => GetComponent<Collider>();
-    private NavMeshSurface myNavMesh => GetComponentInParent<NavMeshSurface>();
+    private NavMeshSurface myNavMesh => GetComponentInParent<NavMeshSurface>(true);
+
+    private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);//判斷是不是能建塔的地塊
+
     public void SwitchTile(GameObject referenceTile)
     {
         gameObject.name = referenceTile.name;
@@ -24,6 +27,8 @@ public class TileSlot : MonoBehaviour
         UpdateChildren(newTile);
         UpdateLayer(referenceTile);
         UpdateNavMesh();
+
+        TurnIntoBuildSlotIfNeeded(referenceTile);//判斷是不是能建塔的地塊
     }
 
 
@@ -41,6 +46,23 @@ public class TileSlot : MonoBehaviour
         }
 
         return children;
+    }
+
+    //判斷是不是能建塔的地塊
+    private void TurnIntoBuildSlotIfNeeded(GameObject refereneTile)
+    {
+        BuildSlot buildSlot = GetComponent<BuildSlot>();
+
+        if (refereneTile != tileSetHolder.tileField)
+        {
+            if (buildSlot != null)
+                DestroyImmediate(buildSlot);
+        }
+        else
+        {
+            if (buildSlot == null)
+                gameObject.AddComponent<BuildSlot>();
+        }
     }
 
     private void UpdateNavMesh() => myNavMesh.BuildNavMesh();

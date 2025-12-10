@@ -7,13 +7,16 @@ public class UI : MonoBehaviour
     [SerializeField] private Image fadeImageUI;
     [SerializeField] private GameObject[] uiElements;
 
-    private UI_Animator animatorUI;
     private UI_Setting settingUI;
     private UI_MainMenu mainMenuUI;
-    private UI_InGame inGameUI;
+
+    public UI_InGame inGameUI {  get; private set; }
+    public UI_Animator animatorUI {  get; private set; }
+    public UI_BuildButtonHolder buildButtonsUI { get; private set; }
 
     private void Awake()
     {
+        buildButtonsUI = GetComponentInChildren<UI_BuildButtonHolder>(true);
         settingUI = GetComponentInChildren<UI_Setting>(true);
         mainMenuUI = GetComponentInChildren<UI_MainMenu>(true);
         inGameUI = GetComponentInChildren<UI_InGame>(true);

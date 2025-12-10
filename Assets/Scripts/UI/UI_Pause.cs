@@ -15,7 +15,7 @@ public class UI_Pause : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F10))
             ui.SwitchTo(inGameUI.gameObject);
     }
 

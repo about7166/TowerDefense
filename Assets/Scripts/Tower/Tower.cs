@@ -45,6 +45,7 @@ public class Tower : MonoBehaviour
         RotateTowarsEnemy();
     }
 
+    public float GetAttackRange() => attackRange; 
     private void LooseTargetIfNeeded()
     {
         if (Vector3.Distance(currentEnemy.CenterPoint(), transform.position) > attackRange)

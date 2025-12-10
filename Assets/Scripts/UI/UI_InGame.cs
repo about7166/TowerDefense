@@ -24,10 +24,12 @@ public class UI_InGame : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F10))
             ui.SwitchTo(uiPause.gameObject);
     }
 
+    public void ShakeCurrencyUI() => ui.animatorUI.Shake(currencyText.transform.parent);
+    public void ShakeHealthUI() => ui.animatorUI.Shake(healthPointText.transform.parent);
     //這裡是老師寫的"威脅值"
     //public void UpdateHealthPointsUI(int value, int maxValue)
     //{

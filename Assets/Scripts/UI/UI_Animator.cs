@@ -3,6 +3,51 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UI_Animator : MonoBehaviour
 {
+    [Header("UI回饋 - 晃動效果")]
+    [SerializeField] private float shakeMagnitude;//XY晃動
+    [SerializeField] private float shakeDuration;
+    [SerializeField] private float shakeRotationMagnitude;//Z旋轉
+    [Space]
+    [SerializeField] private float defaultUIScale = 1.5f;//縮放
+    [SerializeField] private bool scaleChangeAvailable;//縮放開關
+
+    public void Shake(Transform transformToShake)
+    {
+        RectTransform rectTransform = transformToShake.GetComponent<RectTransform>();
+        StartCoroutine(ShakeCo(rectTransform));
+    }
+
+    private IEnumerator ShakeCo(RectTransform rectTransform)
+    {
+        float time = 0;
+        Vector3 originalPosition = rectTransform.anchoredPosition;
+        float currentScale = rectTransform.localScale.x;//縮放
+
+        if (scaleChangeAvailable)
+            StartCoroutine(ChangeScaleCo(rectTransform, currentScale * 1.1f, shakeDuration / 2));//縮放
+
+        while (time < shakeDuration)
+        {
+            
+            float xOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XY晃動
+            float yOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XY晃動            
+            float randomRotation = Random.Range(-shakeRotationMagnitude, shakeRotationMagnitude);//Z旋轉
+
+
+            rectTransform.anchoredPosition = originalPosition + new Vector3(xOffset, yOffset);//XY晃動
+            rectTransform.localRotation = Quaternion.Euler(0, 0, randomRotation);//Z旋轉
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        
+        rectTransform.anchoredPosition = originalPosition;//XY晃動
+        rectTransform.localRotation = Quaternion.Euler(Vector3.zero);//Z旋轉
+
+        if (scaleChangeAvailable)
+            StartCoroutine(ChangeScaleCo(rectTransform, defaultUIScale, shakeDuration / 2));//縮放
+    }
+
 
     public void ChangePosition(Transform transform, Vector3 offset, float duration = 0.1f)
     {
