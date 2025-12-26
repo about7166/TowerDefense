@@ -21,6 +21,8 @@ public class LevelManager : MonoBehaviour
                 buildButton.UnlockTowerIfNeeded(unlockDate.towerName, unlockDate.unlocked);
             }
         }
+
+        ui.buildButtonsUI.UpdateUnlockedButtons();
     }
 
     [ContextMenu("初始化塔的資料")]

@@ -139,7 +139,6 @@ MonoBehaviour:
   towerCenterY: 0.5
   towerNameText: {fileID: 1811772069541609473}
   towerPriceText: {fileID: 5341946123918081290}
-  towerAttackRadius: 3
 --- !u!114 &104248711734322356
 MonoBehaviour:
   m_ObjectHideFlags: 0

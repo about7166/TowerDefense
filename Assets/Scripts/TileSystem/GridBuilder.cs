@@ -17,6 +17,19 @@ public class GridBuilder : MonoBehaviour
     public List<GameObject> GetTileSetup() => createdTiles;
 
 
+    private bool hadFristLoad;
+
+    public bool IsOnFirstLoad() //給TileAnimator用的
+    {
+        if (hadFristLoad == false)
+        {
+            hadFristLoad = true;
+            return true;
+        }
+
+        return false;
+    }
+
     [ContextMenu("生成地板網格")]
     private void BuildGrid()
     {

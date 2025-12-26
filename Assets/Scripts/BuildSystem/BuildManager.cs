@@ -13,6 +13,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private Material attackRadiusMaterial;
     [SerializeField] private Material buildPreviewMaterial;
 
+    private bool isMouseOverUI;
+
     private void Awake()
     {
         ui = FindFirstObjectByType<UI>();
@@ -27,6 +29,9 @@ public class BuildManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if (isMouseOverUI)
+                return;
+
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
                 bool clickedNotOnBuildSlot = hit.collider.GetComponent<BuildSlot>() == null;
@@ -36,6 +41,8 @@ public class BuildManager : MonoBehaviour
             }
         }
     }
+
+    public void MouseOverUI(bool IsOverUI) => isMouseOverUI = IsOverUI;
 
     public void MakeBuildSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)
     {
@@ -71,6 +78,8 @@ public class BuildManager : MonoBehaviour
     {
         if (selectedBuildSlot == null)
             return;
+
+        ui.buildButtonsUI.GetLastSelectedButton()?.SelectButton(false);
 
         selectedBuildSlot.UnSelectTile();
         selectedBuildSlot = null;

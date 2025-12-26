@@ -58,6 +58,6 @@ public class UI_InGame : MonoBehaviour
     public void ForceWaveButton()
     {
         WaveManager waveManager = FindFirstObjectByType<WaveManager>();
-        waveManager.ForceNextWave();
+        waveManager.StartNewWave();
     }
 }

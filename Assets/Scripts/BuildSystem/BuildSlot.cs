@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    private UI ui;
     private TileAnimator tileAnimator;
     private BuildManager buildManger;
     private Vector3 defaultposition;
@@ -15,6 +16,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Awake()
     {
+        ui = FindFirstObjectByType<UI>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         buildManger = FindFirstObjectByType<BuildManager>();
         defaultposition = transform.position;
@@ -30,7 +32,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (buildSlotAvailable == false)
+        if (buildSlotAvailable == false || tileAnimator.IsGridMoving())
             return;
 
         if (eventData.button != PointerEventData.InputButton.Left)
@@ -44,11 +46,13 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         MoveTileUp();
 
         tileCanBeMoved = false;
+
+        ui.buildButtonsUI.GetLastSelectedButton()?.SelectButton(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (buildSlotAvailable == false)
+        if (buildSlotAvailable == false || tileAnimator.IsGridMoving())
             return;
 
         if (tileCanBeMoved == false)
@@ -59,7 +63,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(buildSlotAvailable == false) 
+        if(buildSlotAvailable == false || tileAnimator.IsGridMoving()) 
             return;
 
         if (tileCanBeMoved == false)
