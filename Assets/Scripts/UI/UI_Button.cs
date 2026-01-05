@@ -24,6 +24,8 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (scaleCoroutine != null)
             StopCoroutine(scaleCoroutine);
 
+        AudioManager.instance.PlaySfX();
+
         scaleCoroutine = StartCoroutine(uiAnimator.ChangeScaleCo(myRectTransform, showcaseScale, scaleUpDuration));
 
         if (myTextBlinkEffect != null)

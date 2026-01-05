@@ -55,7 +55,7 @@ public class UI_Animator : MonoBehaviour
         StartCoroutine(ChangePositionCo(rectTransform, offset, duration));
     }
 
-    private IEnumerator ChangePositionCo(RectTransform rectTransform, Vector3 offset, float duration)
+    public IEnumerator ChangePositionCo(RectTransform rectTransform, Vector3 offset, float duration = 0.1f)
     {
         float time = 0;
 

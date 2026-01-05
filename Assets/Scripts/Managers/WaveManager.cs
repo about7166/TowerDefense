@@ -13,6 +13,7 @@ public class WaveDetails
 
 public class WaveManager : MonoBehaviour
 {
+    private GameManager gameManager;
     private TileAnimator tileAnimator;
     private UI_InGame inGameUI;
     [SerializeField] private GridBuilder currentGrid;
@@ -40,6 +41,8 @@ public class WaveManager : MonoBehaviour
     private void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsOfType<EnemyPortal>());
+
+        gameManager = FindFirstObjectByType<GameManager>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         inGameUI = FindFirstObjectByType<UI_InGame>(FindObjectsInactive.Include);
     }
@@ -59,10 +62,14 @@ public class WaveManager : MonoBehaviour
         EnableWaveTimer(true);
     }
 
+    public void DeactivateWaveManager() => gameBegun = false;
 
     public void CheckIfWaveCompleted()
     {
-        if (AllEnemiesDefeatrd() == false || makingNextWave)
+        if (gameBegun == false)
+            return;
+
+        if (AllEnemiesDefeated() == false || makingNextWave)
             return;
 
         makingNextWave = true;
@@ -70,7 +77,7 @@ public class WaveManager : MonoBehaviour
 
         if (HasNoMoreWaves())
         {
-            Debug.LogWarning("關卡完成");
+            gameManager.LevelCompleted();
             return;
         }
 
@@ -101,7 +108,7 @@ public class WaveManager : MonoBehaviour
     private void GiveEnemiesToPortals()
     {
         List<GameObject> newEnemies = GetNewEnemies();
-        int portalIndwx = 0;
+        int portalIndex = 0;
 
         if (newEnemies == null)
             return;
@@ -109,14 +116,14 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < newEnemies.Count; i++)
         {
             GameObject enemyToAdd = newEnemies[i];
-            EnemyPortal portalToReciveEnemy = enemyPortals[portalIndwx];
+            EnemyPortal portalToReciveEnemy = enemyPortals[portalIndex];
 
             portalToReciveEnemy.AddEnemy(enemyToAdd);
 
-            portalIndwx++;
+            portalIndex++;
 
-            if (portalIndwx >= enemyPortals.Count)
-                portalIndwx = 0;
+            if (portalIndex >= enemyPortals.Count)
+                portalIndex = 0;
         }
     }
 
@@ -237,7 +244,7 @@ public class WaveManager : MonoBehaviour
     }
     public WaveDetails[] GetLevelWaves() => levelWaves;
 
-    private bool AllEnemiesDefeatrd()
+    private bool AllEnemiesDefeated()
     {
         foreach (EnemyPortal portal in enemyPortals)
         {

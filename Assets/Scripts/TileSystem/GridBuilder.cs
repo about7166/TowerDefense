@@ -63,5 +63,7 @@ public class GridBuilder : MonoBehaviour
         GameObject newTile = Instantiate(mainPrefab, newPosition, Quaternion.identity, transform);
 
         createdTiles.Add(newTile);
+
+        newTile.GetComponent<TileSlot>().TurnIntoBuildSlotIfNeeded(mainPrefab);
     }
 }

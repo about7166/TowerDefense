@@ -49,7 +49,7 @@ public class TileSlot : MonoBehaviour
     }
 
     //判斷是不是能建塔的地塊
-    private void TurnIntoBuildSlotIfNeeded(GameObject refereneTile)
+    public void TurnIntoBuildSlotIfNeeded(GameObject refereneTile)
     {
         BuildSlot buildSlot = GetComponent<BuildSlot>();
 
