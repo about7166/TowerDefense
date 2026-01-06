@@ -37,7 +37,6 @@ public class WaveManager : MonoBehaviour
     private bool makingNextWave;
     public bool gameBegun;
 
-
     private void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsOfType<EnemyPortal>());
@@ -47,6 +46,8 @@ public class WaveManager : MonoBehaviour
         inGameUI = FindFirstObjectByType<UI_InGame>(FindObjectsInactive.Include);
     }
 
+
+
     private void Update()
     {
         if (gameBegun == false)
@@ -55,7 +56,7 @@ public class WaveManager : MonoBehaviour
         HandleWaveTimer();
     }
 
-   [ContextMenu("啟動波次管理")]
+    [ContextMenu("啟動波次管理")]
     public void ActivateWaveManager()
     {
         gameBegun = true;
@@ -111,7 +112,10 @@ public class WaveManager : MonoBehaviour
         int portalIndex = 0;
 
         if (newEnemies == null)
+        {
+            Debug.LogWarning("沒有下一波");
             return;
+        }
 
         for (int i = 0; i < newEnemies.Count; i++)
         {
@@ -128,7 +132,6 @@ public class WaveManager : MonoBehaviour
     }
 
     private void AttemptToUpdateLayout() => UpdateLevelLayout(levelWaves[waveIndex]);
-
     private void UpdateLevelLayout(WaveDetails nextWave)
     {
         GridBuilder nextGrid = nextWave.nextGrid;
@@ -243,7 +246,6 @@ public class WaveManager : MonoBehaviour
         return newEnemyList;
     }
     public WaveDetails[] GetLevelWaves() => levelWaves;
-
     private bool AllEnemiesDefeated()
     {
         foreach (EnemyPortal portal in enemyPortals)

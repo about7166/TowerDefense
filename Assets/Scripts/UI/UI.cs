@@ -14,6 +14,10 @@ public class UI : MonoBehaviour
     public UI_Animator animatorUI { get; private set; }
     public UI_BuildButtonHolder buildButtonsUI { get; private set; }
 
+    [Header("UI­µ®Ä")]
+    public AudioSource onHoverSFX;
+    public AudioSource onClickSFX;
+
     private void Awake()
     {
         buildButtonsUI = GetComponentInChildren<UI_BuildButtonHolder>(true);

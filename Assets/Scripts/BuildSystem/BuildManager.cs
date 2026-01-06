@@ -19,7 +19,7 @@ public class BuildManager : MonoBehaviour
     {
         ui = FindFirstObjectByType<UI>();
 
-        MakeBuildSlotNotAvailableIfNeeded(waveManger, currentGrid);
+        MakeBuildSlotNotAvalibleIfNeeded(waveManger, currentGrid);
     }
 
     private void Update()
@@ -44,33 +44,40 @@ public class BuildManager : MonoBehaviour
 
     public void MouseOverUI(bool IsOverUI) => isMouseOverUI = IsOverUI;
 
-    public void MakeBuildSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)
+    public void MakeBuildSlotNotAvalibleIfNeeded(WaveManager waveManager, GridBuilder currentGrid)
     {
+        if (waveManager == null)
+        {
+            Debug.Log("沒有下一波");
+            return;
+        }
+
         foreach (var wave in waveManager.GetLevelWaves())
         {
             if (wave.nextGrid == null)
                 continue;
+
+            List<GameObject> grid = currentGrid.GetTileSetup();
+            List<GameObject> nextWaveGrid = wave.nextGrid.GetTileSetup();
+
+            for (int i = 0; i < grid.Count; i++)
             {
-                List<GameObject> grid = currentGrid.GetTileSetup();
-                List<GameObject> nextWaveGrid = wave.nextGrid.GetTileSetup();
+                TileSlot currentTile = grid[i].GetComponent<TileSlot>();
+                TileSlot nextTile = nextWaveGrid[i].GetComponent<TileSlot>();
 
-                for (int i = 0; i < grid.Count; i++)
-                {
-                    TileSlot currentTile = grid[i].GetComponent<TileSlot>();
-                    TileSlot nextTile = nextWaveGrid[i].GetComponent<TileSlot>();
+                bool tileNotTheSame = currentTile.GetMesh() != nextTile.GetMesh() ||
+                                      currentTile.GetMaterial() != nextTile.GetMaterial() ||
+                                      currentTile.GetAllChildren().Count != nextTile.GetAllChildren().Count;
 
-                    bool tileNotTheSame = currentTile.GetMesh() != nextTile.GetMesh() ||
-                                          currentTile.GetMaterial() != nextTile.GetMaterial() ||
-                                          currentTile.GetAllChildren().Count != nextTile.GetAllChildren().Count;
+                if (tileNotTheSame == false)
+                    continue;
 
-                    if (tileNotTheSame == false)
-                        continue;
+                BuildSlot buildSlot = grid[i].GetComponent<BuildSlot>();
 
-                    BuildSlot buildSlot = grid[i].GetComponent<BuildSlot>();
-                    if (buildSlot != null)
-                        buildSlot.SetSlotAvailableTo(false);
-                }
+                if (buildSlot != null)
+                    buildSlot.SetSlotAvailableTo(false);
             }
+
         }
     }
 
@@ -90,7 +97,6 @@ public class BuildManager : MonoBehaviour
     {
         if (selectedBuildSlot != null)
             selectedBuildSlot.UnSelectTile();
-
 
         selectedBuildSlot = newSlot;
     }

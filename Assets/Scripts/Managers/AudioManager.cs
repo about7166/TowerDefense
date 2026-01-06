@@ -19,6 +19,21 @@ public class AudioManager : MonoBehaviour
         InvokeRepeating(nameof(PlayMusicIfNeed), 0, 2);//這裡的2是指間隔2秒後播放下一首音樂
     }
 
+    public void PlaySFX(AudioSource audioToPlay, bool randomPitch = false)
+    {
+        if (audioToPlay.clip == null)
+        {
+            Debug.Log("播放失敗" + audioToPlay.gameObject.name + ". 沒有分配音訊片段。");
+            return;
+        }
+
+        if (audioToPlay.isPlaying)
+            audioToPlay.Stop();
+
+        audioToPlay.pitch = randomPitch ? Random.Range(0.9f, 1.1f) : 1;
+        audioToPlay.Play();
+    }
+
     private void PlayMusicIfNeed()
     {
         if (bgm.Length <= 0)
@@ -64,8 +79,4 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySfX()
-    {
-        Debug.Log("播音樂了!");
-    }
 }
