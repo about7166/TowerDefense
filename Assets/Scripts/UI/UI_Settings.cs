@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
-public class UI_Setting : MonoBehaviour
+public class UI_Settings : MonoBehaviour
 {
     private CameraController camController;
 
@@ -59,7 +59,7 @@ public class UI_Setting : MonoBehaviour
         float newValue = MathF.Log10(value) * mixerMultiplier;
         audioMixer.SetFloat(bgmParameter, newValue);
 
-        bgmSliderText.text = Mathf.RoundToInt(value * 100) + "%";
+        bgmSliderText.text = Mathf.Round(value * 100) + "%";
     }
 
     public void KeyboardSensitivity(float value)

@@ -7,12 +7,12 @@ public class UI : MonoBehaviour
     [SerializeField] private Image fadeImageUI;
     [SerializeField] private GameObject[] uiElements;
 
-    private UI_Setting settingUI;
+    private UI_Settings settingUI;
     private UI_MainMenu mainMenuUI;
 
     public UI_InGame inGameUI { get; private set; }
     public UI_Animator animatorUI { get; private set; }
-    public UI_BuildButtonHolder buildButtonsUI { get; private set; }
+    public UI_BuildButtonsHolder buildButtonsUI { get; private set; }
 
     [Header("UI­µ®Ä")]
     public AudioSource onHoverSFX;
@@ -20,8 +20,8 @@ public class UI : MonoBehaviour
 
     private void Awake()
     {
-        buildButtonsUI = GetComponentInChildren<UI_BuildButtonHolder>(true);
-        settingUI = GetComponentInChildren<UI_Setting>(true);
+        buildButtonsUI = GetComponentInChildren<UI_BuildButtonsHolder>(true);
+        settingUI = GetComponentInChildren<UI_Settings>(true);
         mainMenuUI = GetComponentInChildren<UI_MainMenu>(true);
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         animatorUI = GetComponent<UI_Animator>();

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -152,8 +153,13 @@ public class CameraController : MonoBehaviour
             moveRight.y = 0;
             moveForward.y = 0;
 
-            Vector3 movement = moveRight + moveForward;
-            Vector3 targetPosition = transform.position + movement;
+            Vector3 movememnt = moveRight + moveForward;
+            Vector3 targetPosition = transform.position + movememnt;
+
+            if (Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+            {
+                targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+            }
 
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref mouseMovementVelocity, smoothTime);
             lastMousePosition = Input.mousePosition;

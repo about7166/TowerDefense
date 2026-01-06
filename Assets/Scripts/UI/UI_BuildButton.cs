@@ -8,7 +8,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private BuildManager buildManager;
     private CameraEffects cameraEffects;
     private GameManager gameManager;
-    private UI_BuildButtonHolder buildButtonHolder;
+    private UI_BuildButtonsHolder buildButtonHolder;
     private UI_BuildButtonOnHoverEffect onHoverEffect;
 
 
@@ -28,7 +28,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         ui = GetComponentInParent<UI>();
         onHoverEffect = GetComponent<UI_BuildButtonOnHoverEffect>();
-        buildButtonHolder = GetComponentInParent<UI_BuildButtonHolder>();
+        buildButtonHolder = GetComponentInParent<UI_BuildButtonsHolder>();
 
         buildManager = FindFirstObjectByType<BuildManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();

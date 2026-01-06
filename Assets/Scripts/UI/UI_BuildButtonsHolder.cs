@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_BuildButtonHolder : MonoBehaviour
+public class UI_BuildButtonsHolder : MonoBehaviour
 {
     private UI_Animator uiAnimator;
 
