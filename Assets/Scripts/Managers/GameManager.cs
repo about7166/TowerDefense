@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         inGameUI.UpdateCurrencyUI(currency);
     }
 
-    public IEnumerator LevelFaildCo()
+    public IEnumerator LevelFailedCo()
     {
         gameLost = true;
         currentActiveWaveManager.DeactivateWaveManager();
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         inGameUI.ShakeHealthUI();
 
         if (currentHp <= 0 && gameLost == false)
-            StartCoroutine(LevelFaildCo());
+            StartCoroutine(LevelFailedCo());
     }
 
     public void UpdateCurrency(int value)
@@ -103,10 +103,5 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
-    }
-
-    internal void SetActive(bool enable)
-    {
-        throw new NotImplementedException();
     }
 }

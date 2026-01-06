@@ -67,7 +67,7 @@ public class TileSlot : MonoBehaviour
 
     private void UpdateNavMesh() => myNavMesh.BuildNavMesh();
 
-    public void UpdateCollider(Collider newCollider)
+    private void UpdateCollider(Collider newCollider)
     {
         DestroyImmediate(myCollder);
 
