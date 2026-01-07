@@ -169,9 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0e6f90d487d874585953bdcd4fbea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypointList: []
+  myWaveManager: {fileID: 0}
   spawnCooldown: 0.4
-  enemiesToCreate: []
+  waypointList: []
 --- !u!1 &5050439844209045852
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb7b67661138e734d84f264c74994a56, type: 2}
+  - {fileID: 2100000, guid: 140184ad88c4e9740b9485cbf7f4a47e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
