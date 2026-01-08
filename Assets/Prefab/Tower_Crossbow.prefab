@@ -1425,10 +1425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57553114d715bd842b3b3100ae3577d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHitFX: {fileID: 601840662465736758, guid: ef2bed5e89e0b364b9a55bba606dc1fc, type: 3}
   attackVisuals: {fileID: 6123073600833273885}
   attackVisualDuration: 0.1
   meshRenderer: {fileID: 4767276902403488026}
-  maxIntensity: 150
+  maxIntensity: 50
   startColor: {r: 0, g: 0, b: 0, a: 1}
   endcolor: {r: 0, g: 3.7159233, b: 8.47419, a: 1}
   rotor: {fileID: 1641365840216549684}
@@ -2141,7 +2142,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: d5d860db3c4085848a7a206547574414, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

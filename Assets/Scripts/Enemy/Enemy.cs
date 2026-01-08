@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType { Basic, Fast, None}
+public enum EnemyType { Basic, Fast, Swarm, None}
 
 public class Enemy : MonoBehaviour , IDamagable
 {
@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour , IDamagable
 
     private float totalDistance;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;

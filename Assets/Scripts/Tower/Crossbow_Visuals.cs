@@ -5,6 +5,8 @@ public class Crossbow_Visuals : MonoBehaviour
 {
     private Enemy myEnemy;
 
+    [Header("攻擊效果")]
+    [SerializeField] private GameObject onHitFX;
     [SerializeField] private LineRenderer attackVisuals;
     [SerializeField] private float attackVisualDuration = 0.1f;
 
@@ -13,7 +15,7 @@ public class Crossbow_Visuals : MonoBehaviour
     private Material material;
 
     [Space]
-    [SerializeField] private float maxIntensity = 150;
+    [SerializeField] private float maxIntensity = 150; //調整發光亮度
     private float currentIntensity;
     [Space]
     [SerializeField] private Color startColor;
@@ -70,6 +72,13 @@ public class Crossbow_Visuals : MonoBehaviour
         UpdateEmissionColor();
         UpdateStrings();
         UpdateAttackVisualsIfNeeded();
+    }
+
+    //擊中特效
+    public void CreateOnHitFX(Vector3 hitPoint)
+    {
+        GameObject newFX = Instantiate(onHitFX, hitPoint, Random.rotation);
+        Destroy(newFX, 1);
     }
 
     private void UpdateAttackVisualsIfNeeded()

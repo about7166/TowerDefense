@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class Enemy_Visuals : MonoBehaviour
 {
-    [SerializeField] private Transform visuals;
+    [SerializeField] protected Transform visuals;// 敵人的模型
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float verticalRotationSpeed;
 
-    private void Update()
+    protected virtual void Start()
     {
-        AlignWithSlope(); 
+
+    }
+
+    protected virtual void Update()
+    {
+        AlignWithSlope(); // 每幀都去檢查並貼合斜坡
     }
     private void AlignWithSlope()
     {
