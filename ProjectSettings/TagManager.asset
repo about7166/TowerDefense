@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -14,9 +15,9 @@ TagManager:
   - UI
   - Road
   - Enemy
-  - 
-  - 
-  - 
+  - Untargetable
+  - FlyEnemy_Road
+  - FlyEnemy
   - 
   - 
   - 

@@ -12,10 +12,10 @@ public class Enemy_Visuals_Swarm : Enemy_Visuals
     [SerializeField] private float maxHeight = 0.3f;
     private float bounceTimer;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
         ChooseVisualVariant();
+        CollectDefaultMaterials();
     }
 
     protected override void Update()

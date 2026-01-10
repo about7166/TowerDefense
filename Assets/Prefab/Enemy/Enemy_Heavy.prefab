@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2940033478763988481
 Transform:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8580941e44fac43bc7851ec29c6d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 2
   centerPoint: {fileID: 7197429290306692785}
   healthPoint: 4
   turnSpeed: 10
@@ -424,6 +424,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   verticalRotationSpeed: 5
+  transparentMaterial: {fileID: 2100000, guid: 3a9b3159d2a1e2649b41e764869912d7, type: 2}
 --- !u!195 &6517397813989099148
 NavMeshAgent:
   m_ObjectHideFlags: 0

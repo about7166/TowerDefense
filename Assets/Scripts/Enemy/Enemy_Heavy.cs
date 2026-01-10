@@ -6,10 +6,14 @@ public class Enemy_Heavy : Enemy
     [SerializeField] private int shieldAmount = 50;
     [SerializeField] private Enemy_Shield shieldObject;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
+        EnableShieldIfNeeded();
+    }
 
+    private void EnableShieldIfNeeded() //≈@¨ﬁ∏Úµ€¡ÙßŒ
+    {
         if (shieldObject != null)
         {
             shieldObject.gameObject.SetActive(true);

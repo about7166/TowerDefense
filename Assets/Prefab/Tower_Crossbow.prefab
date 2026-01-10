@@ -1402,13 +1402,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
   attackCooldown: 3
-  enemyPriorityType: 2
+  enemyPriorityType: 1
   towerHead: {fileID: 7534897535623975535}
   rotationSpeed: 10
   attackRange: 4
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
+  whatIsTargetable:
+    serializedVersion: 2
+    m_Bits: 129
   dynamicTargetChange: 0
   attackSFX: {fileID: 8296607278552871623}
   damage: 2

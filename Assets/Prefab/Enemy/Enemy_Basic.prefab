@@ -4888,6 +4888,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   verticalRotationSpeed: 5
+  transparentMaterial: {fileID: 2100000, guid: 3a9b3159d2a1e2649b41e764869912d7, type: 2}
 --- !u!195 &3535841346635409389
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4898,7 +4899,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.25
-  m_Speed: 1
+  m_Speed: 1.1
   m_Acceleration: 8
   avoidancePriority: 1
   m_AngularSpeed: 120

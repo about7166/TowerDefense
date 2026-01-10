@@ -19,7 +19,7 @@ public class Tower_Crossbow : Tower
     {
         Vector3 directionToEnemy = DirectionToEnemyFrom(gunPoint);
 
-        if (Physics.Raycast(gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity))
+        if (Physics.Raycast(gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity, whatIsTargetable))
         {
             towerHead.forward = directionToEnemy;
 

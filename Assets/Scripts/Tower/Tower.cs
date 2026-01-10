@@ -16,6 +16,7 @@ public class Tower : MonoBehaviour
 
     [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected LayerMask whatIsEnemy;
+    [SerializeField] protected LayerMask whatIsTargetable;
 
     [Space]
     [Tooltip("啟用此功能後，防禦塔可以在攻擊間隙切換目標")]
@@ -48,7 +49,7 @@ public class Tower : MonoBehaviour
         RotateTowarsEnemy();
     }
 
-    public float GetAttackRange() => attackRange; 
+    public float GetAttackRange() => attackRange;
     private void LooseTargetIfNeeded()
     {
         if (Vector3.Distance(currentEnemy.CenterPoint(), transform.position) > attackRange)
@@ -93,13 +94,16 @@ public class Tower : MonoBehaviour
         foreach (Collider enemy in enemiesAround)
         {
             Enemy newEnemy = enemy.GetComponent<Enemy>();
+
+            if (newEnemy == null)
+                continue;
+
             EnemyType newEnemyType = newEnemy.GetEnemyType();
-         
+
             if (newEnemyType == enemyPriorityType)
                 priorityTargets.Add(newEnemy);
             else
                 possibleTargets.Add(newEnemy);
-            
         }
 
         if (priorityTargets.Count > 0)
@@ -109,7 +113,6 @@ public class Tower : MonoBehaviour
             return GetMostAdvancedEnemy(possibleTargets);
 
         return null;
-
     }
 
     private Enemy GetMostAdvancedEnemy(List<Enemy> targets)
@@ -141,12 +144,12 @@ public class Tower : MonoBehaviour
         if (canRotate == false)
             return;
 
-        if (currentEnemy == null) 
+        if (currentEnemy == null)
             return;
 
         Vector3 directionToEnemy = DirectionToEnemyFrom(towerHead);
 
-        Quaternion lookRotation =  Quaternion.LookRotation(directionToEnemy);
+        Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
 
         Vector3 rotation = Quaternion.Lerp(towerHead.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
 

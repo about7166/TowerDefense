@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,6 +12,9 @@ public class WaveDetails
     public int fastEnemy;
     public int heavyEnemy;
     public int swarmEnemy;
+    public int stealthEnemy;
+    public int flyingEnemy;
+    public int flyingBossEnemy;
 }
 
 public class WaveManager : MonoBehaviour
@@ -19,6 +23,9 @@ public class WaveManager : MonoBehaviour
     private TileAnimator tileAnimator;
     private UI_InGame inGameUI;
     [SerializeField] private GridBuilder currentGrid;
+    [SerializeField] private NavMeshSurface flyingNavSurface;
+    [SerializeField] private MeshCollider[] flyingNavMeshColliders;
+
 
     [Header("ªi¦¸³]©w")]
     [SerializeField] private float timeBetweenWaves = 10;
@@ -35,7 +42,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject fastEnemy;
     [SerializeField] private GameObject heavyEnemy;
     [SerializeField] private GameObject swarmEnemy;
-
+    [SerializeField] private GameObject stealthEnemy;
+    [SerializeField] private GameObject flyingEnemy;
+    [SerializeField] private GameObject flyingBossEnemy;
 
     private List<EnemyPortal> enemyPortals;
     private bool waveTimerEnabled;
@@ -49,6 +58,8 @@ public class WaveManager : MonoBehaviour
         gameManager = FindFirstObjectByType<GameManager>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         inGameUI = FindFirstObjectByType<UI_InGame>(FindObjectsInactive.Include);
+
+        flyingNavMeshColliders = GetComponentsInChildren<MeshCollider>();
     }
 
 
@@ -98,7 +109,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartNewWave()
     {
-        currentGrid.UpdateNavMesh();
+        UpdateNavMeshes();
         GiveEnemiesToPortals();
         EnableWaveTimer(false);
         makingNextWave = false;
@@ -232,6 +243,24 @@ public class WaveManager : MonoBehaviour
             enemyPortals.Add(portal);
         }
     }
+
+    private void UpdateNavMeshes()
+    {
+        foreach (var collider in flyingNavMeshColliders)
+        {
+            collider.enabled = true;
+        }
+
+        flyingNavSurface.BuildNavMesh();
+
+        foreach (var collider in flyingNavMeshColliders)
+        {
+            collider.enabled = false;
+        }
+
+        currentGrid.UpdateNavMesh();
+    }
+
     private List<GameObject> GetNewEnemies()
     {
         if (waveIndex >= levelWaves.Length)
@@ -259,6 +288,21 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < levelWaves[waveIndex].swarmEnemy; i++)
         {
             newEnemyList.Add(swarmEnemy);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].stealthEnemy; i++)
+        {
+            newEnemyList.Add(stealthEnemy);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].flyingEnemy; i++)
+        {
+            newEnemyList.Add(flyingEnemy);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].flyingBossEnemy; i++)
+        {
+            newEnemyList.Add(flyingBossEnemy);
         }
 
         return newEnemyList;

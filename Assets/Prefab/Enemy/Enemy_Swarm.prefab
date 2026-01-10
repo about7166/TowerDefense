@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23caf87c5d2765340ba32c3cdbcaaf29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 2
+  enemyType: 3
   centerPoint: {fileID: 7331415673471004149}
   healthPoint: 6
   turnSpeed: 10
@@ -530,6 +530,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   verticalRotationSpeed: 0
+  transparentMaterial: {fileID: 2100000, guid: 3a9b3159d2a1e2649b41e764869912d7, type: 2}
   variants:
   - {fileID: 5780621665427990343}
   - {fileID: 4086562733817497925}

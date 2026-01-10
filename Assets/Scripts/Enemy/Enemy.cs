@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType { Basic, Fast, Swarm, None}
+public enum EnemyType { Basic, Fast, Heavy, Swarm, Stealth, Flying,None}
 
 public class Enemy : MonoBehaviour , IDamagable
 {
+    public Enemy_Visuals visuals { get; private set; }
+    protected NavMeshAgent agent;
+    protected Rigidbody rb;
+    protected EnemyPortal myPortal;
     private GameManager gameManager;
-    private EnemyPortal myPortal;
-    private NavMeshAgent agent;
 
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform centerPoint;
@@ -23,13 +25,27 @@ public class Enemy : MonoBehaviour , IDamagable
 
     private float totalDistance;
 
+    protected bool canBeHidden = true;
+    protected bool isHidden;
+    private Coroutine hideCo;
+    private int originalLayerIndex;
+
     protected virtual void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
 
+        visuals = GetComponent<Enemy_Visuals>();
+        originalLayerIndex = gameObject.layer;
+
         gameManager = FindFirstObjectByType<GameManager>();
+    }
+
+    protected virtual void Start()
+    {
+
     }
 
     public void SetupEnemy(List<Waypoint> newWaypoints,EnemyPortal myNewPortal)
@@ -46,7 +62,7 @@ public class Enemy : MonoBehaviour , IDamagable
         myPortal = myNewPortal;
     }
 
-    private void Update()
+    protected virtual void Update()
     {        
         FaceTarget(agent.steeringTarget);
 
@@ -54,6 +70,30 @@ public class Enemy : MonoBehaviour , IDamagable
         {
             agent.SetDestination(GetNextWaypoint());
         }
+    }
+
+    public void HideEnemy(float duration)
+    {
+        if (canBeHidden == false)
+            return;
+
+        if (hideCo != null)
+            StopCoroutine(hideCo);
+
+        hideCo = StartCoroutine(HideEnemyCo(duration));
+    }
+
+    private IEnumerator HideEnemyCo(float duration)
+    {
+        gameObject.layer = LayerMask.NameToLayer("Untargetable");
+        visuals.MakeTransparent(true);
+        isHidden = true;
+
+        yield return new WaitForSeconds(duration);
+
+        gameObject.layer = originalLayerIndex;
+        visuals.MakeTransparent(false);
+        isHidden = false;
     }
 
     private bool ShouldChangeWaypoint()
@@ -94,6 +134,13 @@ public class Enemy : MonoBehaviour , IDamagable
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.deltaTime);
     }
     
+    protected Vector3 GetFinalWaypoint()
+    {
+        if (myWaypoints.Count == 0)
+            return transform.position;
+
+        return myWaypoints[myWaypoints.Count - 1].position;
+    }
 
     private Vector3 GetNextWaypoint()
     {
@@ -126,7 +173,7 @@ public class Enemy : MonoBehaviour , IDamagable
             Die();
     }
 
-    private void Die()
+    public virtual void Die()
     {
         myPortal.RemoveActiveEnemy(gameObject);
         gameManager.UpdateCurrency(1);//在GameManger裡的UpdateCurrency 用來做殺掉怪的掉落
