@@ -147,11 +147,11 @@ public class Crossbow_Visuals : MonoBehaviour
 
     private IEnumerator UpdateRotorPosition(float duration)
     {
-        float starTime = Time.time;
+        float startTime = Time.time;
 
-        while (Time.time - starTime < duration)
+        while (Time.time - startTime < duration)
         {
-            float tValue = (Time.time - starTime) / duration;
+            float tValue = (Time.time - startTime) / duration;
             rotor.position = Vector3.Lerp(rotorUnloaded.position, rotorLoaded.position, tValue);
             yield return null;
         }

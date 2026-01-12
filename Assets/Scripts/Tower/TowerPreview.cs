@@ -11,9 +11,10 @@ public class TowerPreview : MonoBehaviour
 
     private void Awake()
     {
-        meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        myTower = GetComponent<Tower>();
         attackRadiusDisplay = transform.AddComponent<TowerAttackRadiusDisplay>();
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        myTower = GetComponent<Tower>();
         attackRange = myTower.GetAttackRange();
 
         MakeAllMeshTransparent();

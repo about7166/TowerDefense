@@ -1,9 +1,14 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     public Enemy currentEnemy;
+
+    protected bool towerActive = true;
+    protected Coroutine deactiveatedTowerCo;
+    private GameObject currentEmpFx;
 
     [SerializeField] protected float attackCooldown = 1;
     protected float lastTimeAttacked;
@@ -19,26 +24,31 @@ public class Tower : MonoBehaviour
     [SerializeField] protected LayerMask whatIsTargetable;
 
     [Space]
-    [Tooltip("啟用此功能後，防禦塔可以在攻擊間隙切換目標")]
+    [Tooltip("啟用此功能後，防禦塔可以在攻擊間隙切換目標。")]
     [SerializeField] private bool dynamicTargetChange;
     private float targetCheckInterval = 0.1f;
     private float lastTimeCheckedTarget;
 
-    [Header("音效設定")]
-    [SerializeField] protected AudioSource attackSFX;
+    [Header("SFX 設定")]
+    [SerializeField] protected AudioSource attackSfx;
+
 
     protected virtual void Awake()
     {
         EnableRotation(true);
     }
 
+
     protected virtual void Update()
     {
+        if (towerActive == false)
+            return;
+
         UpdateTargetIfNeeded();
 
         if (currentEnemy == null)
         {
-            currentEnemy = FindEnemyWithRange();
+            currentEnemy = FindEnemyWithinRange();
             return;
         }
 
@@ -46,8 +56,32 @@ public class Tower : MonoBehaviour
             Attack();
 
         LooseTargetIfNeeded();
-        RotateTowarsEnemy();
+        RotateTowardsEnemy();
     }
+
+    public void DeactivateTower(float duration, GameObject empFxPrefab)
+    {
+        if(deactiveatedTowerCo != null)
+            StopCoroutine(deactiveatedTowerCo);
+
+        if(currentEmpFx != null)
+            Destroy(currentEmpFx);
+
+        currentEmpFx = Instantiate(empFxPrefab, transform.position + new Vector3(0,.5f,0),Quaternion.identity);
+        deactiveatedTowerCo = StartCoroutine(DisableTowerCo(duration));
+    }
+
+    private IEnumerator DisableTowerCo(float duration)
+    {
+        towerActive = false;
+
+        yield return new WaitForSeconds(duration);
+
+        towerActive = true;
+        lastTimeAttacked = Time.time;
+        Destroy(currentEmpFx);
+    }
+
 
     public float GetAttackRange() => attackRange;
     private void LooseTargetIfNeeded()
@@ -64,17 +98,20 @@ public class Tower : MonoBehaviour
         if (Time.time > lastTimeCheckedTarget + targetCheckInterval)
         {
             lastTimeCheckedTarget = Time.time;
-            currentEnemy = FindEnemyWithRange();
+            currentEnemy = FindEnemyWithinRange();
         }
     }
 
     protected virtual void Attack()
     {
-        //Debug.Log("Attcak performed at" +  Time.time);
+        //Debug.Log("Attack performed at " + Time.time);
     }
 
     protected bool CanAttack()
     {
+        if (currentEnemy == null)
+            return false;
+
         if (Time.time > lastTimeAttacked + attackCooldown)
         {
             lastTimeAttacked = Time.time;
@@ -84,7 +121,7 @@ public class Tower : MonoBehaviour
         return false;
     }
 
-    protected Enemy FindEnemyWithRange()
+    protected Enemy FindEnemyWithinRange()
     {
         List<Enemy> priorityTargets = new List<Enemy>();
         List<Enemy> possibleTargets = new List<Enemy>();
@@ -117,7 +154,7 @@ public class Tower : MonoBehaviour
 
     private Enemy GetMostAdvancedEnemy(List<Enemy> targets)
     {
-        Enemy mostAdvanceEnemy = null;
+        Enemy mostAdvancedEnemy = null;
         float minRemainingDistance = float.MaxValue;
 
         foreach (Enemy enemy in targets)
@@ -127,11 +164,11 @@ public class Tower : MonoBehaviour
             if (remainingDistance < minRemainingDistance)
             {
                 minRemainingDistance = remainingDistance;
-                mostAdvanceEnemy = enemy;
+                mostAdvancedEnemy = enemy;
             }
         }
 
-        return mostAdvanceEnemy;
+        return mostAdvancedEnemy;
     }
 
     public void EnableRotation(bool enable)
@@ -139,7 +176,7 @@ public class Tower : MonoBehaviour
         canRotate = enable;
     }
 
-    protected virtual void RotateTowarsEnemy()
+    protected virtual void RotateTowardsEnemy()
     {
         if (canRotate == false)
             return;

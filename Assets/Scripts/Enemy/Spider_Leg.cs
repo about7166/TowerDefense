@@ -17,13 +17,13 @@ public class Spider_Leg : MonoBehaviour
     [SerializeField] private Transform actualTarget;
     [SerializeField] private Transform bottomLeg;
     [SerializeField] private Vector3 placementOffset;
-    private Transform worldTargetReference;
+    [SerializeField] private Transform worldTargetReference;
 
     private void Awake()
     {
         spiderVisuals = GetComponentInParent<Enemy_Visuals_Spider>();
 
-        worldTargetReference = Instantiate(new GameObject("Ref_Point"), actualTarget.position, Quaternion.identity).transform;
+        worldTargetReference = Instantiate(worldTargetReference, actualTarget.position, Quaternion.identity).transform;
         worldTargetReference.gameObject.name = legRef.gameObject.name + "_world";
 
         legSpeed = spiderVisuals.legSpeed;
@@ -31,7 +31,8 @@ public class Spider_Leg : MonoBehaviour
 
     public void UpdateLeg()
     {
-        actualTarget.position = worldTargetReference.position + placementOffset;
+
+        actualTarget.position = worldTargetReference.position;// + new Vector3(0, placementOffset.y, 0);// + placementOffset;
         shouldMove = Vector3.Distance(worldTargetReference.position, legRef.ContactPoint()) > moveThreshold;
 
         if (bottomLeg != null)
@@ -59,6 +60,17 @@ public class Spider_Leg : MonoBehaviour
         }
 
         oppositeLeg.CanMove(true);
+    }
+
+    public void SpeedUpLeg() => StartCoroutine(SpeedUpLegCo());
+
+    private IEnumerator SpeedUpLegCo()
+    {
+        legSpeed = spiderVisuals.increasedLegSpeed;
+
+        yield return new WaitForSeconds(1f);
+
+        legSpeed = spiderVisuals.legSpeed;
     }
 
     public void CanMove(bool enableMovement) => canMove = enableMovement;

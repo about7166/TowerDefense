@@ -43,7 +43,7 @@ public class Tower_Crossbow : Tower
             visuals.CreateOnHitFX(hitInfo.point); //À»¤¤¯S®Ä
             visuals.PlayAttackVFX(gunPoint.position, hitInfo.point, enemyTarget);
             visuals.PlayReloaxVFX(attackCooldown);
-            AudioManager.instance?.PlaySFX(attackSFX, true);
+            AudioManager.instance?.PlaySFX(attackSfx, true);
         }
     }
 }
