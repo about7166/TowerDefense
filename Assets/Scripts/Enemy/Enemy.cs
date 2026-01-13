@@ -172,7 +172,7 @@ public class Enemy : MonoBehaviour , IDamagable
     public Vector3 CenterPoint() => centerPoint.position;
     public EnemyType GetEnemyType() => enemyType;
     
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         healthPoint = healthPoint - damage;
 

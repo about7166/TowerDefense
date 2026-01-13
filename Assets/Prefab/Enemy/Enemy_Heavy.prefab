@@ -402,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 2
   centerPoint: {fileID: 7197429290306692785}
-  healthPoint: 4
+  healthPoint: 30
   turnSpeed: 10
   myWaypoints: []
   shieldAmount: 50
@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDeathFx: {fileID: 3805164744076842558, guid: aa9c3a5529bb3944db8c15b27ab2df95, type: 3}
+  onDeathFxScale: 0.5
   visuals: {fileID: 1401139778666332530}
   whatIsGround:
     serializedVersion: 2
