@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Enemy_Visuals : MonoBehaviour
 {
+    [SerializeField] private GameObject onDeathFx;
+    [SerializeField] private float onDeathFxScale = 0.5f;
+    [Space]
     [SerializeField] protected Transform visuals;// ¼Ä¤Hªº¼Ò«¬
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float verticalRotationSpeed;
@@ -33,6 +36,12 @@ public class Enemy_Visuals : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
             MakeTransparent(false);
+    }
+
+    public void CreateOnDeathVFX()
+    {
+        GameObject newDeathVFX = Instantiate(onDeathFx, transform.position + new Vector3(0, 0.15f, 0), Quaternion.identity);
+        newDeathVFX.transform.localScale = new Vector3(onDeathFxScale, onDeathFxScale, onDeathFxScale);
     }
 
     public void MakeTransparent(bool transparent)

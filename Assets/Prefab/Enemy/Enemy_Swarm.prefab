@@ -525,6 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c121e56daf6e25845a17cb611bab75d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeathFx: {fileID: 3805164744076842558, guid: aa9c3a5529bb3944db8c15b27ab2df95, type: 3}
   visuals: {fileID: 0}
   whatIsGround:
     serializedVersion: 2

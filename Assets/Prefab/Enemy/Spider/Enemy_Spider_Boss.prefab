@@ -17700,6 +17700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668702113efc11b4e9dfbf92ec79911f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeathFx: {fileID: 3805164744076842558, guid: aa9c3a5529bb3944db8c15b27ab2df95, type: 3}
   visuals: {fileID: 4055770211696435038}
   whatIsGround:
     serializedVersion: 2

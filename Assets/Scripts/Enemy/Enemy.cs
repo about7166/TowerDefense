@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour , IDamagable
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform centerPoint;
     public int healthPoint = 4;
+    protected bool isDead; 
 
     [Header("移動")]
     [SerializeField] private float turnSpeed = 10;
@@ -174,20 +175,26 @@ public class Enemy : MonoBehaviour , IDamagable
     public void TakeDamage(int damage)
     {
         healthPoint = healthPoint - damage;
-        if (healthPoint <= 0)
+
+        if (healthPoint <= 0 && isDead == false)
+        {
+            isDead = true;
             Die();
+        }
     }
 
     public virtual void Die()
     {
-        myPortal.RemoveActiveEnemy(gameObject);
         gameManager.UpdateCurrency(1);//在GameManger裡的UpdateCurrency 用來做殺掉怪的掉落
-        Destroy(gameObject);
+        DestroyEnemy();
     }
 
     public void DestroyEnemy()
     {
-        myPortal.RemoveActiveEnemy(gameObject);
+        visuals.CreateOnDeathVFX();
         Destroy(gameObject);
+
+        if (myPortal != null)
+            myPortal.RemoveActiveEnemy(gameObject);
     }
 }
