@@ -54,7 +54,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (slotToUse == null)
             return;
 
-        Vector3 previewPosition = slotToUse.GetBuildPosition(1);
+        Vector3 previewPosition = slotToUse.GetBuildPosition(0.5f);
 
         towerPreview.gameObject.SetActive(select);
         towerPreview.ShowPreview(select, previewPosition);

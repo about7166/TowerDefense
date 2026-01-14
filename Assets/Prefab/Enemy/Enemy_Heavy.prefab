@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3797624354546605155}
   - component: {fileID: 5611943176659562329}
   - component: {fileID: 5951565608956823319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3707dd79f6a7712449864a7165e2b99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentShieldAmount: 0
   shieldMaterial: {fileID: 2100000, guid: 32a76832b79e84347ad9df08b12709c3, type: 2}
   defaultShieldGlow: 1
   impactShieldGlow: 3

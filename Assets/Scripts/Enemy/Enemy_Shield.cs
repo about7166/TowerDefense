@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Shield : MonoBehaviour
@@ -12,10 +13,10 @@ public class Enemy_Shield : MonoBehaviour
     [SerializeField] private float impactSpeed = 0.1f;
     [SerializeField] private float impactResetDuration = 0.5f;
 
-    private float defaultScale;
-    private string shieldFrenelParametr = "_FresnelPower";
-    private Coroutine currentCo;
 
+    private float defaultScale;
+    private string shieldFresnelParametr = "_FresnelPower";
+    private Coroutine currentCo;
 
     private void Start()
     {
@@ -27,7 +28,7 @@ public class Enemy_Shield : MonoBehaviour
         if (currentCo != null)
             StopCoroutine(currentCo);
 
-        currentCo =StartCoroutine(ImpactCo());
+        currentCo = StartCoroutine(ImpactCo());
     }
 
     private IEnumerator ImpactCo()
@@ -40,7 +41,7 @@ public class Enemy_Shield : MonoBehaviour
     private IEnumerator ShieldChangeCo(float targetGlow, float targetScale, float duration)
     {
         float time = 0;
-        float startGlow = shieldMaterial.GetFloat(shieldFrenelParametr);
+        float startGlow = shieldMaterial.GetFloat(shieldFresnelParametr);
         Vector3 initialScale = transform.localScale;
         Vector3 newTargetScale = new Vector3(targetScale, targetScale, targetScale);
 
@@ -49,13 +50,13 @@ public class Enemy_Shield : MonoBehaviour
             transform.localScale = Vector3.Lerp(initialScale, newTargetScale, time / duration);
 
             float newGlow = Mathf.Lerp(startGlow, targetGlow, time / duration);
-            shieldMaterial.SetFloat(shieldFrenelParametr, newGlow);
+            shieldMaterial.SetFloat(shieldFresnelParametr, newGlow);
 
             time += Time.deltaTime;
             yield return null;
         }
 
         transform.localScale = newTargetScale;
-        shieldMaterial.SetFloat(shieldFrenelParametr, targetGlow);
+        shieldMaterial.SetFloat(shieldFresnelParametr, targetGlow);
     }
 }

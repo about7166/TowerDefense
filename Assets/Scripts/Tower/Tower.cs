@@ -18,6 +18,7 @@ public class Tower : MonoBehaviour
     [Header("¶ðªº³]©w")]
     [SerializeField] protected EnemyType enemyPriorityType = EnemyType.None;
     [SerializeField] protected Transform towerHead;
+    [SerializeField] protected Transform towerBody;
     [SerializeField] protected Transform gunPoint;
     [SerializeField] protected float rotationSpeed = 10;
 
