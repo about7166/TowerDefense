@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -12,18 +12,18 @@ public class UI_Settings : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private float mixerMultiplier = 25;
 
-    [Header("SFX³]©w")]
+    [Header("SFXè¨­å®š")]
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private string sfxParameter;
     [SerializeField] private TextMeshProUGUI sfxSliderText;
 
-    [Header("BGM³]©w")]
+    [Header("BGMè¨­å®š")]
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private string bgmParameter;
     [SerializeField] private TextMeshProUGUI bgmSliderText;
 
 
-    [Header("Áä½LÆF±Ó«×")]
+    [Header("éµç›¤éˆæ•åº¦")]
     [SerializeField] private Slider keyboardSensitivitySlider;
     [SerializeField] private TextMeshProUGUI keyboardSensitivityText;
     [SerializeField] private string keyboardSensitivityParameter = "keyboardSensitivity";
@@ -32,7 +32,7 @@ public class UI_Settings : MonoBehaviour
     [SerializeField] private float minKeyboardSensitivity = 60;
     [SerializeField] private float maxKeyboardSensitivity = 240;
 
-    [Header("·Æ¹«ÆF±Ó«×")]
+    [Header("æ»‘é¼ éˆæ•åº¦")]
     [SerializeField] private Slider mouseSensitivitySlider;
     [SerializeField] private TextMeshProUGUI mouseSensitivityText;
     [SerializeField] private string mouseSensitivityParameter = "mouseSensitivity";
@@ -67,7 +67,7 @@ public class UI_Settings : MonoBehaviour
         float newSensitivity = Mathf.Lerp(minKeyboardSensitivity,maxKeyboardSensitivity, value);
         camController.AdjustKeyboardSensitivity(newSensitivity);
 
-        //©Ô±ìªº­ÈªºÅã¥Ü¤è¦¡
+        //æ‹‰æ¡¿çš„å€¼çš„é¡¯ç¤ºæ–¹å¼
         keyboardSensitivityText.text = Mathf.RoundToInt(value * 100) + "%";
     }
 
@@ -76,7 +76,7 @@ public class UI_Settings : MonoBehaviour
         float newSensitivity = Mathf.Lerp(minMouseSensitivity,maxMouseSensitivity, value);
         camController.AdjustMouseSensitivity(newSensitivity);
 
-        //©Ô±ìªº­ÈªºÅã¥Ü¤è¦¡
+        //æ‹‰æ¡¿çš„å€¼çš„é¡¯ç¤ºæ–¹å¼
         mouseSensitivityText.text = Mathf.RoundToInt(value * 100) + "%";
     }
 

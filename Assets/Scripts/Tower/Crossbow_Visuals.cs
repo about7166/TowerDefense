@@ -1,31 +1,31 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class Crossbow_Visuals : MonoBehaviour
 {
-    [Header("§ğÀ»®ÄªG")]
+    [Header("æ”»æ“Šæ•ˆæœ")]
     [SerializeField] private GameObject onHitFX;
     [SerializeField] private LineRenderer attackVisuals;
     [SerializeField] private float attackVisualDuration = 0.1f;
     private Vector3 hitPoint;
 
-    [Header("µo¥ú®ÄªG")]
+    [Header("ç™¼å…‰æ•ˆæœ")]
     [SerializeField] private MeshRenderer meshRenderer;
     private Material material;
 
     [Space]
-    [SerializeField] private float maxIntensity = 150; //½Õ¾ãµo¥ú«G«×
+    [SerializeField] private float maxIntensity = 150; //èª¿æ•´ç™¼å…‰äº®åº¦
     private float currentIntensity;
     [Space]
     [SerializeField] private Color startColor;
     [SerializeField] private Color endcolor;
 
-    [Header("Âà¤l")]
+    [Header("è½‰å­")]
     [SerializeField] private Transform rotor;
     [SerializeField] private Transform rotorUnloaded;
     [SerializeField] private Transform rotorLoaded;
 
-    [Header("«e¤}©¶")]
+    [Header("å‰å¼“å¼¦")]
     [SerializeField] private LineRenderer frontString_L;
     [SerializeField] private LineRenderer frontString_R;
 
@@ -36,7 +36,7 @@ public class Crossbow_Visuals : MonoBehaviour
     [SerializeField] private Transform frontEndPoint_L;
     [SerializeField] private Transform frontEndPoint_R;
 
-    [Header("«á¤}©¶")]
+    [Header("å¾Œå¼“å¼¦")]
     [SerializeField] private LineRenderer backString_L;
     [SerializeField] private LineRenderer backString_R;
 
@@ -73,7 +73,7 @@ public class Crossbow_Visuals : MonoBehaviour
         UpdateAttackVisualsIfNeeded();
     }
 
-    //À»¤¤¯S®Ä
+    //æ“Šä¸­ç‰¹æ•ˆ
     public void CreateOnHitFX(Vector3 hitPoint)
     {
         GameObject newFX = Instantiate(onHitFX, hitPoint, Random.rotation);

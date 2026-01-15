@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Tower_Crossbow : Tower
 {
 
     private Crossbow_Visuals visuals;
 
-    [Header("©¸ªº²Ó¶µ")]
+    [Header("å¼©çš„ç´°é …")]
     [SerializeField] private int damage;
 
     protected override void Awake()
@@ -25,7 +25,7 @@ public class Tower_Crossbow : Tower
             IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
             damagable.TakeDamage(damage);
 
-            visuals.CreateOnHitFX(hitInfo.point); //À»¤¤¯S®Ä
+            visuals.CreateOnHitFX(hitInfo.point); //æ“Šä¸­ç‰¹æ•ˆ
             visuals.PlayAttackVFX(gunPoint.position, hitInfo.point);
             visuals.PlayReloaxVFX(attackCooldown);
             AudioManager.instance?.PlaySFX(attackSfx, true);

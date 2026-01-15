@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,11 +9,11 @@ public class LevelSetup : MonoBehaviour
     private LevelManager levelManager;
     private GameManager gameManager;
 
-    [Header("Ãö¥d¸Ô±¡")]
+    [Header("é—œå¡è©³æƒ…")]
     [SerializeField] private int levelCurrency = 1000;
     [SerializeField] private List<TowerUnlockData> towerUnlocks;
 
-    [Header("Ãö¥d³]©w")]
+    [Header("é—œå¡è¨­å®š")]
     [SerializeField] private GridBuilder myMainGrid;
     [SerializeField] private WaveManager myWaveManager;
     [SerializeField] private List<GameObject> extraObjectsToDelete = new List<GameObject>();
@@ -62,9 +62,9 @@ public class LevelSetup : MonoBehaviour
     {
         UI ui = FindFirstObjectByType<UI>();
 
-        foreach (var unlockDate in towerUnlocks)//§ä¨C®y¶ğªº¸ê®Æ
+        foreach (var unlockDate in towerUnlocks)//æ‰¾æ¯åº§å¡”çš„è³‡æ–™
         {
-            foreach (var buildButton in ui.buildButtonsUI.GetBuildButtons())//§ä«ö¶s
+            foreach (var buildButton in ui.buildButtonsUI.GetBuildButtons())//æ‰¾æŒ‰éˆ•
             {
                 buildButton.UnlockTowerIfNeeded(unlockDate.towerName, unlockDate.unlocked);
             }
@@ -73,7 +73,7 @@ public class LevelSetup : MonoBehaviour
         ui.buildButtonsUI.UpdateUnlockedButtons();
     }
 
-    [ContextMenu("ªì©l¤Æ¶ğªº¸ê®Æ")]
+    [ContextMenu("åˆå§‹åŒ–å¡”çš„è³‡æ–™")]
     private void InitializeTowerData()
     {
         towerUnlocks.Clear();

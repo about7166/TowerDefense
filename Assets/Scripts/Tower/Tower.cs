@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +10,12 @@ public class Tower : MonoBehaviour
     protected Coroutine deactiveatedTowerCo;
     protected GameObject currentEmpFx;
 
-    [Tooltip("±Ò¥Î¦¹¥\¯à«á¡A¨¾¿m¶ğ¥i¥H¦b§ğÀ»¶¡»Ø¤Á´«¥Ø¼Ğ¡C")]
+    [Tooltip("å•Ÿç”¨æ­¤åŠŸèƒ½å¾Œï¼Œé˜²ç¦¦å¡”å¯ä»¥åœ¨æ”»æ“Šé–“éš™åˆ‡æ›ç›®æ¨™ã€‚")]
     [SerializeField] private bool dynamicTargetChange;
     [SerializeField] protected float attackCooldown = 1;
     protected float lastTimeAttacked;
 
-    [Header("¶ğªº³]©w")]
+    [Header("å¡”çš„è¨­å®š")]
     [SerializeField] protected EnemyType enemyPriorityType = EnemyType.None;
     [SerializeField] protected Transform towerHead;
     [SerializeField] protected Transform towerBody;
@@ -29,7 +29,7 @@ public class Tower : MonoBehaviour
     private float targetCheckInterval = 0.1f;
     private float lastTimeCheckedTarget;
 
-    [Header("SFX ³]©w")]
+    [Header("SFX è¨­å®š")]
     [SerializeField] protected AudioSource attackSfx;
 
 

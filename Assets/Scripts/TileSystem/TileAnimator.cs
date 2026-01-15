@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ public class TileAnimator : MonoBehaviour
 {
     [SerializeField] private float defaultMoveDuration = 0.1f;
 
-    [Header("¥i«Ø¦a¶ô²¾°Ê")]
+    [Header("å¯å»ºåœ°å¡Šç§»å‹•")]
     [SerializeField] private float buildSlotYOffset = 0.25f;
 
-    [Header("¦a¶ô°Êµe³]©w")]
+    [Header("åœ°å¡Šå‹•ç•«è¨­å®š")]
     [SerializeField] private float tileMoveDuration = 0.1f;
     [SerializeField] private float tileDelay = 0.1f;
     [SerializeField] private float yOffset = 5;
@@ -21,7 +21,7 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private List<GameObject> mainMenuObjects = new List<GameObject>();
     [SerializeField] private GridBuilder mainSceneGrid;
     private Coroutine currentActiveCo;
-    private bool isGridMoving; //Á×§KBuildSlot¸Ìªº´å¼Ğ°Êµe¼vÅT
+    private bool isGridMoving; //é¿å…BuildSlotè£¡çš„æ¸¸æ¨™å‹•ç•«å½±éŸ¿
 
     private void Start()
     {

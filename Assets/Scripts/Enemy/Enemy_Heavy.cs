@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Enemy_Heavy : Enemy
 {
-    [Header("¼Ä¤H³]©w")]
+    [Header("æ•µäººè¨­å®š")]
     [SerializeField] private int shieldAmount = 50;
     [SerializeField] private Enemy_Shield shieldObject;
 
@@ -12,7 +12,7 @@ public class Enemy_Heavy : Enemy
         EnableShieldIfNeeded();
     }
 
-    private void EnableShieldIfNeeded() //Å@¬Þ¸òµÛÁô§Î
+    private void EnableShieldIfNeeded() //è­·ç›¾è·Ÿè‘—éš±å½¢
     {
         if (shieldObject != null & shieldAmount > 0)
             shieldObject.gameObject.SetActive(true);

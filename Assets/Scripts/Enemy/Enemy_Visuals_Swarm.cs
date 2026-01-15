@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Enemy_Visuals_Swarm : Enemy_Visuals
 {
-    [Header("¼Ò«¬ÅÜÅé")]
+    [Header("æ¨¡å‹è®Šé«”")]
     [SerializeField] private GameObject[] variants;
 
-    [Header("¼u¸õ³]©w")]
+    [Header("å½ˆè·³è¨­å®š")]
     [SerializeField] private AnimationCurve bounceCurve;
     [SerializeField] private float bounceSpeed = 2f;
     [SerializeField] private float minHeight = 0.1f;
@@ -27,7 +27,7 @@ public class Enemy_Visuals_Swarm : Enemy_Visuals
     private void BounceEffect()
     {
         bounceTimer += Time.deltaTime * bounceSpeed;
-        // currentValue % 1 ·|Åı¼Æ­È¥Ã»·«O«ù¦b 0.0 ~ 0.99 ¤§¶¡´`Àô
+        // currentValue % 1 æœƒè®“æ•¸å€¼æ°¸é ä¿æŒåœ¨ 0.0 ~ 0.99 ä¹‹é–“å¾ªç’°
         float bounceValue = bounceCurve.Evaluate(bounceTimer % 1);
         float bounceHeight = Mathf.Lerp(minHeight, maxHeight, bounceValue);
 

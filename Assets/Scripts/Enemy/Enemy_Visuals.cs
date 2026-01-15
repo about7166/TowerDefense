@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -8,11 +8,11 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private GameObject onDeathFx;
     [SerializeField] private float onDeathFxScale = 0.5f;
     [Space]
-    [SerializeField] protected Transform visuals;// ¼Ä¤Hªº¼Ò«¬
+    [SerializeField] protected Transform visuals;// æ•µäººçš„æ¨¡å‹
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float verticalRotationSpeed;
 
-    [Header("³z©ú³]©w")]
+    [Header("é€æ˜è¨­å®š")]
     [SerializeField] private Material transparentMaterial;
     private List<Material> originalMaterial;
     private MeshRenderer[] myRenderers;
@@ -29,7 +29,7 @@ public class Enemy_Visuals : MonoBehaviour
 
     protected virtual void Update()
     {
-        AlignWithSlope(); //¨C´V³£¥hÀË¬d¨Ã¶K¦X±×©Y
+        AlignWithSlope(); //æ¯å¹€éƒ½å»æª¢æŸ¥ä¸¦è²¼åˆæ–œå¡
 
         if (Input.GetKeyDown(KeyCode.X))
             MakeTransparent(true);
@@ -53,7 +53,7 @@ public class Enemy_Visuals : MonoBehaviour
         }
     }
 
-    protected void CollectDefaultMaterials() //¦¬¶°¹w³]§÷®Æ
+    protected void CollectDefaultMaterials() //æ”¶é›†é è¨­ææ–™
     {
         myRenderers = GetComponentsInChildren<MeshRenderer>();
         originalMaterial = new List<Material>();

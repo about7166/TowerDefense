@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,7 +7,7 @@ public class CameraEffects : MonoBehaviour
     private CameraController camController;
     private Coroutine cameraCo;
 
-    [Header("¹L´ç²Ó¸`")]
+    [Header("éæ¸¡ç´°ç¯€")]
     [SerializeField] private float transitionDuration = 3;
     [Space]
     [SerializeField] private Vector3 inMenuPosition;
@@ -19,13 +19,13 @@ public class CameraEffects : MonoBehaviour
     [SerializeField] private Vector3 levelSelectPosition;
     [SerializeField] private Quaternion levelSelectRotation;
 
-    [Header("¬Û¾÷¾_°Ê®ÄªG")]
+    [Header("ç›¸æ©Ÿéœ‡å‹•æ•ˆæœ")]
     [Range(0.01f, 0.5f)]
     [SerializeField] private float shakeMagnution;
     [Range(0.1f, 3f)]
     [SerializeField] private float shakeDuration;
 
-    [Header("Ãöª`«°³ù²Ó¸`")]
+    [Header("é—œæ³¨åŸå ¡ç´°ç¯€")]
     [SerializeField] private float focusOnCastleDuration = 2;
     [SerializeField] private float hightOffset = 3;
     [SerializeField] private float distanceToCastle = 7;
@@ -66,7 +66,7 @@ public class CameraEffects : MonoBehaviour
 
         if (castle == null)
         {
-            Debug.Log("³o¸Ì¨S¦³«°³ù¥i¥HÃöª`!");
+            Debug.Log("é€™è£¡æ²’æœ‰åŸå ¡å¯ä»¥é—œæ³¨!");
             return;
         }
 

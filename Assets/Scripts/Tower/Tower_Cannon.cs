@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Tower_Cannon : Tower
 {
-    [Header("¤j¯¥³]©w")]
+    [Header("å¤§ç ²è¨­å®š")]
     [SerializeField] private float damage;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float timeToTarget = 1.5f;
@@ -79,8 +79,8 @@ public class Tower_Cannon : Tower
     private Vector3 CalculateLaunchVelocity()
     {
         Vector3 direction = currentEnemy.CenterPoint() - gunPoint.position;
-        Vector3 directionXZ = new Vector3(direction.x, 0, direction.z); //¥­­±¶ZÂ÷
-        Vector3 velocityXZ = directionXZ / timeToTarget; //³t«× = ¶ZÂ÷ / ®É¶¡
+        Vector3 directionXZ = new Vector3(direction.x, 0, direction.z); //å¹³é¢è·é›¢
+        Vector3 velocityXZ = directionXZ / timeToTarget; //é€Ÿåº¦ = è·é›¢ / æ™‚é–“
 
         float yVelocity = (direction.y - (Physics.gravity.y * Mathf.Pow(timeToTarget, 2)) / 2) / timeToTarget; //s=v0t+1/2at^2
         Vector3 launchVelocity = velocityXZ + (Vector3.up * yVelocity);

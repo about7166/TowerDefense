@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Shield : MonoBehaviour
 {
 
-    [Header("¨üÀ»³]©w")]
+    [Header("å—æ“Šè¨­å®š")]
     [SerializeField] private Material shieldMaterial;
     [SerializeField] private float defaultShieldGlow = 1;
     [SerializeField] private float impactShieldGlow = 3;

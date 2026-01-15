@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class MachineGun_Visuals : MonoBehaviour
 {
-    [Header("«á®y¤O³]©w")]
+    [Header("å¾Œåº§åŠ›è¨­å®š")]
     [SerializeField] private float recoilOffset = -0.1f;
     [SerializeField] private float recoverSpeed = 0.25f;
     [SerializeField] private ParticleSystem onAttackFx;

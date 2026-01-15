@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
@@ -9,7 +9,7 @@ public class BuildManager : MonoBehaviour
     public WaveManager waveManger;
     public GridBuilder currentGrid;
 
-    [Header("¶ğªº¹wÄı§÷½è")]
+    [Header("å¡”çš„é è¦½æè³ª")]
     [SerializeField] private Material attackRadiusMaterial;
     [SerializeField] private Material buildPreviewMaterial;
 
@@ -48,7 +48,7 @@ public class BuildManager : MonoBehaviour
     {
         if (waveManager == null)
         {
-            Debug.Log("¨S¦³¤U¤@ªi");
+            Debug.Log("æ²’æœ‰ä¸‹ä¸€æ³¢");
             return;
         }
 

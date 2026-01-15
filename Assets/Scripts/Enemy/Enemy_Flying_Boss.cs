@@ -1,10 +1,10 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Flying_Boss : Enemy_Flying
 {
-    [Header("Boss³]©w")]
+    [Header("Bossè¨­å®š")]
     [SerializeField] private GameObject bossUnitPrefab;
     [SerializeField] private int amountToCreate = 150;
     [SerializeField] private float cooldown = 0.05f;

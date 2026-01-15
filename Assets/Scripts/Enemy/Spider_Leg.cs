@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class Spider_Leg : MonoBehaviour
@@ -11,7 +11,7 @@ public class Spider_Leg : MonoBehaviour
     private bool canMove = true;
     private Coroutine moveCo;
 
-    [Header("¸}ªº³]©w")]
+    [Header("è…³çš„è¨­å®š")]
     [SerializeField] private Spider_Leg oppositeLeg;
     [SerializeField] private Spider_LegReference legRef;
     [SerializeField] private Transform actualTarget;

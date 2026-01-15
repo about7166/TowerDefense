@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Enemy_Visuals_Spider : Enemy_Visuals
 {
-    [Header("¸}ªº³]©w")]
+    [Header("è…³çš„è¨­å®š")]
     public float legSpeed = 3;
     public float increasedLegSpeed = 10;
 
     private Spider_Leg[] legs;
 
-    [Header("¨­Åé°Êµe³]©w")]
+    [Header("èº«é«”å‹•ç•«è¨­å®š")]
     [SerializeField] private Transform bodyTransform;
     [SerializeField] private float bodyAnimSpeed = 1;
     [SerializeField] private float maxHeight = 0.1f;
@@ -16,7 +16,7 @@ public class Enemy_Visuals_Spider : Enemy_Visuals
     private Vector3 startPosition;
     private float elapsedTime;
 
-    [Header("·Ïªº°Êµe")]
+    [Header("ç…™çš„å‹•ç•«")]
     [SerializeField] private ParticleSystem[] smokeFx;
     [SerializeField] private float smokeCooldown;
     private float smokeTimer;
@@ -62,7 +62,7 @@ public class Enemy_Visuals_Spider : Enemy_Visuals
     {
         elapsedTime += Time.deltaTime * bodyAnimSpeed;
 
-        float sinValue = (Mathf.Sin(elapsedTime) + 1) / 2; //sin·|¤W¤U¤W¤U¡A+1Åı¥LÅÜ¦¨0~2¡A/2Åı¥LÅÜ¦¨0~1
+        float sinValue = (Mathf.Sin(elapsedTime) + 1) / 2; //sinæœƒä¸Šä¸‹ä¸Šä¸‹ï¼Œ+1è®“ä»–è®Šæˆ0~2ï¼Œ/2è®“ä»–è®Šæˆ0~1
         float newY = Mathf.Lerp(0, maxHeight, sinValue);
 
         bodyTransform.localPosition = startPosition + new Vector3(0, newY, 0);

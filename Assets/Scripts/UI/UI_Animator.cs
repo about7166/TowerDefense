@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 public class UI_Animator : MonoBehaviour
 {
-    [Header("UI¦^õX - ®Ì°Ê®ÄªG")]
-    [SerializeField] private float shakeMagnitude;//XY®Ì°Ê
+    [Header("UIå›žé¥‹ - æ™ƒå‹•æ•ˆæžœ")]
+    [SerializeField] private float shakeMagnitude;//XYæ™ƒå‹•
     [SerializeField] private float shakeDuration;
-    [SerializeField] private float shakeRotationMagnitude;//Z±ÛÂà
+    [SerializeField] private float shakeRotationMagnitude;//Zæ—‹è½‰
     [Space]
-    [SerializeField] private float defaultUIScale = 1.5f;//ÁY©ñ
-    [SerializeField] private bool scaleChangeAvailable;//ÁY©ñ¶}Ãö
+    [SerializeField] private float defaultUIScale = 1.5f;//ç¸®æ”¾
+    [SerializeField] private bool scaleChangeAvailable;//ç¸®æ”¾é–‹é—œ
 
     public void Shake(Transform transformToShake)
     {
@@ -21,31 +21,31 @@ public class UI_Animator : MonoBehaviour
     {
         float time = 0;
         Vector3 originalPosition = rectTransform.anchoredPosition;
-        float currentScale = rectTransform.localScale.x;//ÁY©ñ
+        float currentScale = rectTransform.localScale.x;//ç¸®æ”¾
 
         if (scaleChangeAvailable)
-            StartCoroutine(ChangeScaleCo(rectTransform, currentScale * 1.1f, shakeDuration / 2));//ÁY©ñ
+            StartCoroutine(ChangeScaleCo(rectTransform, currentScale * 1.1f, shakeDuration / 2));//ç¸®æ”¾
 
         while (time < shakeDuration)
         {
             
-            float xOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XY®Ì°Ê
-            float yOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XY®Ì°Ê            
-            float randomRotation = Random.Range(-shakeRotationMagnitude, shakeRotationMagnitude);//Z±ÛÂà
+            float xOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XYæ™ƒå‹•
+            float yOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XYæ™ƒå‹•            
+            float randomRotation = Random.Range(-shakeRotationMagnitude, shakeRotationMagnitude);//Zæ—‹è½‰
 
 
-            rectTransform.anchoredPosition = originalPosition + new Vector3(xOffset, yOffset);//XY®Ì°Ê
-            rectTransform.localRotation = Quaternion.Euler(0, 0, randomRotation);//Z±ÛÂà
+            rectTransform.anchoredPosition = originalPosition + new Vector3(xOffset, yOffset);//XYæ™ƒå‹•
+            rectTransform.localRotation = Quaternion.Euler(0, 0, randomRotation);//Zæ—‹è½‰
 
             time += Time.deltaTime;
             yield return null;
         }
         
-        rectTransform.anchoredPosition = originalPosition;//XY®Ì°Ê
-        rectTransform.localRotation = Quaternion.Euler(Vector3.zero);//Z±ÛÂà
+        rectTransform.anchoredPosition = originalPosition;//XYæ™ƒå‹•
+        rectTransform.localRotation = Quaternion.Euler(Vector3.zero);//Zæ—‹è½‰
 
         if (scaleChangeAvailable)
-            StartCoroutine(ChangeScaleCo(rectTransform, defaultUIScale, shakeDuration / 2));//ÁY©ñ
+            StartCoroutine(ChangeScaleCo(rectTransform, defaultUIScale, shakeDuration / 2));//ç¸®æ”¾
     }
 
 

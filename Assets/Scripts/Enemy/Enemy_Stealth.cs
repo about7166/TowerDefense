@@ -1,10 +1,10 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Stealth : Enemy
 {
-    [Header("Áô§Î¼Ä¤H³]©w")]
+    [Header("éš±å½¢æ•µäººè¨­å®š")]
     [SerializeField] private List<Enemy> enemiesToHide;
     [SerializeField] private float hideDuration = 0.5f;
     [SerializeField] private ParticleSystem smokeFX;
@@ -14,7 +14,7 @@ public class Enemy_Stealth : Enemy
         base.Awake();
 
         InvokeRepeating(nameof(HideItself), 0.1f, hideDuration);
-        InvokeRepeating(nameof(HideEnemies), 0.1f, hideDuration); //(¤èªk¦WºÙ, ²Ä¤@¦¸°õ¦æªº©µ¿ð, ¤§«á­«½Æªº¶¡¹j)
+        InvokeRepeating(nameof(HideEnemies), 0.1f, hideDuration); //(æ–¹æ³•åç¨±, ç¬¬ä¸€æ¬¡åŸ·è¡Œçš„å»¶é², ä¹‹å¾Œé‡è¤‡çš„é–“éš”)
     }
 
     private void HideItself() => HideEnemy(hideDuration);

@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -27,7 +27,7 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
 
     public void CheckIfLevelUnLocked()
     {
-        //""¸Ìªº©MGameManager¦³Ãö
+        //""è£¡çš„å’ŒGameManageræœ‰é—œ
         if (levelIndex == 1)
             PlayerPrefs.SetInt("Level_1" + "unlocked", 1);
 
@@ -37,11 +37,11 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
 
     private void UpdateLevelButtonText()
     {
-        //Ãö¥d¥¼¸ÑÂêªº¦WºÙ
+        //é—œå¡æœªè§£é–çš„åç¨±
         if (unlocked == false)
             myText.text = "Locked";
 
-        //©M¤U­±ªº[½Õ¾ãÃö¥d¦WºÙ¦b³o]¤@­P
+        //å’Œä¸‹é¢çš„[èª¿æ•´é—œå¡åç¨±åœ¨é€™]ä¸€è‡´
         else
             myText.text = "LV." + levelIndex;
     }
@@ -55,13 +55,13 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
 
         if (unlocked == false)
         {
-            Debug.Log("Ãö¥dÂê¦í¤F!");
-            //µo¥X­µ®Ä
+            Debug.Log("é—œå¡é–ä½äº†!");
+            //ç™¼å‡ºéŸ³æ•ˆ
             return;
         }
 
         transform.position = defaultPosition;
-        //­n¸òSCENEÃö¥dªº¦WºÙ¤@­P
+        //è¦è·ŸSCENEé—œå¡çš„åç¨±ä¸€è‡´
         levelManager.LoadLevelFromMenu("Level_" + levelIndex);
     }
 
@@ -99,7 +99,7 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
     {
         levelIndex = transform.GetSiblingIndex() + 1;
 
-        //½Õ¾ãÃö¥d¦WºÙ¦b³o
+        //èª¿æ•´é—œå¡åç¨±åœ¨é€™
         if (myText != null)
             myText.text = "LV." + levelIndex;
     }

@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
 public class UI_InGame : MonoBehaviour
@@ -18,7 +18,7 @@ public class UI_InGame : MonoBehaviour
     private Coroutine waveTimerMoveCo;
     private Vector3 waveTimerDefaultPosition;
 
-    [Header("³Ó§Q©Î¥¢±Ñ")]
+    [Header("å‹åˆ©æˆ–å¤±æ•—")]
     [SerializeField] private GameObject victoryUI;
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject levelCompletedUI;
@@ -60,14 +60,14 @@ public class UI_InGame : MonoBehaviour
 
     public void ShakeCurrencyUI() => ui.animatorUI.Shake(currencyText.transform.parent);
     public void ShakeHealthUI() => ui.animatorUI.Shake(healthPointText.transform.parent);
-    //³o¸Ì¬O¦Ñ®v¼gªº"«Â¯Ù­È"
+    //é€™è£¡æ˜¯è€å¸«å¯«çš„"å¨è„…å€¼"
     //public void UpdateHealthPointsUI(int value, int maxValue)
     //{
     //int newValue = maxValue - value;
     //healthPointText.text = "Threat :" + newValue + "/" + maxValue;
     //}
 
-    //"«Â¯Ù­È"§ï¦¨"¦å¶q
+    //"å¨è„…å€¼"æ”¹æˆ"è¡€é‡
     public void UpdateHealthPointsUI(int currentHp, int maxHp) => healthPointText.text = "Health : " + currentHp + "/" + maxHp;
 
     public void UpdateCurrencyUI(int value) => currencyText.text = "Resources : " + value;

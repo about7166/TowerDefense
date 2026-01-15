@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(TileSlot)),CanEditMultipleObjects]
@@ -25,12 +25,12 @@ public class TileSlotEditor : Editor
         float twobuttonWidth = (EditorGUIUtility.currentViewWidth - 25) / 2;
         float threebuttonWidth = (EditorGUIUtility.currentViewWidth - 25) / 3;
 
-        GUILayout.Label("¦ì¸m©M±ÛÂà¿ï¶µ", centeredStyle);
+        GUILayout.Label("ä½ç½®å’Œæ—‹è½‰é¸é …", centeredStyle);
 
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("¥ªÂà", GUILayout.Width(twobuttonWidth)))
+        if (GUILayout.Button("å·¦è½‰", GUILayout.Width(twobuttonWidth)))
         {            
             foreach (var targetTile in targets)
             {
@@ -38,7 +38,7 @@ public class TileSlotEditor : Editor
             }
         }
 
-        if (GUILayout.Button("¥kÂà", GUILayout.Width(twobuttonWidth)))
+        if (GUILayout.Button("å³è½‰", GUILayout.Width(twobuttonWidth)))
         {            
             foreach (var targetTile in targets)
             {
@@ -67,7 +67,7 @@ public class TileSlotEditor : Editor
 
         GUILayout.EndHorizontal();
 
-        GUILayout.Label("¦aªO¿ï¶µ", centeredStyle);
+        GUILayout.Label("åœ°æ¿é¸é …", centeredStyle);
 
 
         GUILayout.BeginHorizontal();
@@ -109,7 +109,7 @@ public class TileSlotEditor : Editor
         GUILayout.EndHorizontal();
 
 
-        GUILayout.Label("¨¤¸¨¿ï¶µ", centeredStyle);
+        GUILayout.Label("è§’è½é¸é …", centeredStyle);
 
 
         GUILayout.BeginHorizontal();
@@ -160,7 +160,7 @@ public class TileSlotEditor : Editor
 
         GUILayout.EndHorizontal();
 
-        GUILayout.Label("¾ô¤Î±×©Y¿ï¶µ", centeredStyle);
+        GUILayout.Label("æ©‹åŠæ–œå¡é¸é …", centeredStyle);
 
         GUILayout.BeginHorizontal();
 
@@ -230,7 +230,7 @@ public class TileSlotEditor : Editor
 
         GUILayout.EndHorizontal();
 
-        GUILayout.Label("Ãö¥d«ö¶s", centeredStyle);
+        GUILayout.Label("é—œå¡æŒ‰éˆ•", centeredStyle);
 
         GUILayout.BeginHorizontal();
 

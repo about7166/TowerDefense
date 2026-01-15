@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class SwingObject : MonoBehaviour
 {
-    [Header("·n®Ì³]©w")]
+    [Header("æ–æ™ƒè¨­å®š")]
     [SerializeField] private Vector3 swingAxis;
     [SerializeField] private float swingDegree = 10;
     [SerializeField] private float swingSpeed = 1;
@@ -18,6 +18,6 @@ public class SwingObject : MonoBehaviour
     {
         float angle = Mathf.Sin(Time.time * swingSpeed) * swingDegree;
 
-        transform.localRotation = startRotation * Quaternion.AngleAxis(angle, swingAxis.normalized); //(¨¤«×¡A±ÛÂà¶b)
+        transform.localRotation = startRotation * Quaternion.AngleAxis(angle, swingAxis.normalized); //(è§’åº¦ï¼Œæ—‹è½‰è»¸)
     }
 }

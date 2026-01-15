@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Enemy_BossUnit : Enemy
 {
@@ -29,7 +29,7 @@ public class Enemy_BossUnit : Enemy
         if (collision.collider.tag == "Enemy")
             return;
 
-        if (Vector3.Distance(transform.position, lastKnownBossPosition) > 3f) //®y¼Ğ­×¥¿¡G¦pªGµÛ³°®ÉÂ÷ Boss ¤Ó»·¡]¶W¹L3³æ¦ì¡^³o¸Ì¥i¥H½Õ¾ã
+        if (Vector3.Distance(transform.position, lastKnownBossPosition) > 3f) //åº§æ¨™ä¿®æ­£ï¼šå¦‚æœè‘—é™¸æ™‚é›¢ Boss å¤ªé ï¼ˆè¶…é3å–®ä½ï¼‰é€™è£¡å¯ä»¥èª¿æ•´
             transform.position = lastKnownBossPosition + new Vector3(0, -1, 0);        
 
         rb.useGravity = false;

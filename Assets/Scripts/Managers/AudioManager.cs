@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    [Header("BGM³]©w")]
+    [Header("BGMè¨­å®š")]
     [SerializeField] private bool playBGM;
     [SerializeField] private AudioSource[] bgm;
     private int currentBGMIndex;
@@ -16,14 +16,14 @@ public class AudioManager : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        InvokeRepeating(nameof(PlayMusicIfNeed), 0, 2);//³o¸Ìªº2¬O«ü¶¡¹j2¬í«á¼½©ñ¤U¤@­º­µ¼Ö
+        InvokeRepeating(nameof(PlayMusicIfNeed), 0, 2);//é€™è£¡çš„2æ˜¯æŒ‡é–“éš”2ç§’å¾Œæ’­æ”¾ä¸‹ä¸€é¦–éŸ³æ¨‚
     }
 
     public void PlaySFX(AudioSource audioToPlay, bool randomPitch = false)
     {
         if (audioToPlay.clip == null)
         {
-            Debug.Log("¼½©ñ¥¢±Ñ" + audioToPlay.gameObject.name + ". ¨S¦³¤À°t­µ°T¤ù¬q¡C");
+            Debug.Log("æ’­æ”¾å¤±æ•—" + audioToPlay.gameObject.name + ". æ²’æœ‰åˆ†é…éŸ³è¨Šç‰‡æ®µã€‚");
             return;
         }
 
@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
     {
         if (bgm.Length <= 0)
         {
-            Debug.Log("§A¸ÕµÛ¼½©ñ­µ¼Ö¡A¦ı§A¨S¦³¤À°t¥ô¦ó¦±¥Ø!");
+            Debug.Log("ä½ è©¦è‘—æ’­æ”¾éŸ³æ¨‚ï¼Œä½†ä½ æ²’æœ‰åˆ†é…ä»»ä½•æ›²ç›®!");
             return;
         }
 
@@ -49,7 +49,7 @@ public class AudioManager : MonoBehaviour
             PlayRandomBGM();
     }
 
-    [ContextMenu("ÀH¾÷¼½©ñ­µ¼Ö")]
+    [ContextMenu("éš¨æ©Ÿæ’­æ”¾éŸ³æ¨‚")]
     public void PlayRandomBGM()
     {
         currentBGMIndex = Random.Range(0, bgm.Length);
@@ -60,7 +60,7 @@ public class AudioManager : MonoBehaviour
     {
         if (bgm.Length <= 0)
         {
-            Debug.Log("§A¸ÕµÛ¼½©ñ­µ¼Ö¡A¦ı§A¨S¦³¤À°t¥ô¦ó¦±¥Ø!");
+            Debug.Log("ä½ è©¦è‘—æ’­æ”¾éŸ³æ¨‚ï¼Œä½†ä½ æ²’æœ‰åˆ†é…ä»»ä½•æ›²ç›®!");
             return;
         }
 
@@ -70,7 +70,7 @@ public class AudioManager : MonoBehaviour
         bgm[bgmToPlay].Play();
     }
 
-    [ContextMenu("°±¤î¼·©ñ­µ¼Ö")]
+    [ContextMenu("åœæ­¢æ’¥æ”¾éŸ³æ¨‚")]
     public void StopAllBGM()
     {
         for (int i = 0; i < bgm.Length; i++)

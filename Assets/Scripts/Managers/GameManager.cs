@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);//1¬Otrue 0¬Ofalse
+            PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);//1æ˜¯true 0æ˜¯false
             inGameUI.EnableLevelCompletedUI(true);
         }
     }

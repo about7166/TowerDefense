@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,7 +17,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Space]
     [SerializeField] private GameObject towerToBuild;
     [SerializeField] private float towerCenterY = 0.5f;
-    [Header("¤å¦r¤¸¥ó")]
+    [Header("æ–‡å­—å…ƒä»¶")]
     [SerializeField] private TextMeshProUGUI towerNameText;
     [SerializeField] private TextMeshProUGUI towerPriceText;
 
@@ -81,7 +81,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (towerToBuild == null)
         {
-            Debug.LogWarning("ÁÙ¨S¦³³o®y¶ð");
+            Debug.LogWarning("é‚„æ²’æœ‰é€™åº§å¡”");
             return;
         }
 

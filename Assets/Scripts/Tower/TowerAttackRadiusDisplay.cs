@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 [RequireComponent (typeof(LineRenderer))]
@@ -13,7 +13,7 @@ public class TowerAttackRadiusDisplay : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = segments + 1;//¦h¤@¬qÅı¶ê¦¨§Î
+        lineRenderer.positionCount = segments + 1;//å¤šä¸€æ®µè®“åœ“æˆå½¢
         lineRenderer.useWorldSpace = true;
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;

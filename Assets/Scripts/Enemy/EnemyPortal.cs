@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -101,7 +101,7 @@ public class EnemyPortal : MonoBehaviour
     public List<GameObject> GetActiveEnemies() => activeEnemies;
 
 
-    [ContextMenu("¦¬¶°©Çª«¸ô®|")]
+    [ContextMenu("æ”¶é›†æ€ªç‰©è·¯å¾‘")]
     private void CollectWaypoints()
     {
         waypointList = new List<Waypoint>();

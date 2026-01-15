@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using Unity.VisualScripting;
@@ -12,7 +12,7 @@ public class TileSlot : MonoBehaviour
     private Collider myCollder => GetComponent<Collider>();
     private NavMeshSurface myNavMesh => GetComponentInParent<NavMeshSurface>(true);
 
-    private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);//§PÂ_¬O¤£¬O¯à«Ø¶ğªº¦a¶ô
+    private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);//åˆ¤æ–·æ˜¯ä¸æ˜¯èƒ½å»ºå¡”çš„åœ°å¡Š
 
     public void SwitchTile(GameObject referenceTile)
     {
@@ -28,7 +28,7 @@ public class TileSlot : MonoBehaviour
         UpdateLayer(referenceTile);
         UpdateNavMesh();
 
-        TurnIntoBuildSlotIfNeeded(referenceTile);//§PÂ_¬O¤£¬O¯à«Ø¶ğªº¦a¶ô
+        TurnIntoBuildSlotIfNeeded(referenceTile);//åˆ¤æ–·æ˜¯ä¸æ˜¯èƒ½å»ºå¡”çš„åœ°å¡Š
     }
 
 
@@ -48,7 +48,7 @@ public class TileSlot : MonoBehaviour
         return children;
     }
 
-    //§PÂ_¬O¤£¬O¯à«Ø¶ğªº¦a¶ô
+    //åˆ¤æ–·æ˜¯ä¸æ˜¯èƒ½å»ºå¡”çš„åœ°å¡Š
     public void TurnIntoBuildSlotIfNeeded(GameObject refereneTile)
     {
         BuildSlot buildSlot = GetComponent<BuildSlot>();

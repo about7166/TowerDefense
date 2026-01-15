@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour , IDamagable
     public int healthPoint = 4;
     protected bool isDead; 
 
-    [Header("²¾°Ê")]
+    [Header("ç§»å‹•")]
     [SerializeField] private float turnSpeed = 10;
     [SerializeField] protected List<Transform> myWaypoints;
     protected int nextWaypointIndex;
@@ -185,7 +185,7 @@ public class Enemy : MonoBehaviour , IDamagable
 
     public virtual void Die()
     {
-        gameManager.UpdateCurrency(1);//¦bGameManger¸ÌªºUpdateCurrency ¥Î¨Ó°µ±ş±¼©Çªº±¼¸¨
+        gameManager.UpdateCurrency(1);//åœ¨GameMangerè£¡çš„UpdateCurrency ç”¨ä¾†åšæ®ºæ‰æ€ªçš„æ‰è½
         DestroyEnemy();
     }
 

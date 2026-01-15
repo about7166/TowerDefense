@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -28,17 +28,17 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private MeshCollider[] flyingNavMeshColliders;
 
 
-    [Header("ªi¦¸³]©w")]
+    [Header("æ³¢æ¬¡è¨­å®š")]
     [SerializeField] private float timeBetweenWaves = 10;
     [SerializeField] private float waveTimer;
     [SerializeField] private WaveDetails[] levelWaves;
     [SerializeField] private int waveIndex;
 
-    [Header("´£¤É¶¥¬q³]©w")]
+    [Header("æå‡éšæ®µè¨­å®š")]
     [SerializeField] private float yOffset = 5;
     [SerializeField] private float tileDelay = 0.1f;
 
-    [Header("©Çª«ªºPrefabs")]
+    [Header("æ€ªç‰©çš„Prefabs")]
     [SerializeField] private GameObject basicEnemy;
     [SerializeField] private GameObject fastEnemy;
     [SerializeField] private GameObject heavyEnemy;
@@ -77,7 +77,7 @@ public class WaveManager : MonoBehaviour
         HandleWaveTimer();
     }
 
-    [ContextMenu("±Ò°Êªi¦¸ºŞ²z")]
+    [ContextMenu("å•Ÿå‹•æ³¢æ¬¡ç®¡ç†")]
     public void ActivateWaveManager()
     {
         gameBegun = true;
@@ -134,7 +134,7 @@ public class WaveManager : MonoBehaviour
 
         if (newEnemies == null)
         {
-            Debug.LogWarning("¨S¦³¤U¤@ªi");
+            Debug.LogWarning("æ²’æœ‰ä¸‹ä¸€æ³¢");
             return;
         }
 
@@ -161,7 +161,7 @@ public class WaveManager : MonoBehaviour
 
         if (grid.Count != newGrid.Count)
         {
-            Debug.LogWarning("·í«e¦a¶ô©M·s¦a¶ô¤Ø¤o¤£¤@");
+            Debug.LogWarning("ç•¶å‰åœ°å¡Šå’Œæ–°åœ°å¡Šå°ºå¯¸ä¸ä¸€");
             return;
         }
 

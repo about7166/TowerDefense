@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Enemy_Spider : Enemy
 {
     private Enemy_Visuals_Spider spiderVisuals;
 
-    [Header("EMP§ðÀ»³]©w")]
+    [Header("EMPæ”»æ“Šè¨­å®š")]
     [SerializeField] private GameObject empPrefab;
     [SerializeField] private LayerMask whatIsTower;
     [SerializeField] private float towerCheckRadius = 5;

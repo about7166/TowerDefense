@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Tower_MachineGun : Tower
 {
     private MachineGun_Visuals machineGunVisuals;
 
-    [Header("¾÷ºj³]©w")]
+    [Header("æ©Ÿæ§è¨­å®š")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float damage;
     [SerializeField] private float projectileSpeed;
@@ -47,7 +47,7 @@ public class Tower_MachineGun : Tower
         if (currentEnemy == null)
             return;
 
-        Vector3 directionToEnemy = (currentEnemy.CenterPoint() - rotationOffset) - towerHead.position; //¤è¦V = (¥Ø¼Ğ¦ì¸m - °¾²¾) - ­ìÂI
+        Vector3 directionToEnemy = (currentEnemy.CenterPoint() - rotationOffset) - towerHead.position; //æ–¹å‘ = (ç›®æ¨™ä½ç½® - åç§») - åŸé»
         Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
 
         Vector3 rotation = Quaternion.Lerp(towerHead.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;

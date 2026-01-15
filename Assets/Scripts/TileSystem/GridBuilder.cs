@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -19,7 +19,7 @@ public class GridBuilder : MonoBehaviour
 
     private bool hadFristLoad;
 
-    public bool IsOnFirstLoad() //µ¹TileAnimator¥Îªº
+    public bool IsOnFirstLoad() //çµ¦TileAnimatorç”¨çš„
     {
         if (hadFristLoad == false)
         {
@@ -30,7 +30,7 @@ public class GridBuilder : MonoBehaviour
         return false;
     }
 
-    [ContextMenu("¥Í¦¨¦aªOºô®æ")]
+    [ContextMenu("ç”Ÿæˆåœ°æ¿ç¶²æ ¼")]
     private void BuildGrid()
     {
         ClearGrid();
@@ -45,7 +45,7 @@ public class GridBuilder : MonoBehaviour
         }
     }
 
-    [ContextMenu("²M°£¦aªOºô®æ")]
+    [ContextMenu("æ¸…é™¤åœ°æ¿ç¶²æ ¼")]
 
     private void ClearGrid()
     {

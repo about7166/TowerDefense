@@ -1,26 +1,26 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TileSetHolder : MonoBehaviour
 {
     public GameObject levelSelectTile;
 
-    [Header("°òÂ¦¦a¶ô")]
+    [Header("åŸºç¤åœ°å¡Š")]
     public GameObject tileRoad;
     public GameObject tileField;
     public GameObject tileSideway;
 
-    [Header("©ä¨¤¦a¶ô")]
+    [Header("æ‹è§’åœ°å¡Š")]
     public GameObject tileInnerCorner;
     public GameObject tileInnerCornerSmall;
     public GameObject tileOuterCorner;
     public GameObject tileOuterCornerSmall;
 
-    [Header("±×©Y¦a¶ô")]
+    [Header("æ–œå¡åœ°å¡Š")]
     public GameObject tileHill_1;
     public GameObject tileHill_2;
     public GameObject tileHill_3;
 
-    [Header("¾ô¦a¶ô")]
+    [Header("æ©‹åœ°å¡Š")]
     public GameObject tileBridgeField;
     public GameObject tileBridgeRoad;
     public GameObject tileBridgeSideway;

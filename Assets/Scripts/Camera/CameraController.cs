@@ -1,4 +1,4 @@
-using TMPro;
+Ôªøusing TMPro;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -7,17 +7,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 levelCenterPoint;
     [SerializeField] private float maxDistanceFromCenter;
 
-    [Header("≤æ∞ ≥]©w")]
+    [Header("ÁßªÂãïË®≠ÂÆö")]
     [SerializeField] private float movementSpeed = 120;
     [SerializeField] private float mouseMovementSpeed = 5;
 
-    [Header("√‰¨…≤æ∞ ≥]©w")]
+    [Header("ÈÇäÁïåÁßªÂãïË®≠ÂÆö")]
     [SerializeField] private float edgeMovementSpeed = 50;
     [SerializeField] private float edgeThreshold = 10;
     private float screenWidth;
     private float screenHeight;
 
-    [Header("±€¬‡≥]©w")]
+    [Header("ÊóãËΩâË®≠ÂÆö")]
     [SerializeField] private Transform focusPoint;
     [SerializeField] private float maxFocusPointDistance = 15;
     [SerializeField] private float rotationSpeed = 200;
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minPitch = 5f;
     [SerializeField] private float maxPitch = 85f;
 
-    [Header("¡Y©Ò≥]©w")]
+    [Header("Á∏ÆÊîæË®≠ÂÆö")]
     [SerializeField] private float zoomSpeed = 10;
     [SerializeField] private float minZoom = 3;
     [SerializeField] private float maxZoom = 15;
@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
 
     public float AdjustPitchValue(float value) => pitch = value;
 
-    //∏ÚUI_Setting™∫¡‰ΩL°B∑∆π´∆F±”´◊¶≥√ˆ
+    //Ë∑üUI_SettingÁöÑÈçµÁõ§„ÄÅÊªëÈº†ÈùàÊïèÂ∫¶ÊúâÈóú
     public float AdjustKeyboardSensitivity(float value) => movementSpeed = value;
     public float AdjustMouseSensitivity(float value) => mouseMovementSpeed = value;
 
@@ -90,7 +90,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (Input.GetMouseButton(1)) //1¨O•k¡‰
+        if (Input.GetMouseButton(1)) //1ÊòØÂè≥Èçµ
         {
             float horizontalRotation = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
             float verticalRotation = Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
@@ -139,7 +139,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleMouseMovement()
     {
-        if (Input.GetMouseButtonDown(2))//2¨O∑∆π´§§¡‰
+        if (Input.GetMouseButtonDown(2))//2ÊòØÊªëÈº†‰∏≠Èçµ
         {
             lastMousePosition = Input.mousePosition;
         }

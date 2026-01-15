@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UI_BuildButtonOnHoverEffect : MonoBehaviour
@@ -23,10 +23,10 @@ public class UI_BuildButtonOnHoverEffect : MonoBehaviour
     public void ToggleMovement(bool buttonMenuActive)
     {
         canMove = buttonMenuActive;
-        SetTargetY(defaultY); //­«¸m¥Ø¼ĞY®y¼Ğ¬°¹w³]­È(½T«O¥¦¤£·|¥d¦bshowcaseY)
+        SetTargetY(defaultY); //é‡ç½®ç›®æ¨™Yåº§æ¨™ç‚ºé è¨­å€¼(ç¢ºä¿å®ƒä¸æœƒå¡åœ¨showcaseY)
 
         if (buttonMenuActive == false)
-            SetPositionToDefault(); //¦pªGµæ³æÃö³¬¡A±j¨î±N¦ì¸m³]¦^defaultY
+            SetPositionToDefault(); //å¦‚æœèœå–®é—œé–‰ï¼Œå¼·åˆ¶å°‡ä½ç½®è¨­å›defaultY
     }
 
     private void SetPositionToDefault()

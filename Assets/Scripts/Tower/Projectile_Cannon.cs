@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Projectile_Cannon : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class Projectile_Cannon : MonoBehaviour
 
             if (damagable != null)
             {
-                int newDamage = Mathf.RoundToInt(damage); //¦Ñ®v»¡¥H«á¦A§ï
+                int newDamage = Mathf.RoundToInt(damage); //è€å¸«èªªä»¥å¾Œå†æ”¹
                 damagable.TakeDamage(newDamage);
             }
         }
@@ -40,7 +40,7 @@ public class Projectile_Cannon : MonoBehaviour
     {
         DamageEnemiesAround();
         explosionFx.SetActive(true);
-        explosionFx.transform.parent = null; //Åı¯S®Ä¤£­n¸òµÛ¤l¼u¤@°_³Q§R
+        explosionFx.transform.parent = null; //è®“ç‰¹æ•ˆä¸è¦è·Ÿè‘—å­å½ˆä¸€èµ·è¢«åˆª
         Destroy(gameObject);
     }
 
