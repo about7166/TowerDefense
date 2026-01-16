@@ -30,12 +30,6 @@ public class Enemy_Visuals : MonoBehaviour
     protected virtual void Update()
     {
         AlignWithSlope(); //每幀都去檢查並貼合斜坡
-
-        if (Input.GetKeyDown(KeyCode.X))
-            MakeTransparent(true);
-
-        if (Input.GetKeyDown(KeyCode.C))
-            MakeTransparent(false);
     }
 
     public void CreateOnDeathVFX()
