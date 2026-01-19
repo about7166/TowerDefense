@@ -35,7 +35,11 @@ public class Tower : MonoBehaviour
 
     protected virtual void Awake()
     {
-        
+    }
+
+    protected virtual void Start()
+    {
+        GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
     }
 
 
@@ -161,6 +165,11 @@ public class Tower : MonoBehaviour
         }
 
         return mostAdvancedEnemy;
+    }
+    protected bool AtLeastOneEnemyAround()
+    {
+        Collider[] enemyColliders = Physics.OverlapSphere(transform.position, attackRange, whatIsEnemy);
+        return enemyColliders.Length > 0;
     }
 
     protected virtual void HandleRotation()
