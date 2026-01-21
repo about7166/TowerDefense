@@ -3,7 +3,7 @@
 public class Enemy_Heavy : Enemy
 {
     [Header("敵人設定")]
-    [SerializeField] private int shieldAmount = 50;
+    [SerializeField] private float shieldAmount = 50;
     [SerializeField] private Enemy_Shield shieldObject;
 
     protected override void Start()
@@ -18,7 +18,7 @@ public class Enemy_Heavy : Enemy
             shieldObject.gameObject.SetActive(true);
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         if (shieldAmount > 0)
         {

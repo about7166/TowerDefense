@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour , IDamagable
 
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform centerPoint;
-    public int healthPoint = 4;
+    public float healthPoint = 4;
     protected bool isDead; 
 
     [Header("移動")]
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour , IDamagable
     protected bool canBeHidden = true;
     protected bool isHidden;
     private Coroutine hideCo;
+    private Coroutine disableHideCo;
     private int originalLayerIndex;
 
     protected virtual void Awake()
@@ -84,6 +85,23 @@ public class Enemy : MonoBehaviour , IDamagable
         yield return new WaitForSeconds(duration);
 
         agent.speed = originalSpeed;
+    }
+
+    public void DisableHide(float duration)
+    {
+        if (disableHideCo != null)
+            StopCoroutine(disableHideCo);
+
+
+        disableHideCo = StartCoroutine(DisableHideCo(duration));
+    }
+
+    private IEnumerator DisableHideCo(float duration)
+    {
+        canBeHidden = false;
+
+        yield return new WaitForSeconds(duration);
+        canBeHidden = true;
     }
 
     public void HideEnemy(float duration)
@@ -185,7 +203,7 @@ public class Enemy : MonoBehaviour , IDamagable
     public Vector3 CenterPoint() => centerPoint.position;
     public EnemyType GetEnemyType() => enemyType;
     
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         healthPoint = healthPoint - damage;
 
@@ -202,7 +220,7 @@ public class Enemy : MonoBehaviour , IDamagable
         DestroyEnemy();
     }
 
-    public void DestroyEnemy()
+    public virtual void DestroyEnemy()
     {
         visuals.CreateOnDeathVFX();
         Destroy(gameObject);

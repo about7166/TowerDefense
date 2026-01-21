@@ -9,6 +9,8 @@ public class BuildManager : MonoBehaviour
     public WaveManager waveManger;
     public GridBuilder currentGrid;
 
+    [SerializeField] private LayerMask whatToIgnore;
+
     [Header("塔的預覽材質")]
     [SerializeField] private Material attackRadiusMaterial;
     [SerializeField] private Material buildPreviewMaterial;
@@ -32,7 +34,7 @@ public class BuildManager : MonoBehaviour
             if (isMouseOverUI)
                 return;
 
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
             {
                 bool clickedNotOnBuildSlot = hit.collider.GetComponent<BuildSlot>() == null;
 

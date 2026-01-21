@@ -30,8 +30,7 @@ public class Projectile_Cannon : MonoBehaviour
 
             if (damagable != null)
             {
-                int newDamage = Mathf.RoundToInt(damage); //老師說以後再改
-                damagable.TakeDamage(newDamage);
+                damagable.TakeDamage(damage);
             }
         }
     }
