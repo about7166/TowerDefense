@@ -8,6 +8,8 @@ public class BuildManager : MonoBehaviour
 
     public WaveManager waveManger;
     public GridBuilder currentGrid;
+    private GameManager gameManager;
+    private CameraEffects cameraEffects;
 
     [SerializeField] private LayerMask whatToIgnore;
 
@@ -15,13 +17,24 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private Material attackRadiusMaterial;
     [SerializeField] private Material buildPreviewMaterial;
 
+    [Header("建造設定")]
+    [SerializeField] private float towerCenterY = 0.5f;
+    [SerializeField] private float camShakeDuration = 0.15f;
+    [SerializeField] private float camShakeMagnitude = 0.02f; //晃動幅度
+
     private bool isMouseOverUI;
 
     private void Awake()
     {
         ui = FindFirstObjectByType<UI>();
+        cameraEffects = FindFirstObjectByType<CameraEffects>();
 
         MakeBuildSlotNotAvalibleIfNeeded(waveManger, currentGrid);
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
     }
 
     private void Update()
@@ -42,6 +55,38 @@ public class BuildManager : MonoBehaviour
                     CancelBuildAction();
             }
         }
+    }
+
+    public void BuildTower(GameObject towerToBuild, int towerPrice, Transform newPreviewTower)
+    {
+        if (gameManager.HasEnoughCurrency(towerPrice) == false)
+        {
+            ui.inGameUI.ShakeCurrencyUI();
+            return;
+        }
+
+        if (towerToBuild == null)
+        {
+            Debug.LogWarning("還沒有這座塔");
+            return;
+        }
+
+        if (ui.buildButtonsUI.GetLastSelectedButton() == null)
+            return;
+
+        Transform previewTower = newPreviewTower;
+        BuildSlot slotToUse = GetSelectedSlot();
+        CancelBuildAction();
+
+        slotToUse.SnapToDefaultPositionImmidiatly();
+        slotToUse.SetSlotAvailableTo(false);
+
+        ui.buildButtonsUI.SetLastSelected(null, null);
+
+        cameraEffects.ScreenShake(camShakeDuration, camShakeMagnitude);
+
+        GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
+        newTower.transform.rotation = newPreviewTower.rotation;
     }
 
     public void MouseOverUI(bool IsOverUI) => isMouseOverUI = IsOverUI;

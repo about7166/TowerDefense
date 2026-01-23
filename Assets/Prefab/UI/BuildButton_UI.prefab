@@ -136,7 +136,6 @@ MonoBehaviour:
   towerName: Cossbow
   towerPrice: 50
   towerToBuild: {fileID: 5258864401243833045, guid: de73f73f5fa7d8e42baa9fd4566f600d, type: 3}
-  towerCenterY: 0.5
   towerNameText: {fileID: 1811772069541609473}
   towerPriceText: {fileID: 5341946123918081290}
 --- !u!114 &104248711734322356

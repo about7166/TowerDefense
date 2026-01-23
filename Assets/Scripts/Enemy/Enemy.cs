@@ -92,11 +92,10 @@ public class Enemy : MonoBehaviour , IDamagable
         if (disableHideCo != null)
             StopCoroutine(disableHideCo);
 
-
         disableHideCo = StartCoroutine(DisableHideCo(duration));
     }
 
-    private IEnumerator DisableHideCo(float duration)
+    protected virtual IEnumerator DisableHideCo(float duration)
     {
         canBeHidden = false;
 

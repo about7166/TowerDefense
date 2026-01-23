@@ -2,15 +2,26 @@
 
 public class Tower_FanRevealArea : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Tower_Fan tower;
+
+    private void Awake()
     {
-        
+        tower = GetComponentInParent<Tower_Fan>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Enemy enemy = other.GetComponent<Enemy>();
+
+        if (enemy != null)
+            tower.AddEnemyToReveal(enemy);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Enemy enemy = other.GetComponent<Enemy>();
+
+        if (enemy != null)
+            tower.RemoveEnemyToReveal(enemy);
     }
 }
