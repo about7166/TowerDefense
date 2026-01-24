@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Crossbow_Visuals : MonoBehaviour
 {
+
+    private ObjectPoolManager objectPool;
+
     [Header("攻擊效果")]
     [SerializeField] private GameObject onHitFX;
     [SerializeField] private LineRenderer attackVisuals;
@@ -58,6 +61,11 @@ public class Crossbow_Visuals : MonoBehaviour
         StartCoroutine(ChangeEmission(1));
     }
 
+    private void Start()
+    {
+        objectPool = ObjectPoolManager.instance;
+    }
+
     private void UpdateMaterialsOnLineRenders()
     {
         foreach (var lr in lineRenderers)
@@ -74,12 +82,7 @@ public class Crossbow_Visuals : MonoBehaviour
     }
 
     //擊中特效
-    public void CreateOnHitFX(Vector3 hitPoint)
-    {
-        GameObject newFX = Instantiate(onHitFX, hitPoint, Random.rotation);
-        Destroy(newFX, 1);
-    }
-
+    public void CreateOnHitFX(Vector3 hitPoint) => objectPool.Get(onHitFX, hitPoint, Random.rotation);
     private void UpdateAttackVisualsIfNeeded()
     {
         if (attackVisuals.enabled && hitPoint != Vector3.zero)

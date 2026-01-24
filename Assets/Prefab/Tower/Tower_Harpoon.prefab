@@ -765,6 +765,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 881752692442590577}
   - {fileID: 6382522900064916283}
   - {fileID: 1906258503224139415}
   m_Father: {fileID: 8567210920567253156}
@@ -953,6 +954,7 @@ GameObject:
   - component: {fileID: 9217779666801610577}
   - component: {fileID: 8983882784704538691}
   - component: {fileID: 6373511869937050335}
+  - component: {fileID: 1357229420968162940}
   m_Layer: 12
   m_Name: Tower_Harpoon
   m_TagString: Untagged
@@ -1005,6 +1007,7 @@ MonoBehaviour:
   whatIsTargetable:
     serializedVersion: 2
     m_Bits: 1024
+  towerAttacksForward: 0
   attackSfx: {fileID: 0}
   projectilePrefab: {fileID: 5266919654063318630, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
   projectileDefaultPosition: {fileID: 6382522900064916283}
@@ -1081,3 +1084,81 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!208 &1357229420968162940
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8678851651452611309}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.425, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!1001 &2203878750294933523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7062261834293719636}
+    m_Modifications:
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.211
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98160076
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.1909448
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -22.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266919654063318630, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+      propertyPath: m_Name
+      value: Projectile_Harpoon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+--- !u!4 &881752692442590577 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1344708686942334306, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
+  m_PrefabInstance: {fileID: 2203878750294933523}
+  m_PrefabAsset: {fileID: 0}

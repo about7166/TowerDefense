@@ -2,6 +2,8 @@
 
 public class Projectile_Cannon : MonoBehaviour
 {
+    private TrailRenderer trail;
+    private ObjectPoolManager objectPool;
     private Rigidbody rb;
     private float damage;
 
@@ -12,10 +14,13 @@ public class Projectile_Cannon : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        trail = GetComponent<TrailRenderer>();
     }
 
-    public void SetupProjectile(Vector3 newVelocity, float newDamage)
+    public void SetupProjectile(Vector3 newVelocity, float newDamage, ObjectPoolManager newPool)
     {
+        trail.Clear();
+        objectPool = newPool;
         rb.linearVelocity = newVelocity;
         damage = newDamage;
     }
@@ -38,9 +43,9 @@ public class Projectile_Cannon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         DamageEnemiesAround();
-        explosionFx.SetActive(true);
-        explosionFx.transform.parent = null; //讓特效不要跟著子彈一起被刪
-        Destroy(gameObject);
+
+        objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.5f, 0));
+        objectPool.Remove(gameObject);
     }
 
     private void OnDrawGizmos()

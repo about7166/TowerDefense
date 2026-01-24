@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    protected ObjectPoolManager objectPool;
     public Enemy currentEnemy;
 
     protected bool towerActive = true;
@@ -40,7 +41,7 @@ public class Tower : MonoBehaviour
 
     protected virtual void Start()
     {
-        GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
+        objectPool = ObjectPoolManager.instance;
     }
 
 
@@ -63,9 +64,9 @@ public class Tower : MonoBehaviour
             StopCoroutine(deactiveatedTowerCo);
 
         if(currentEmpFx != null)
-            Destroy(currentEmpFx);
+            objectPool.Remove(currentEmpFx);
 
-        currentEmpFx = Instantiate(empFxPrefab, transform.position + new Vector3(0,.5f,0),Quaternion.identity);
+        currentEmpFx = objectPool.Get(empFxPrefab, transform.position + new Vector3(0,.5f,0),Quaternion.identity);
         deactiveatedTowerCo = StartCoroutine(DeactivateTowerCo(duration));
     }
 
@@ -77,7 +78,7 @@ public class Tower : MonoBehaviour
 
         towerActive = true;
         lastTimeAttacked = Time.time;
-        Destroy(currentEmpFx);
+        objectPool.Remove(currentEmpFx);
     }
 
     protected virtual void LooseTargetIfNeeded()

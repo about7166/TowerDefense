@@ -25,6 +25,9 @@ public class Enemy_Flying : Enemy
         foreach (var tower in observingTowers)
             tower.ResetAttack();
 
+        foreach (var harpoon in GetComponentsInChildren<Projectile_Harpoon>())
+            objectPool.Remove(harpoon.gameObject);
+
         base.DestroyEnemy();
     }
 }

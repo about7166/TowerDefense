@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class Projectile_SpiderNest : MonoBehaviour
 {
+    private TrailRenderer trail;
+    private ObjectPoolManager objectPool;
     private NavMeshAgent agent;
     private Transform currentTarget;
 
@@ -17,7 +19,9 @@ public class Projectile_SpiderNest : MonoBehaviour
 
     private void Awake()
     {
+        trail = GetComponent<TrailRenderer>();
         agent = GetComponent<NavMeshAgent>();
+        objectPool = ObjectPoolManager.instance;
 
         InvokeRepeating(nameof(UpdateClosestTarget), 0.1f, targetUpdateInterval);//0.1f後開始第一次，接下來每targetUpdateInterval一次
     }
@@ -37,13 +41,13 @@ public class Projectile_SpiderNest : MonoBehaviour
     {
         DamageEnemiesAround();
 
-        explosionFx.transform.parent = null;
-        explosionFx.SetActive(true);
-        Destroy(gameObject);
+        objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.4f, 0));
+        objectPool.Remove(gameObject);
     }
 
     public void SetupSpider(float newDamage)
     {
+        trail.Clear();
         damage = newDamage;
         agent.enabled = true;
         transform.parent = null;

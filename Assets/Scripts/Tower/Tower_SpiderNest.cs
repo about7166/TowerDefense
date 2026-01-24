@@ -16,14 +16,13 @@ public class Tower_SpiderNest : Tower
     [SerializeField] private Transform[] attachPointRef;
 
     private GameObject[] activeSpider;
-    private int spiderInsex;
-    private Vector3 spiderPointOffset = new Vector3(0, -0.175f, 0);
+    private int spiderIndex;
+    private Vector3 spiderPointOffset = new Vector3(0, -.18f, 0);
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         InitializeSpiders();
-
         reloadTimeMultiplier = 1 - attackTimeMultiplier;
     }
 
@@ -35,7 +34,7 @@ public class Tower_SpiderNest : Tower
 
     protected override bool CanAttack()
     {
-        return Time.time > lastTimeAttacked + attackCooldown && AtLeastOneEnemyAround();
+        return Time.time > lastTimeAttacked + attackCooldown;// && AtLeastOneEnemyAround();
     }
     
     protected override void Attack()
@@ -46,19 +45,20 @@ public class Tower_SpiderNest : Tower
 
     private IEnumerator AttackCo()
     {
-        Transform currentWeb = webSet[spiderInsex];
-        Transform currentAttachPoint = attachPoint[spiderInsex];
+        Transform currentWeb = webSet[spiderIndex];
+        Transform currentAttachPoint = attachPoint[spiderIndex];
         float attackTime = (attackCooldown / 4) * attackTimeMultiplier;
         float reloadTime = (attackCooldown / 4) * reloadTimeMultiplier;
 
+
         yield return ChangeScaleCo(currentWeb, 1, attackTime);
 
-        activeSpider[spiderInsex].GetComponent<Projectile_SpiderNest>().SetupSpider(damage);
+        activeSpider[spiderIndex].GetComponent<Projectile_SpiderNest>().SetupSpider(damage);
 
-        yield return ChangeScaleCo(currentWeb, 0.1f, reloadTime);
-        activeSpider[spiderInsex] = Instantiate(spiderPrefab, currentAttachPoint.position + spiderPointOffset, Quaternion.identity, currentAttachPoint);
+        yield return ChangeScaleCo(currentWeb, .1f, reloadTime);
+        activeSpider[spiderIndex] = objectPool.Get(spiderPrefab, currentAttachPoint.position + spiderPointOffset, Quaternion.identity, currentAttachPoint);
 
-        spiderInsex = (spiderInsex + 1) % attachPoint.Length;
+        spiderIndex = (spiderIndex + 1) % attachPoint.Length;
     }
 
     private void UpdateAttachPointsPosition()
@@ -72,20 +72,20 @@ public class Tower_SpiderNest : Tower
     private void InitializeSpiders()
     {
         activeSpider = new GameObject[attachPoint.Length];
-        
+
         for (int i = 0; i < activeSpider.Length; i++)
         {
-            GameObject newSpider = Instantiate(spiderPrefab, attachPoint[i].position + spiderPointOffset, Quaternion.identity, attachPoint[i]);
+            GameObject newSpider = objectPool.Get(spiderPrefab, attachPoint[i].position + spiderPointOffset, Quaternion.identity, attachPoint[i]);
             activeSpider[i] = newSpider;
         }
     }
 
-    private IEnumerator ChangeScaleCo(Transform transform, float newScale, float duration = 0.25f)
+    private IEnumerator ChangeScaleCo(Transform transform, float newScale, float duration = .25f)
     {
         float time = 0;
 
         Vector3 initialScale = transform.localScale;
-        Vector3 targetScale = new Vector3(initialScale.x, newScale, initialScale.z); // (1, newScale, 1);
+        Vector3 targetScale = new Vector3(1, newScale, 1);
 
         while (time < duration)
         {

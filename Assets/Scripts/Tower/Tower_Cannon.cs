@@ -15,8 +15,8 @@ public class Tower_Cannon : Tower
         Vector3 velocity = CalculateLaunchVelocity();
         attackVFX.Play();
 
-        GameObject newProjectile = Instantiate(projectilePrefab, gunPoint.position, Quaternion.identity);
-        newProjectile.GetComponent<Projectile_Cannon>().SetupProjectile(velocity, damage);
+        GameObject newProjectile = objectPool.Get(projectilePrefab, gunPoint.position, Quaternion.identity);
+        newProjectile.GetComponent<Projectile_Cannon>().SetupProjectile(velocity, damage, objectPool);
     }
 
     protected override Enemy FindEnemyWithinRange()

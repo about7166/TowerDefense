@@ -8,6 +8,8 @@ public enum EnemyType { Basic, Fast, Heavy, Swarm, Stealth, Flying, BossSpider,N
 public class Enemy : MonoBehaviour , IDamagable
 {
     public Enemy_Visuals visuals { get; private set; }
+
+    protected ObjectPoolManager objectPool;
     protected NavMeshAgent agent;
     protected Rigidbody rb;
     protected EnemyPortal myPortal;
@@ -44,6 +46,8 @@ public class Enemy : MonoBehaviour , IDamagable
 
         gameManager = FindFirstObjectByType<GameManager>();
         originalSpeed = agent.speed;
+
+        objectPool = ObjectPoolManager.instance;
     }
 
     protected virtual void Start()
@@ -94,7 +98,6 @@ public class Enemy : MonoBehaviour , IDamagable
 
         disableHideCo = StartCoroutine(DisableHideCo(duration));
     }
-
     protected virtual IEnumerator DisableHideCo(float duration)
     {
         canBeHidden = false;

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2780134227816050980}
   - component: {fileID: 7905330643460758422}
   - component: {fileID: 994285537602523553}
+  - component: {fileID: -4826990817327864264}
   m_Layer: 0
   m_Name: Crossbow_OnHit_fx
   m_TagString: Untagged
@@ -4904,6 +4905,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-4826990817327864264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601840662465736758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a046c5a5307a04eb417e645b7dc0d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  removeDelay: 1
 --- !u!1 &4663046197422303519
 GameObject:
   m_ObjectHideFlags: 0

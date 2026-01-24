@@ -78,8 +78,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 15.7, y: 0.5000005, z: 10.59}
-  - {x: 5.699999, y: 0.5000005, z: 10.589999}
+  - {x: 15.71, y: 0.5000001, z: 10.69}
+  - {x: 5.709999, y: 0.5000001, z: 10.689999}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 8397721479558315641}
   - component: {fileID: 2702905089964639028}
   - component: {fileID: 8449370417783506695}
+  - component: {fileID: -4150635379981955284}
   m_Layer: 12
   m_Name: Tower_Fan
   m_TagString: Untagged
@@ -640,6 +641,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!208 &-4150635379981955284
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167651417933437089}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.425, y: 0.9, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4768089183712737665
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,8 +821,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 15.7, y: 0.5000005, z: 11.43}
-  - {x: 5.699999, y: 0.5000005, z: 11.429999}
+  - {x: 15.71, y: 0.5000001, z: 11.53}
+  - {x: 5.709999, y: 0.5000001, z: 11.529999}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Harpoon_Visuals : MonoBehaviour
 {
+    private ObjectPoolManager objectPool;
+
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform endPoint;
     [Space]
@@ -22,6 +24,7 @@ public class Harpoon_Visuals : MonoBehaviour
     private void Start()
     {
         InitializeLinks();
+        objectPool = ObjectPoolManager.instance;
     }
 
     private void Update()
@@ -34,13 +37,13 @@ public class Harpoon_Visuals : MonoBehaviour
 
     public void CreateElectricVFX(Transform targetTransform)
     {
-        currentVfx = Instantiate(onElectricVfx, targetTransform.position + vfxOffset, Quaternion.identity, targetTransform);
+        currentVfx = objectPool.Get(onElectricVfx, targetTransform.position + vfxOffset, Quaternion.identity, targetTransform);
     }
 
     private void DestroyElectricVFX()
     {
         if (currentVfx != null)
-            Destroy(currentVfx);
+            objectPool.Remove(currentVfx);
     }
 
     public void EnableChainVisuals(bool enable, Transform newEndPoint = null)
