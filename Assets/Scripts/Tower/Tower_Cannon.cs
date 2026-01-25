@@ -21,18 +21,20 @@ public class Tower_Cannon : Tower
 
     protected override Enemy FindEnemyWithinRange()
     {
-        Collider[] enemiesAround = Physics.OverlapSphere(transform.position, attackRange, whatIsEnemy);
+        int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, attackRange, allocatedColliders, whatIsEnemy);
         Enemy bestTarget = null;
         int maxNearByEnemies = 0;
 
-        foreach (Collider enemy in enemiesAround)
+        for (int i = 0; i < collidersFound; i++)
         {
-            int amountOfEnemiesAround = EnemiesAroundEnemy(enemy.transform);
+            Transform enemyTransform = allocatedColliders[i].transform;
+
+            int amountOfEnemiesAround = EnemiesAroundEnemy(enemyTransform);
 
             if (amountOfEnemiesAround > maxNearByEnemies)
             {
                 maxNearByEnemies = amountOfEnemiesAround;
-                bestTarget = enemy.GetComponent<Enemy>();
+                bestTarget = enemyTransform.GetComponent<Enemy>();
             }
         }
 
@@ -41,8 +43,7 @@ public class Tower_Cannon : Tower
 
     private int EnemiesAroundEnemy(Transform enemyToCheck)
     {
-        Collider[] enemiesAround = Physics.OverlapSphere(enemyToCheck.position, 1, whatIsEnemy);
-        return enemiesAround.Length;
+        return Physics.OverlapSphereNonAlloc(enemyToCheck.position, 1, allocatedColliders, whatIsEnemy);
     }
 
     protected override void HandleRotation()

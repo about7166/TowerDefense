@@ -30,6 +30,7 @@ public class Tower : MonoBehaviour
 
     private float targetCheckInterval = 0.1f;
     private float lastTimeCheckedTarget;
+    protected Collider[] allocatedColliders = new Collider[100];
 
     [Header("SFX 設定")]
     [SerializeField] protected AudioSource attackSfx;
@@ -44,8 +45,7 @@ public class Tower : MonoBehaviour
         objectPool = ObjectPoolManager.instance;
     }
 
-
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if (towerActive == false)
             return;
@@ -124,13 +124,18 @@ public class Tower : MonoBehaviour
         List<Enemy> priorityTargets = new List<Enemy>();
         List<Enemy> possibleTargets = new List<Enemy>();
 
-        Collider[] enemiesAround = Physics.OverlapSphere(transform.position, attackRange, whatIsEnemy);
+        int enemiesAround = Physics.OverlapSphereNonAlloc(transform.position, attackRange, allocatedColliders, whatIsEnemy);
 
-        foreach (Collider enemy in enemiesAround)
+        for (int i = 0; i < enemiesAround; i++)
         {
-            Enemy newEnemy = enemy.GetComponent<Enemy>();
+            Enemy newEnemy = allocatedColliders[i].GetComponent<Enemy>();
 
             if (newEnemy == null)
+                continue;
+
+            float distanceToEnemy = Vector3.Distance(transform.position, newEnemy.transform.position);
+
+            if (distanceToEnemy > attackRange)
                 continue;
 
             EnemyType newEnemyType = newEnemy.GetEnemyType();
@@ -170,8 +175,8 @@ public class Tower : MonoBehaviour
     }
     protected bool AtLeastOneEnemyAround()
     {
-        Collider[] enemyColliders = Physics.OverlapSphere(transform.position, attackRange, whatIsEnemy);
-        return enemyColliders.Length > 0;
+        int enemyColliders = Physics.OverlapSphereNonAlloc(transform.position, attackRange, allocatedColliders, whatIsEnemy);
+        return enemyColliders > 0;
     }
 
     protected virtual void HandleRotation()
