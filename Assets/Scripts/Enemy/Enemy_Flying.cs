@@ -20,7 +20,7 @@ public class Enemy_Flying : Enemy
 
     public void AddObservingTower(Tower_Harpoon newTower) => observingTowers.Add(newTower);
 
-    public override void DestroyEnemy()
+    public override void RemoveEnemy()
     {
         foreach (var tower in observingTowers)
             tower.ResetAttack();
@@ -28,6 +28,6 @@ public class Enemy_Flying : Enemy
         foreach (var harpoon in GetComponentsInChildren<Projectile_Harpoon>())
             objectPool.Remove(harpoon.gameObject);
 
-        base.DestroyEnemy();
+        base.RemoveEnemy();
     }
 }

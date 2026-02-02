@@ -9853,7 +9853,7 @@ GameObject:
   - component: {fileID: 1993992689927166047}
   - component: {fileID: 3356267217097872138}
   - component: {fileID: 1554024803860833502}
-  - component: {fileID: 7367040774248072003}
+  - component: {fileID: 3851501550434511977}
   m_Layer: 0
   m_Name: OnDeath_Fx
   m_TagString: Untagged
@@ -14567,7 +14567,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7367040774248072003
+--- !u!114 &3851501550434511977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14576,10 +14576,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3805164744076842558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
+  m_Script: {fileID: 11500000, guid: 58a046c5a5307a04eb417e645b7dc0d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
+  removeDelay: 1
 --- !u!1 &5425378759924616671
 GameObject:
   m_ObjectHideFlags: 0

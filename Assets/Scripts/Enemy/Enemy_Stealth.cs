@@ -10,14 +10,6 @@ public class Enemy_Stealth : Enemy
     [SerializeField] private ParticleSystem smokeFX;
     private bool canHideEnemies = true;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        InvokeRepeating(nameof(HideItself), 0.1f, hideDuration);
-        InvokeRepeating(nameof(HideEnemies), 0.1f, hideDuration); //(方法名稱, 第一次執行的延遲, 之後重複的間隔)
-    }
-
     private void HideItself() => HideEnemy(hideDuration);
 
     private void HideEnemies()
@@ -52,5 +44,13 @@ public class Enemy_Stealth : Enemy
         EnableSmoke(true);
         canBeHidden = true;
         canHideEnemies = true;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        InvokeRepeating(nameof(HideItself), 0.1f, hideDuration);
+        InvokeRepeating(nameof(HideEnemies), 0.1f, hideDuration); //(方法名稱, 第一次執行的延遲, 之後重複的間隔)
     }
 }

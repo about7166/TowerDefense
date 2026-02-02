@@ -3,29 +3,32 @@
 public class Enemy_Heavy : Enemy
 {
     [Header("敵人設定")]
-    [SerializeField] private float shieldAmount = 50;
+    [SerializeField] private float maxShield = 50;
+    [SerializeField] private float currentShield = 50;
     [SerializeField] private Enemy_Shield shieldObject;
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
+
+        currentShield = maxShield;
         EnableShieldIfNeeded();
     }
 
     private void EnableShieldIfNeeded() //護盾跟著隱形
     {
-        if (shieldObject != null & shieldAmount > 0)
+        if (shieldObject != null & currentShield > 0)
             shieldObject.gameObject.SetActive(true);
     }
 
     public override void TakeDamage(float damage)
     {
-        if (shieldAmount > 0)
+        if (currentShield > 0)
         {
-            shieldAmount -= damage;
+            currentShield -= damage;
             shieldObject.ActivateShieldImpact();
 
-            if (shieldAmount <= 0)
+            if (currentShield <= 0)
                 shieldObject.gameObject.SetActive(false);
         }
         else

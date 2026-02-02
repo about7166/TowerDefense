@@ -8,7 +8,9 @@ public class ObjectPoolManager : MonoBehaviour
     public static ObjectPoolManager instance;
 
     [Header("物件池設定")]
-    [SerializeField] private GameObject[] predefinedPools; //predefined定義
+    [SerializeField] private GameObject[] enemyPools; //predefined定義
+    [SerializeField] private GameObject[] projectilePools;
+    [SerializeField] private GameObject[] vfxPools;
     [SerializeField] private int defaultPoolSize = 50;
     [SerializeField] private int maxPoolSize = 500;
 
@@ -42,6 +44,7 @@ public class ObjectPoolManager : MonoBehaviour
         objectToGet.transform.position = position;
         objectToGet.transform.rotation = rotation ?? Quaternion.identity;
         objectToGet.transform.parent = parent;
+        objectToGet.SetActive(true);
 
         return objectToGet;
     }
@@ -64,7 +67,13 @@ public class ObjectPoolManager : MonoBehaviour
     {
         poolDictionary = new Dictionary<GameObject, ObjectPool<GameObject>>();
 
-        foreach (GameObject prefab in predefinedPools)
+        foreach (GameObject prefab in enemyPools)
+            CreateNewPool(prefab);
+
+        foreach (GameObject prefab in projectilePools)
+            CreateNewPool(prefab);
+
+        foreach (GameObject prefab in vfxPools)
             CreateNewPool(prefab);
     }
 
@@ -81,7 +90,7 @@ public class ObjectPoolManager : MonoBehaviour
 
                 // 2. actionOnGet: 當東西從池子「被借出去」時，要做什麼？
                 // 通常是把它 SetActive(true) 打開
-                actionOnGet: obj => obj.SetActive(true),
+                //actionOnGet: obj => obj.SetActive(true),
 
                 // 3. actionOnRelease: 當東西「被還回來」時，要做什麼？
                 // 通常是把它 SetActive(false) 關掉，讓它在背景待命
