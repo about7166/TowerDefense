@@ -19,6 +19,12 @@ public class GridBuilder : MonoBehaviour
 
     private bool hadFristLoad;
 
+    public void DisableShadowsIfNeeded()
+    {
+        foreach (var tile in createdTiles)
+            tile.GetComponent<TileSlot>().DisablesShadowsIfNeeded();
+    }
+
     public bool IsOnFirstLoad() //給TileAnimator用的
     {
         if (hadFristLoad == false)

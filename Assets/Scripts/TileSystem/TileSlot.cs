@@ -29,6 +29,7 @@ public class TileSlot : MonoBehaviour
         UpdateNavMesh();
 
         TurnIntoBuildSlotIfNeeded(referenceTile);//判斷是不是能建塔的地塊
+        DisablesShadowsIfNeeded();
     }
 
 
@@ -116,4 +117,23 @@ public class TileSlot : MonoBehaviour
         UpdateNavMesh();
     }
 
+    public void DisablesShadowsIfNeeded()
+    {
+        UnityEngine.Rendering.ShadowCastingMode shadowMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+        int blockedSides = 0;
+        Vector3 point = transform.position + new Vector3(0, 0.49f, 0);
+        Vector3[] direction = {Vector3.left, Vector3.right, Vector3.forward, Vector3.back};
+
+        foreach (Vector3 dir in direction)
+        {
+            if (Physics.Raycast(point, dir, 0.6f))
+                blockedSides++;
+        }
+
+        if (blockedSides == direction.Length)
+            shadowMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+        meshRenderer.shadowCastingMode = shadowMode;
+    }
 }

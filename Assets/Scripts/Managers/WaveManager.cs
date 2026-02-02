@@ -113,6 +113,7 @@ public class WaveManager : MonoBehaviour
     public void StartNewWave()
     {
         UpdateNavMeshes();
+        currentGrid.DisableShadowsIfNeeded();
         GiveEnemiesToPortals();
         EnableWaveTimer(false);
         makingNextWave = false;
