@@ -8,6 +8,7 @@ public class LevelSetup : MonoBehaviour
     private TileAnimator tileAnimator;
     private LevelManager levelManager;
     private GameManager gameManager;
+    private BuildManager buildManager;
 
     [Header("關卡詳情")]
     [SerializeField] private int levelCurrency = 1000;
@@ -20,11 +21,12 @@ public class LevelSetup : MonoBehaviour
 
     private IEnumerator Start()
     {
-        UnlockAvailableTowers();
-
         if (LevelWasLoadedToMainScene())
         {
             DeleteExtraObjects();
+
+            buildManager = FindFirstObjectByType<BuildManager>();
+            buildManager.UpdateBuildManager(myWaveManager);
 
             levelManager.UpdateCurrentGrid(myMainGrid);
 
@@ -37,10 +39,10 @@ public class LevelSetup : MonoBehaviour
             ui.EnableInGameUI(true);
 
             gameManager = FindFirstObjectByType<GameManager>();
-            gameManager.UpdateGameManager(levelCurrency, myWaveManager);
-
-            myWaveManager.ActivateWaveManager();
+            gameManager.PrepareLevel(levelCurrency, myWaveManager);
         }
+
+        UnlockAvailableTowers();
     }
 
     private bool LevelWasLoadedToMainScene()
@@ -72,6 +74,8 @@ public class LevelSetup : MonoBehaviour
 
         ui.buildButtonsUI.UpdateUnlockedButtons();
     }
+
+    public WaveManager GetWaveManager() => myWaveManager;
 
     [ContextMenu("初始化塔的資料")]
     private void InitializeTowerData()

@@ -72,4 +72,10 @@ public class GridBuilder : MonoBehaviour
 
         newTile.GetComponent<TileSlot>().TurnIntoBuildSlotIfNeeded(mainPrefab);
     }
+
+    public void MakeTilesNonInteractable(bool makeNonInteractable)
+    {
+        foreach (var tile in createdTiles)
+            tile.GetComponent<TileSlot>().MakeNonInteractable(makeNonInteractable);
+    }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private UI ui;
     private BuildManager buildManager;
@@ -101,4 +101,8 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         gameObject.name = "BuildButton_UI_" + towerName;
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ConfirmTowerBuild();
+    }
 }

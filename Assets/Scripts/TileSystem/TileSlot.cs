@@ -7,12 +7,19 @@ using UnityEngine;
 public class TileSlot : MonoBehaviour
 {
 
+    private int originalLayerIndex;
+
     private MeshRenderer meshRenderer => GetComponent<MeshRenderer>();
     private MeshFilter meshFilter => GetComponent<MeshFilter>();
     private Collider myCollder => GetComponent<Collider>();
     private NavMeshSurface myNavMesh => GetComponentInParent<NavMeshSurface>(true);
 
     private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);//判斷是不是能建塔的地塊
+
+    private void Awake()
+    {
+        originalLayerIndex = gameObject.layer;
+    }
 
     public void SwitchTile(GameObject referenceTile)
     {
@@ -29,9 +36,8 @@ public class TileSlot : MonoBehaviour
         UpdateNavMesh();
 
         TurnIntoBuildSlotIfNeeded(referenceTile);//判斷是不是能建塔的地塊
-        DisablesShadowsIfNeeded();
+        //DisablesShadowsIfNeeded();
     }
-
 
     public Material GetMaterial() => meshRenderer.sharedMaterial;
     public Mesh GetMesh() => meshFilter.sharedMesh;
@@ -104,7 +110,16 @@ public class TileSlot : MonoBehaviour
         }
     }
 
-    public void UpdateLayer(GameObject referenceObj) => gameObject.layer = referenceObj.layer;
+    public void UpdateLayer(GameObject referenceObj)
+    {
+        gameObject.layer = referenceObj.layer;
+        originalLayerIndex = gameObject.layer;
+    }
+
+    public void MakeNonInteractable(bool nonInteractable) //使其不可交互
+    {
+        gameObject.layer = nonInteractable ? 15 : originalLayerIndex;
+    }
 
     public void RotateTile(int dir)
     {

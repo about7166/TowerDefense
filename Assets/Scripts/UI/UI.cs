@@ -26,7 +26,7 @@ public class UI : MonoBehaviour
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         animatorUI = GetComponent<UI_Animator>();
 
-        //ActivateFadeEffect(true);
+        ActivateFadeEffect(true);
 
         SwitchTo(settingUI.gameObject);
         SwitchTo(mainMenuUI.gameObject);
@@ -75,9 +75,12 @@ public class UI : MonoBehaviour
 
     public void ActivateFadeEffect(bool fadeIn)
     {
+        if (fadeImageUI.gameObject.activeSelf == false)
+            return;
+
         if (fadeIn)
-            animatorUI.ChangeColor(fadeImageUI, 0, 2);
+            animatorUI.ChangeColor(fadeImageUI, 0, 1.5f);
         else
-            animatorUI.ChangeColor(fadeImageUI, 1, 2);
+            animatorUI.ChangeColor(fadeImageUI, 1, 1.5f);
     }
 }

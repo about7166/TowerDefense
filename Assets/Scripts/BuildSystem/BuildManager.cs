@@ -57,6 +57,11 @@ public class BuildManager : MonoBehaviour
         }
     }
 
+    public void UpdateBuildManager(WaveManager newWaveManager)
+    {
+        MakeBuildSlotNotAvalibleIfNeeded(newWaveManager, currentGrid);
+    }
+
     public void BuildTower(GameObject towerToBuild, int towerPrice, Transform newPreviewTower)
     {
         if (gameManager.HasEnoughCurrency(towerPrice) == false)

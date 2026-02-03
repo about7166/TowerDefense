@@ -46,6 +46,7 @@ public class TileAnimator : MonoBehaviour
 
         float offset = showGrid ? yOffset : -yOffset;
 
+        gridToMove.MakeTilesNonInteractable(true);
         currentActiveCo = StartCoroutine(MoveGridCo(objectsToMove, offset));
     }
 
@@ -67,6 +68,9 @@ public class TileAnimator : MonoBehaviour
             MoveTile(tile, targetPosition, tileMoveDuration);
         }
 
+        foreach (var tile in objectsToMove)
+            tile.GetComponent<TileSlot>()?.MakeNonInteractable(false);
+        
         isGridMoving = false;
     }
 

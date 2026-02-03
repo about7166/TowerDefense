@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public WaveManager currentActiveWaveManager;// {  get; private set; }
-    private UI_InGame inGameUI;
+    public UI_InGame inGameUI {  get; private set; }
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
 
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateGameManager(int levelCurrency, WaveManager newWaveManager)
+    public void PrepareLevel(int levelCurrency, WaveManager newWaveManager)
     {
         gameLost = false;
         enemiesKilled = 0;
@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
 
         inGameUI.UpdateHealthPointsUI(currentHp, maxHp);
         inGameUI.UpdateCurrencyUI(currency);
+
+        newWaveManager.ActivateWaveManager();
     }
 
     public void UpdateHp(int value)

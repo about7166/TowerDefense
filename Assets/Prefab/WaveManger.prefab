@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 722699382514229110}
   - component: {fileID: 8983922427767695249}
   - component: {fileID: 5956553459920475356}
+  - component: {fileID: 5477067229114251673}
   m_Layer: 0
   m_Name: WaveManger
   m_TagString: Untagged
@@ -488,9 +489,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGrid: {fileID: 0}
+  droneNavSurface: {fileID: 5477067229114251673}
   flyingNavSurface: {fileID: 5956553459920475356}
   flyingNavMeshColliders: []
-  timeBetweenWaves: 0.5
+  timeBetweenWaves: 2
   waveTimer: 0
   levelWaves:
   - nextGrid: {fileID: 0}
@@ -501,7 +503,17 @@ MonoBehaviour:
     swarmEnemy: 0
     stealthEnemy: 0
     flyingEnemy: 0
-    flyingBossEnemy: 0
+    flyingBossEnemy: 1
+    spiderBossEnemy: 0
+  - nextGrid: {fileID: 0}
+    newPortals: []
+    basicEnemy: 0
+    fastEnemy: 0
+    heavyEnemy: 0
+    swarmEnemy: 0
+    stealthEnemy: 0
+    flyingEnemy: 0
+    flyingBossEnemy: 1
     spiderBossEnemy: 0
   waveIndex: 0
   yOffset: 5
@@ -545,7 +557,39 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9c31c68eb7863724a9e70997f6145e68, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: bb289fa3b4d37d8419087e4509486e17, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!114 &5477067229114251673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829720657498045023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 16449
+  m_UseGeometry: 0
+  m_DefaultArea: 4
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.033333335
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!1 &5351313409379185554
 GameObject:
@@ -575,8 +619,8 @@ Transform:
   m_GameObject: {fileID: 5351313409379185554}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.707106, z: -0, w: 0.7071076}
-  m_LocalPosition: {x: 16.098087, y: 2.2500002, z: 2.5179646}
-  m_LocalScale: {x: 0.5499678, y: 1, z: 0.20008454}
+  m_LocalPosition: {x: 15.8233, y: 2.25, z: 3.6649}
+  m_LocalScale: {x: 0.7793594, y: 1, z: 0.25504777}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 722699382514229110}
