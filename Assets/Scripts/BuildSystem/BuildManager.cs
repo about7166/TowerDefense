@@ -29,7 +29,7 @@ public class BuildManager : MonoBehaviour
         ui = FindFirstObjectByType<UI>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
 
-        MakeBuildSlotNotAvalibleIfNeeded(waveManger, currentGrid);
+        //MakeBuildSlotNotAvalibleIfNeeded(waveManger, currentGrid);
     }
 
     private void Start()
@@ -57,8 +57,9 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    public void UpdateBuildManager(WaveManager newWaveManager)
+    public void UpdateBuildManager(WaveManager newWaveManager, GridBuilder newCurrentGrid)
     {
+        currentGrid = newCurrentGrid;
         MakeBuildSlotNotAvalibleIfNeeded(newWaveManager, currentGrid);
     }
 
@@ -118,7 +119,7 @@ public class BuildManager : MonoBehaviour
                 TileSlot nextTile = nextWaveGrid[i].GetComponent<TileSlot>();
 
                 bool tileNotTheSame = currentTile.GetMesh() != nextTile.GetMesh() ||
-                                      currentTile.GetMaterial() != nextTile.GetMaterial() ||
+                                      currentTile.GetOriginalMaterial() != nextTile.GetOriginalMaterial() ||
                                       currentTile.GetAllChildren().Count != nextTile.GetAllChildren().Count;
 
                 if (tileNotTheSame == false)

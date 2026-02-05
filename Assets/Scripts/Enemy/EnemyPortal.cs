@@ -9,6 +9,7 @@ public class EnemyPortal : MonoBehaviour
     [SerializeField] private WaveManager myWaveManager;
     [SerializeField] private float spawnCooldown;
     private float spawnTimer;
+    private bool canCreateEnemies = true;
 
     [Space]
 
@@ -28,8 +29,8 @@ public class EnemyPortal : MonoBehaviour
     {
         CollectWaypoints();
 
-        if (myWaveManager == null)
-            myWaveManager = FindFirstObjectByType<LevelSetup>().GetWaveManager();
+        //if (myWaveManager == null)
+        //    myWaveManager = FindFirstObjectByType<LevelSetup>().GetWaveManager();
     }
 
     private void Start()
@@ -59,6 +60,9 @@ public class EnemyPortal : MonoBehaviour
 
     private void CreateEnemy()
     {
+        if (canCreateEnemies == false)
+            return;
+
         GameObject randomEnemy = GetRandomEnemy();
         GameObject newEnemy = objectPool.Get(randomEnemy, transform.position, Quaternion.identity);
 
@@ -110,7 +114,7 @@ public class EnemyPortal : MonoBehaviour
         myWaveManager.CheckIfWaveCompleted();
     }
     public List<GameObject> GetActiveEnemies() => activeEnemies;
-
+    public void CanCreateNewEnemies(bool canCreate) => canCreateEnemies = canCreate;
 
     [ContextMenu("收集怪物路徑")]
     private void CollectWaypoints()

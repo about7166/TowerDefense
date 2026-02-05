@@ -26,7 +26,7 @@ public class LevelSetup : MonoBehaviour
             DeleteExtraObjects();
 
             buildManager = FindFirstObjectByType<BuildManager>();
-            buildManager.UpdateBuildManager(myWaveManager);
+            buildManager.UpdateBuildManager(myWaveManager, myMainGrid);
 
             levelManager.UpdateCurrentGrid(myMainGrid);
 

@@ -44,6 +44,14 @@ public class GameManager : MonoBehaviour
         inGameUI.UpdateCurrencyUI(currency);
     }
 
+    public void StopMakingEnemies()
+    {
+        EnemyPortal[] portals = FindObjectsOfType<EnemyPortal>();
+
+        foreach (var portal in portals)
+            portal.CanCreateNewEnemies(false);
+    }
+
     public bool IsTestingLevel() => levelManager == null;
 
     public IEnumerator LevelFailedCo()

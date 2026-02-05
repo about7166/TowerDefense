@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -22,6 +23,11 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private GridBuilder mainSceneGrid;
     private Coroutine currentActiveCo;
     private bool isGridMoving; //避免BuildSlot裡的游標動畫影響
+
+    [Header("地塊溶解效果設定")]
+    [SerializeField] private Material dissolveMaterial;
+    [SerializeField] private float dissolveDuration = 1.2f;
+    [SerializeField] private List<Transform> dissolvingObjects = new List<Transform>();
 
     private void Start()
     {
@@ -47,10 +53,10 @@ public class TileAnimator : MonoBehaviour
         float offset = showGrid ? yOffset : -yOffset;
 
         gridToMove.MakeTilesNonInteractable(true);
-        currentActiveCo = StartCoroutine(MoveGridCo(objectsToMove, offset));
+        currentActiveCo = StartCoroutine(MoveGridCo(objectsToMove, offset, showGrid));
     }
 
-    private IEnumerator MoveGridCo(List<GameObject> objectsToMove, float yOffset)
+    private IEnumerator MoveGridCo(List<GameObject> objectsToMove, float yOffset, bool showGrid)
     {
         isGridMoving = true;
 
@@ -65,7 +71,13 @@ public class TileAnimator : MonoBehaviour
 
             Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
 
-            MoveTile(tile, targetPosition, tileMoveDuration);
+            DissolveTile(showGrid, tile);
+            MoveTile(tile, targetPosition, showGrid, tileMoveDuration);
+        }
+
+        while (dissolvingObjects.Count > 0)
+        {
+            yield return null;
         }
 
         foreach (var tile in objectsToMove)
@@ -74,14 +86,17 @@ public class TileAnimator : MonoBehaviour
         isGridMoving = false;
     }
 
-    public void MoveTile(Transform objectToMove, Vector3 targetPosition, float? newDuration = null)
+    public void MoveTile(Transform objectToMove, Vector3 targetPosition, bool showGrid, float? newDuration = null)
     {
+        float moveDelay = showGrid ? 0 : 0.8f;
         float duration = newDuration ?? defaultMoveDuration;
-        StartCoroutine(MoveTileCo(objectToMove, targetPosition, duration));
+        StartCoroutine(MoveTileCo(objectToMove, targetPosition, moveDelay, duration));
     }
 
-    public IEnumerator MoveTileCo(Transform objectToMove, Vector3 targetPosition, float? newDuration = null)
+    public IEnumerator MoveTileCo(Transform objectToMove, Vector3 targetPosition, float delay = 0, float? newDuration = null)
     {
+        yield return new WaitForSeconds(delay);
+
         float time = 0;
         Vector3 startPosition = objectToMove.position;
 
@@ -100,6 +115,64 @@ public class TileAnimator : MonoBehaviour
 
         if (objectToMove != null)
             objectToMove.position = targetPosition;
+    }
+
+    public void DissolveTile(bool showtTile, Transform tile)
+    {
+        MeshRenderer[] meshRenderers = tile.GetComponentsInChildren<MeshRenderer>();
+
+        if (tile.GetComponent<TileSlot>() != null)
+        {
+            foreach (MeshRenderer mesh in meshRenderers)
+            {
+                StartCoroutine(DissolveTileCo(mesh, dissolveDuration, showtTile));
+            }
+        }
+    }
+
+    private IEnumerator DissolveTileCo(MeshRenderer meshRenderer, float duration, bool showTile)
+    {
+        TextMeshPro textMeshPro = meshRenderer.GetComponent<TextMeshPro>();
+
+        if (textMeshPro != null)
+        {
+            textMeshPro.enabled = showTile;
+            yield break;
+        }
+
+        dissolvingObjects.Add(meshRenderer.transform);
+
+        float startValue = showTile ? 1 : 0;
+        float targetValue = showTile ? 0 : 1;
+
+        Material originalMaterial = meshRenderer.material; //抓原本的材質
+
+        // 指派一個新的溶解材質實例（Instance），以避免修改到共用的材質（Shared Materials）
+        meshRenderer.material = new Material(dissolveMaterial);
+
+        Material dissolveMatInstance = meshRenderer.material;
+
+        dissolveMatInstance.SetColor("_BaseColor", originalMaterial.GetColor("_BaseColor"));
+        dissolveMatInstance.SetFloat("_Metallic", originalMaterial.GetFloat("_Metallic"));
+        dissolveMatInstance.SetFloat("_Smoothness", originalMaterial.GetFloat("_Smoothness"));
+        dissolveMatInstance.SetFloat("_Dissolve", startValue);
+
+        float time = 0;
+
+        while (time < duration)
+        {
+            float currentDissolveValue = Mathf.Lerp(startValue, targetValue, time / duration);
+
+            dissolveMatInstance.SetFloat("_Dissolve", currentDissolveValue);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        meshRenderer.material = originalMaterial;
+
+        if (meshRenderer != null)
+            dissolvingObjects.Remove(meshRenderer.transform);
     }
 
     private void ApplyOffset(List<GameObject> objectsToMove, Vector3 offset)

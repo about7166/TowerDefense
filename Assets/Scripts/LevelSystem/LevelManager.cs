@@ -91,6 +91,7 @@ public class LevelManager : MonoBehaviour
 
     private void CleanUpScene()
     {
+        GameManager.instance.StopMakingEnemies();
         EliminateAllEnemies();
         EliminateAllTowers();
 

@@ -177,7 +177,7 @@ public class WaveManager : MonoBehaviour
             TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
 
             bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
-                                   currentTile.GetMaterial() != newTile.GetMaterial() ||
+                                   currentTile.GetOriginalMaterial() != newTile.GetOriginalMaterial() ||
                                    currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
                                    currentTile.transform.rotation != newTile.transform.rotation;
 
@@ -218,15 +218,19 @@ public class WaveManager : MonoBehaviour
         newTile.transform.parent = currentGrid.transform;
 
         Vector3 targetPosition = newTile.transform.position + new Vector3(0, yOffset, 0);
-        tileAnimator.MoveTile(newTile.transform, targetPosition);
+
+        tileAnimator.DissolveTile(true, newTile.transform);
+        tileAnimator.MoveTile(newTile.transform, targetPosition, true);
     }
 
     private void RemoveTile(TileSlot tileToRemove)
     {
         Vector3 targetPosition = tileToRemove.transform.position + new Vector3(0, -yOffset, 0);
-        tileAnimator.MoveTile(tileToRemove.transform, targetPosition);
 
-        Destroy(tileToRemove.gameObject, 1);
+        tileAnimator.DissolveTile(false, tileToRemove.transform);
+        tileAnimator.MoveTile(tileToRemove.transform, targetPosition, false);
+
+        Destroy(tileToRemove.gameObject, 3);
     }
 
     private void EnableWaveTimer(bool enable)
@@ -243,6 +247,7 @@ public class WaveManager : MonoBehaviour
     {
         foreach (EnemyPortal portal in newPortals)
         {
+            portal.CanCreateNewEnemies(true);
             portal.AssignWaveManager(this);
             portal.gameObject.SetActive(true);
             enemyPortals.Add(portal);
