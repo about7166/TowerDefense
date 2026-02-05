@@ -35,7 +35,7 @@ public class Enemy_Visuals_Swarm : Enemy_Visuals
         myTrail.transform.localPosition = Vector3.zero;
     }
 
-    public void OnEnable()
+    private void OnEnable()
     {
         EnableTrail();
     }

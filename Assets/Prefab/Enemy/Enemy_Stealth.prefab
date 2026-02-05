@@ -9743,7 +9743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 4
   centerPoint: {fileID: 8872553501055630327}
-  healthPoint: 4
+  maxHp: 5
+  currentHp: 5
   turnSpeed: 10
   myWaypoints: []
   enemiesToHide: []
@@ -9762,6 +9763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDeathFx: {fileID: 3805164744076842558, guid: aa9c3a5529bb3944db8c15b27ab2df95, type: 3}
+  onDeathFxScale: 0.5
   visuals: {fileID: 7905439349824848400}
   whatIsGround:
     serializedVersion: 2

@@ -11,11 +11,18 @@ public class LevelManager : MonoBehaviour
     private GridBuilder currentActiveGrid;
     public string currentLevelName { get; private set; }
 
+    [Header("更換背景顏色設定")]
+    [SerializeField] private MeshRenderer groundMesh;
+    private Color defaultColor;
+
     private void Awake()
     {
         cameraEffects = FindFirstObjectByType<CameraEffects>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         ui = FindFirstObjectByType<UI>();
+
+        defaultColor = groundMesh.material.color;
+        groundMesh.material = new Material(groundMesh.material);
     }
 
     private void Update()
@@ -71,6 +78,8 @@ public class LevelManager : MonoBehaviour
         cameraEffects.SwitchToMenuView();
 
         yield return tileAnimator.GetCurrentActiveCo();
+
+        UpdateBackgroundColor(defaultColor);
         UnloadCurrentScene();
 
         tileAnimator.EnableMainSceneObjects(true);
@@ -119,8 +128,29 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void UpdateCurrentGrid(GridBuilder newGrid) => currentActiveGrid = newGrid;
+    public void UpdateBackgroundColor(Color targetColor)
+    {
+        StartCoroutine(UpdateBackgroundColorCo(targetColor, 1.5f));
+    }
 
+    private IEnumerator UpdateBackgroundColorCo(Color targetColor, float duration)
+    {
+        float time = 0;
+        Color startColor = groundMesh.material.color;
+
+        while (time < duration)
+        {
+            Color currentColor = Color.Lerp(startColor, targetColor, time / duration);
+            groundMesh.material.color = currentColor;
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        groundMesh.material.color = targetColor;
+    }
+
+    public void UpdateCurrentGrid(GridBuilder newGrid) => currentActiveGrid = newGrid;
     public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentLevelName) + 1;
     public string GetNextLevelName() => "Level_" + GetNextLevelIndex();
     public bool HasNoMoreLevels() => GetNextLevelIndex() >= SceneManager.sceneCountInBuildSettings;

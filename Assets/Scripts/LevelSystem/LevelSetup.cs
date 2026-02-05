@@ -18,6 +18,7 @@ public class LevelSetup : MonoBehaviour
     [SerializeField] private GridBuilder myMainGrid;
     [SerializeField] private WaveManager myWaveManager;
     [SerializeField] private List<GameObject> extraObjectsToDelete = new List<GameObject>();
+    [SerializeField] private Material groundMaterial;
 
     private IEnumerator Start()
     {
@@ -29,6 +30,7 @@ public class LevelSetup : MonoBehaviour
             buildManager.UpdateBuildManager(myWaveManager, myMainGrid);
 
             levelManager.UpdateCurrentGrid(myMainGrid);
+            levelManager.UpdateBackgroundColor(groundMaterial.color);
 
             tileAnimator = FindFirstObjectByType<TileAnimator>();
             tileAnimator.ShowGrid(myMainGrid, true);
@@ -64,11 +66,11 @@ public class LevelSetup : MonoBehaviour
     {
         UI ui = FindFirstObjectByType<UI>();
 
-        foreach (var unlockDate in towerUnlocks)//找每座塔的資料
+        foreach (var unlockData in towerUnlocks)//找每座塔的資料
         {
             foreach (var buildButton in ui.buildButtonsUI.GetBuildButtons())//找按鈕
             {
-                buildButton.UnlockTowerIfNeeded(unlockDate.towerName, unlockDate.unlocked);
+                buildButton.UnlockTowerIfNeeded(unlockData.towerName, unlockData.unlocked);
             }
         }
 

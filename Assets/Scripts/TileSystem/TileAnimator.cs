@@ -77,12 +77,25 @@ public class TileAnimator : MonoBehaviour
 
         while (dissolvingObjects.Count > 0)
         {
+            // 🔴 加個保險：如果場景正在切換，dissolvingObjects 裡的物件被毀了，要把它們踢掉
+            dissolvingObjects.RemoveAll(item => item == null);
             yield return null;
         }
 
+        // 🔴 修正第 84 行的錯誤：
         foreach (var tile in objectsToMove)
-            tile.GetComponent<TileSlot>()?.MakeNonInteractable(false);
-        
+        {
+            // 檢查 tile 是否還存在 (沒有被 Destroy)
+            if (tile != null)
+            {
+                TileSlot slot = tile.GetComponent<TileSlot>();
+                if (slot != null)
+                {
+                    slot.MakeNonInteractable(false);
+                }
+            }
+        }
+
         isGridMoving = false;
     }
 

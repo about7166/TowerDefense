@@ -758,8 +758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 5
   centerPoint: {fileID: 37416913854084659}
-  maxHp: 100
-  currentHp: 4
+  maxHp: 50
+  currentHp: 50
   turnSpeed: 10
   myWaypoints: []
   bossUnitPrefab: {fileID: 2605609121433619221, guid: 5a19a326f92590340aebfc169e557fa1, type: 3}

@@ -401,10 +401,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 2
   centerPoint: {fileID: 7197429290306692785}
-  healthPoint: 30
+  maxHp: 100
+  currentHp: 100
   turnSpeed: 10
   myWaypoints: []
-  shieldAmount: 50
+  maxShield: 50
+  currentShield: 50
   shieldObject: {fileID: 2202293286699809434}
 --- !u!114 &765885748423094734
 MonoBehaviour:

@@ -20,7 +20,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private TextMeshProUGUI towerNameText;
     [SerializeField] private TextMeshProUGUI towerPriceText;
 
-    private TowerPreview towerPreview;
+    public TowerPreview towerPreview;
     public bool buttonUnlocked {  get; private set; }
 
     private void Awake()

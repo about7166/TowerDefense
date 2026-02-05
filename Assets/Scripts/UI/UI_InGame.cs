@@ -75,14 +75,26 @@ public class UI_InGame : MonoBehaviour
     public void UpdateWaveTimerUI(float value) => waveTimerText.text = "Seconds : " + value.ToString("00");
     public void EnableWaveTimer(bool enable)
     {
+        // 🔴 關鍵防護：如果 UI 本身已經關閉了，或者物件正在被毀滅中，就直接跳過
+        if (this == null || !gameObject.activeInHierarchy)
+            return;
+
+        if (waveTimer == null) return;
+
         RectTransform rect = waveTimer.GetComponent<RectTransform>();
         float yOffset = enable ? -waveTimerOffset : waveTimerOffset;
-
         Vector3 offset = new Vector3(0, yOffset);
 
+        // 🔴 防護：確保 uiAnimator 還活著
+        if (uiAnimator == null) uiAnimator = GetComponentInParent<UI_Animator>();
+        if (uiAnimator == null) return;
+
+        if (waveTimerMoveCo != null) StopCoroutine(waveTimerMoveCo);
 
         waveTimerMoveCo = StartCoroutine(uiAnimator.ChangePositionCo(rect, offset));
-        waveTimerTextBlinkEffect.EnableBlink(enable);
+
+        if (waveTimerTextBlinkEffect != null)
+            waveTimerTextBlinkEffect.EnableBlink(enable);
     }
 
     public void SnapTimerToDefaultPosition()

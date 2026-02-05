@@ -30784,6 +30784,8 @@ MonoBehaviour:
   - {fileID: 938328398}
   - {fileID: 1083179080}
   - {fileID: 905632905}
+  - {fileID: 2551959638299569652}
+  groundMaterial: {fileID: 2100000, guid: be4658cd514d23440a4b1e57444c8b6b, type: 2}
 --- !u!4 &588375399
 Transform:
   m_ObjectHideFlags: 0

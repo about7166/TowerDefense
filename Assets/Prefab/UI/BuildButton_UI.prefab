@@ -138,6 +138,7 @@ MonoBehaviour:
   towerToBuild: {fileID: 5258864401243833045, guid: de73f73f5fa7d8e42baa9fd4566f600d, type: 3}
   towerNameText: {fileID: 1811772069541609473}
   towerPriceText: {fileID: 5341946123918081290}
+  towerPreview: {fileID: 0}
 --- !u!114 &104248711734322356
 MonoBehaviour:
   m_ObjectHideFlags: 0
