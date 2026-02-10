@@ -24858,8 +24858,9 @@ GameObject:
   - component: {fileID: 3252617569650437012}
   - component: {fileID: 2932236982053721838}
   - component: {fileID: 3131787511972657812}
+  - component: {fileID: -8586381768272650150}
   m_Layer: 12
-  m_Name: Tower_Hammer
+  m_Name: Tower_Hammer_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24912,6 +24913,9 @@ MonoBehaviour:
     m_Bits: 128
   towerAttacksForward: 0
   attackSfx: {fileID: 0}
+  nextUpgradePrefab: {fileID: 0}
+  upgradeCost: 100
+  sellReward: 50
   slowMultiplier: 0.4
   slowDuration: 2
 --- !u!114 &4941643595439936587
@@ -25003,6 +25007,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.85, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &-8586381768272650150
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859414018800471089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.85, y: 1.7, z: 1}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &6985680297576578450
 GameObject:
   m_ObjectHideFlags: 0

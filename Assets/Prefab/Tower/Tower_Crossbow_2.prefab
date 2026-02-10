@@ -619,7 +619,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -1365,9 +1365,9 @@ GameObject:
   - component: {fileID: 1698358345724360636}
   - component: {fileID: 5641115936915266139}
   - component: {fileID: 8328681372980220569}
-  - component: {fileID: 5089191645158240339}
+  - component: {fileID: 5153002303978061779}
   m_Layer: 12
-  m_Name: Tower_Crossbow
+  m_Name: Tower_Crossbow_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1421,10 +1421,10 @@ MonoBehaviour:
     m_Bits: 129
   towerAttacksForward: 0
   attackSfx: {fileID: 5004680671661687285}
-  nextUpgradePrefab: {fileID: 7222356455492698134, guid: 6fd464696a4a0334d8510c20ee88e970, type: 3}
-  upgradeCost: 20
-  sellReward: 7
-  damage: 2
+  nextUpgradePrefab: {fileID: 0}
+  upgradeCost: 0
+  sellReward: 21
+  damage: 5
 --- !u!114 &5186443242408838718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,7 +1528,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.035, y: 1.1, z: 0}
   m_TimeToStationary: 0.5
---- !u!65 &5089191645158240339
+--- !u!65 &5153002303978061779
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

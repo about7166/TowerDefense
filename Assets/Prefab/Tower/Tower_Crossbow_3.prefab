@@ -1367,7 +1367,7 @@ GameObject:
   - component: {fileID: 8328681372980220569}
   - component: {fileID: 5153002303978061779}
   m_Layer: 12
-  m_Name: Tower_Crossbow_LV2
+  m_Name: Tower_Crossbow_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

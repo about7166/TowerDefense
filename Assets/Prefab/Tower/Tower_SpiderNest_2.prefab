@@ -100,8 +100,9 @@ GameObject:
   - component: {fileID: 814080474338696896}
   - component: {fileID: 1001540684072993461}
   - component: {fileID: 8063626687097303199}
+  - component: {fileID: 8629132379059581947}
   m_Layer: 12
-  m_Name: Tower_SpiderNest
+  m_Name: Tower_SpiderNest_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,6 +158,9 @@ MonoBehaviour:
     m_Bits: 0
   towerAttacksForward: 0
   attackSfx: {fileID: 0}
+  nextUpgradePrefab: {fileID: 0}
+  upgradeCost: 100
+  sellReward: 50
   damage: 15
   spiderPrefab: {fileID: 1005620888706481572, guid: d8f09373acc6a914a82ae4816bf25786, type: 3}
   attackTimeMultiplier: 0.4
@@ -240,6 +244,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.35, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &8629132379059581947
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550870603370131365}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.85, y: 2.7, z: 1}
+  m_Center: {x: 0, y: 1.35, z: 0}
 --- !u!1 &739717383718664149
 GameObject:
   m_ObjectHideFlags: 0

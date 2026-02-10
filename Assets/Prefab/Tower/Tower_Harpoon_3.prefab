@@ -955,8 +955,9 @@ GameObject:
   - component: {fileID: 8983882784704538691}
   - component: {fileID: 6373511869937050335}
   - component: {fileID: 1357229420968162940}
+  - component: {fileID: -8188748169455667228}
   m_Layer: 12
-  m_Name: Tower_Harpoon
+  m_Name: Tower_Harpoon_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1009,6 +1010,9 @@ MonoBehaviour:
     m_Bits: 1024
   towerAttacksForward: 0
   attackSfx: {fileID: 0}
+  nextUpgradePrefab: {fileID: 0}
+  upgradeCost: 100
+  sellReward: 50
   projectilePrefab: {fileID: 5266919654063318630, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
   projectileDefaultPosition: {fileID: 6382522900064916283}
   projectileSpeed: 15
@@ -1100,6 +1104,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.5, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &-8188748169455667228
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8678851651452611309}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.85, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &2203878750294933523
 PrefabInstance:
   m_ObjectHideFlags: 0
