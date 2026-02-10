@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour , IPointerDownHandler
 {
     protected ObjectPoolManager objectPool;
     public Enemy currentEnemy;
@@ -35,6 +36,14 @@ public class Tower : MonoBehaviour
     [Header("SFX 設定")]
     [SerializeField] protected AudioSource attackSfx;
 
+    [Header("升級系統")]
+    public Tower nextUpgradePrefab;
+    public int upgradeCost = 100;
+
+    // ★ 新增：賣出價格
+    [Tooltip("賣掉這座塔可以拿回多少錢")]
+    public int sellReward = 50;
+
 
     protected virtual void Awake()
     {
@@ -56,6 +65,19 @@ public class Tower : MonoBehaviour
 
         if (CanAttack())
             AttemptToAttack();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // 檢查是否點擊到 UI (這行其實在新系統會自動處理，但保留著也無妨)
+        // 注意：如果你有點擊穿透問題，這裡通常不需要改，
+        // 因為 EventSystem 會自動判斷擋在前面的 UI。
+
+        // 呼叫升級選單
+        if (TowerUpgradeUI.instance != null)
+        {
+            TowerUpgradeUI.instance.SelectTower(this);
+        }
     }
 
     public void DeactivateTower(float duration, GameObject empFxPrefab)

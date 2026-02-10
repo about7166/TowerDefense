@@ -576,6 +576,9 @@ MonoBehaviour:
     m_Bits: 0
   towerAttacksForward: 1
   attackSfx: {fileID: 0}
+  nextUpgradePrefab: {fileID: 0}
+  upgradeCost: 100
+  sellReward: 50
   revealFrequency: 0.1
   revealDuration: 1
 --- !u!114 &8397721479558315641

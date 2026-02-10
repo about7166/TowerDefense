@@ -23,7 +23,20 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // --- 單例模式保護機制 ---
+        if (instance != null && instance != this)
+        {
+            // 如果已經有老大了，我這個新來的(分身)就自我毀滅
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
+        // ----------------------
+
+        // 加上這行：因為場景切換時我們不希望這個唯一的管理者被刪掉
+        // 但因為你的主場景通常不會被卸載，這行看情況加，不加也沒關係
+        // DontDestroyOnLoad(gameObject); 
 
         inGameUI = FindFirstObjectByType<UI_InGame>(FindObjectsInactive.Include);
         levelManager = FindFirstObjectByType<LevelManager>();
@@ -117,13 +130,13 @@ public class GameManager : MonoBehaviour
 
     public bool HasEnoughCurrency(int price)
     {
-        if (price < currency)
+        if (price <= currency)
         {
             currency = currency - price;
             inGameUI.UpdateCurrencyUI(currency);
+
             return true;
         }
-
         return false;
     }
 }

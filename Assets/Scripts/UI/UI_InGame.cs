@@ -70,7 +70,7 @@ public class UI_InGame : MonoBehaviour
     //"威脅值"改成"血量
     public void UpdateHealthPointsUI(int currentHp, int maxHp) => healthPointText.text = "Health : " + currentHp + "/" + maxHp;
 
-    public void UpdateCurrencyUI(int value) => currencyText.text = "Resources : " + value;
+    public void UpdateCurrencyUI(int value) => currencyText.text = "$ " + value;
 
     public void UpdateWaveTimerUI(float value) => waveTimerText.text = "Seconds : " + value.ToString("00");
     public void EnableWaveTimer(bool enable)

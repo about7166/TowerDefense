@@ -30754,7 +30754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f0b8ca85968d849a20c47e2af526b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCurrency: 1000
+  levelCurrency: 100
   towerUnlocks:
   - towerName: Crossbow
     unlocked: 1
@@ -38257,6 +38257,10 @@ PrefabInstance:
       propertyPath: currentGrid
       value: 
       objectReference: {fileID: 4673499679714831265}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: timeBetweenWaves
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.size
       value: 2
