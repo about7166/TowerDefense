@@ -19,7 +19,14 @@ public class Enemy : MonoBehaviour , IDamagable
     [SerializeField] private Transform centerPoint;
     public float maxHp = 100;
     public float currentHp = 4;
-    protected bool isDead; 
+    protected bool isDead;
+
+    [Header("掉落與傷害設定")]
+    [Tooltip("死亡時掉落的金錢")]
+    [SerializeField] private int moneyReward = 15;
+
+    [Tooltip("碰到主堡時扣除的血量")]
+    [SerializeField] private int damageToCastle = 1;
 
     [Header("移動")]
     [SerializeField] private float turnSpeed = 10;
@@ -244,7 +251,17 @@ public class Enemy : MonoBehaviour , IDamagable
 
     public virtual void Die()
     {
-        gameManager.UpdateCurrency(1);//在GameManger裡的UpdateCurrency 用來做殺掉怪的掉落
+        gameManager.UpdateCurrency(moneyReward);
+        RemoveEnemy();
+    }
+
+    // 當敵人抵達終點 (或撞到主堡) 時呼叫這個方法
+    public void ReachCastleAndDealDamage()
+    {
+        // 傳入負的 damageToCastle 來扣主堡血量
+        gameManager.UpdateHp(-damageToCastle);
+
+        // 撞到主堡後，將自己從場上移除
         RemoveEnemy();
     }
 
