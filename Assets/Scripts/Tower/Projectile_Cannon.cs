@@ -42,6 +42,14 @@ public class Projectile_Cannon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // ✅ 修正版：直接檢查對方腳本，不用管 Tag 了
+        if (other.GetComponent<Tower>() != null)
+            return;
+
+        // 也要忽略自己人 (其他大砲子彈)
+        if (other.GetComponent<Projectile_Cannon>() != null)
+            return;
+
         DamageEnemiesAround();
 
         objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.5f, 0));

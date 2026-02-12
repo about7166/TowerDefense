@@ -136,4 +136,7 @@ public class EnemyPortal : MonoBehaviour
             currentWaypoints[i] = waypointList[i].transform.position;
         }
     }
+
+    // 新增這個方法：告訴外面還有多少怪在排隊
+    public bool HasEnemiesToSpawn() => enemiesToCreate.Count > 0;
 }

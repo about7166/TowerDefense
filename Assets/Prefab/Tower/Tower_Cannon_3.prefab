@@ -10456,8 +10456,8 @@ MonoBehaviour:
   towerAttacksForward: 0
   attackSfx: {fileID: 0}
   nextUpgradePrefab: {fileID: 0}
-  upgradeCost: 100
-  sellReward: 50
+  upgradeCost: 0
+  sellReward: 945
   damage: 15
   projectilePrefab: {fileID: 1313409016005531288, guid: ac0e290506b5ba948a979d419ade31f0, type: 3}
   timeToTarget: 1.5

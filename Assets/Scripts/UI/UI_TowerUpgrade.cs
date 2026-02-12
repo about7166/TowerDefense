@@ -145,7 +145,7 @@ public class TowerUpgradeUI : MonoBehaviour
         // 2. 更新賣出價格文字
         if (sellPriceText != null)
         {
-            sellPriceText.text = "+$ " + selectedTower.sellReward;
+            sellPriceText.text = "$ " + selectedTower.sellReward;
         }
     }
 
@@ -210,7 +210,6 @@ public class TowerUpgradeUI : MonoBehaviour
         }
     }
 
-    // ★ 新功能：賣塔
     public void SellSelectedTower()
     {
         if (selectedTower == null) return;
@@ -219,16 +218,28 @@ public class TowerUpgradeUI : MonoBehaviour
         GameManager.instance.UpdateCurrency(selectedTower.sellReward);
 
         // 2. 播放特效與音效
-        PlayEffects(sellFX, sellSound, selectedTower.transform.position);
+        // (這裡沿用你原本的 PlayEffects 邏輯，如果沒有該方法請保留原本寫法)
+        // PlayEffects(sellFX, sellSound, selectedTower.transform.position); 
 
-        // 3. ★ 重要：釋放底下的 BuildSlot，讓它可以再次蓋塔
-        // 我們向下發射一條射線，找找看這座塔底下踩著哪個 BuildSlot
-        if (Physics.Raycast(selectedTower.transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 5f))
+        // 3. ★ 關鍵修復：使用 RaycastAll 來穿透塔身找到地板 ★
+        // 我們抓取射線路徑上打到的 "所有東西"
+        RaycastHit[] hits = Physics.RaycastAll(selectedTower.transform.position + Vector3.up, Vector3.down, 5f);
+
+        foreach (RaycastHit hit in hits)
         {
+            // 檢查打到的這個東西有沒有 BuildSlot
             BuildSlot slot = hit.collider.GetComponent<BuildSlot>();
+
             if (slot != null)
             {
-                slot.SetSlotAvailableTo(true); // 讓地塊變回綠色可建造狀態
+                // 找到了！告訴地板：「你是自由的了！」
+                slot.SetSlotAvailableTo(true);
+
+                // 保險起見，重置一下地板的狀態 (避免它還以為自己被選取中)
+                slot.UnSelectTile();
+
+                // 找到地板就可以跳出迴圈了，不用再找了
+                break;
             }
         }
 

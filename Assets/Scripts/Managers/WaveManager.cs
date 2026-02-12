@@ -9,7 +9,11 @@ public class WaveDetails
     public GridBuilder nextGrid;
     public EnemyPortal[] newPortals;
     public int basicEnemy;
+    public int basicEnemy_2;
+    public int basicEnemy_3;
     public int fastEnemy;
+    public int fastEnemy_2;
+    public int fastEnemy_3;
     public int heavyEnemy;
     public int swarmEnemy;
     public int stealthEnemy;
@@ -41,7 +45,11 @@ public class WaveManager : MonoBehaviour
 
     [Header("怪物的Prefabs")]
     [SerializeField] private GameObject basicEnemy;
+    [SerializeField] private GameObject basicEnemy_2;
+    [SerializeField] private GameObject basicEnemy_3;
     [SerializeField] private GameObject fastEnemy;
+    [SerializeField] private GameObject fastEnemy_2;
+    [SerializeField] private GameObject fastEnemy_3;
     [SerializeField] private GameObject heavyEnemy;
     [SerializeField] private GameObject swarmEnemy;
     [SerializeField] private GameObject stealthEnemy;
@@ -288,9 +296,29 @@ public class WaveManager : MonoBehaviour
             newEnemyList.Add(basicEnemy);
         }
 
+        for (int i = 0; i < levelWaves[waveIndex].basicEnemy_2; i++)
+        {
+            newEnemyList.Add(basicEnemy_2);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].basicEnemy_3; i++)
+        {
+            newEnemyList.Add(basicEnemy_3);
+        }
+
         for (int i = 0; i < levelWaves[waveIndex].fastEnemy; i++)
         {
             newEnemyList.Add(fastEnemy);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].fastEnemy_2; i++)
+        {
+            newEnemyList.Add(fastEnemy_2);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].fastEnemy_3; i++)
+        {
+            newEnemyList.Add(fastEnemy_3);
         }
 
         for (int i = 0; i < levelWaves[waveIndex].heavyEnemy; i++)
@@ -330,7 +358,12 @@ public class WaveManager : MonoBehaviour
     {
         foreach (EnemyPortal portal in enemyPortals)
         {
-            if (portal.GetActiveEnemies().Count > 0)
+            // 修改重點：
+            // 如果場上還有活著的怪 (GetActiveEnemies().Count > 0)
+            // 或者 (||)
+            // 傳送門還有怪沒生出來 (portal.HasEnemiesToSpawn())
+            // 就不算贏！
+            if (portal.GetActiveEnemies().Count > 0 || portal.HasEnemiesToSpawn())
                 return false;
         }
 

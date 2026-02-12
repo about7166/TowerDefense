@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93534c7ea37ece64f8ccd71afdff56e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelSelectTile: {fileID: 8882199518881284149, guid: f4d17ca29d5fb8b47b83aafdf05ad39c, type: 3}
   tileRoad: {fileID: 6189716663834459222, guid: c926b6ebf32fa51458bf1445bebbeba9, type: 3}
   tileField: {fileID: 3701294282268012914, guid: 597d1357bae33004384fc7593b94eb18, type: 3}
   tileSideway: {fileID: 6982755377775076015, guid: fa5f5f220d07e9140b56183624c5c94d, type: 3}

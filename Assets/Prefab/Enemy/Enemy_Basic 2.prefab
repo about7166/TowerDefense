@@ -4779,7 +4779,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d8115d715ec56be409567dea2d618ae5, type: 2}
+  - {fileID: 2100000, guid: 1f4451bc39526d84d900645ad0bafac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4830,7 +4830,7 @@ GameObject:
   - component: {fileID: 912173211258997882}
   - component: {fileID: 6463213303337082453}
   m_Layer: 7
-  m_Name: Enemy_Basic
+  m_Name: Enemy_Basic 2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4868,10 +4868,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   centerPoint: {fileID: 5828181254773262190}
-  maxHp: 10
+  maxHp: 25
   currentHp: 0
-  moneyReward: 2
-  damageToCastle: 1
+  moneyReward: 4
+  damageToCastle: 2
   turnSpeed: 10
   myWaypoints: []
 --- !u!114 &490817128913469977
@@ -5028,7 +5028,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d8115d715ec56be409567dea2d618ae5, type: 2}
+  - {fileID: 2100000, guid: 1f4451bc39526d84d900645ad0bafac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5150,7 +5150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d8115d715ec56be409567dea2d618ae5, type: 2}
+  - {fileID: 2100000, guid: 1f4451bc39526d84d900645ad0bafac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

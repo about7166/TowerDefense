@@ -185,7 +185,20 @@ public class Enemy : MonoBehaviour , IDamagable
         return distanceBetweenPoint > distanceToNextWaypoint;
     }
 
-    public virtual float DistanceToFinishLine() => totalDistance + agent.remainingDistance;
+    public virtual float DistanceToFinishLine()
+    {
+        float dist = agent.remainingDistance;
+
+        // ★ 新增這段防呆：
+        // 如果路徑還在計算中 (pathPending)，或是距離顯示為 0 (還沒更新到)
+        // 我們就改用 "怪物到目標點" 的直線距離來當作暫時的參考值
+        if (agent.pathPending || dist == 0)
+        {
+            dist = Vector3.Distance(transform.position, agent.destination);
+        }
+
+        return totalDistance + dist;
+    }
 
     private void CollectTotalDistance()
     {
@@ -272,7 +285,15 @@ public class Enemy : MonoBehaviour , IDamagable
         agent.enabled = false;
 
         if (myPortal != null)
+        {
+            // 加入這行 Debug
+            Debug.Log($"怪物 {gameObject.name} 死亡，通知 Portal 移除。");
             myPortal.RemoveActiveEnemy(gameObject);
+        }
+        else
+        {
+            Debug.LogError($"怪物 {gameObject.name} 找不到 Portal！無法通知移除！");
+        }
     }
 
     protected virtual void OnEnable()
