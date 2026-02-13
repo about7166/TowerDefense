@@ -35,6 +35,15 @@ public class UI : MonoBehaviour
             SwitchTo(inGameUI.gameObject);
     }
 
+    // ★ 新增這段：請總管 UI.cs 在遊戲啟動時，強制命令 settingUI 讀取音量！
+    private void Start()
+    {
+        if (settingUI != null)
+        {
+            settingUI.LoadSettings();
+        }
+    }
+
     public void SwitchTo(GameObject uiToEnable)
     {
         foreach (GameObject ui in uiElements)
