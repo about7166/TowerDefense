@@ -10440,13 +10440,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
   dynamicTargetChange: 0
-  attackCooldown: 4
+  attackCooldown: 2
   enemyPriorityType: 0
   towerHead: {fileID: 8259023991891567223}
   towerBody: {fileID: 543247107920277769}
   gunPoint: {fileID: 7218501672049283554}
   rotationSpeed: 10
-  attackRange: 6
+  attackRange: 5
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128

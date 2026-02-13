@@ -1405,9 +1405,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  dynamicTargetChange: 0
+  dynamicTargetChange: 1
   attackCooldown: 0.9
-  enemyPriorityType: 1
+  enemyPriorityType: 7
   towerHead: {fileID: 7534897535623975535}
   towerBody: {fileID: 0}
   gunPoint: {fileID: 6506659028074745427}

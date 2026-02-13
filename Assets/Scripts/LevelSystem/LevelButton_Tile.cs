@@ -8,6 +8,8 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
     private TileAnimator tileAnimator;
     private TextMeshPro myText => GetComponentInChildren<TextMeshPro>();
 
+    // ★ 注意：這裡已經把 [SerializeField] private GameObject lockIcon 刪掉了，不需要再手動綁定了！
+
     [SerializeField] private int levelIndex;
 
     private Vector3 defaultPosition;
@@ -22,28 +24,40 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         levelManager = FindAnyObjectByType<LevelManager>();
         defaultPosition = transform.position;
-        CheckIfLevelUnLocked();
+
+        // ★ 關鍵修改：延遲 0.05 秒執行，確保所有的 Clone 物件都已經複製完畢
+        Invoke(nameof(CheckIfLevelUnLocked), 0.05f);
     }
 
     public void CheckIfLevelUnLocked()
     {
-        //""裡的和GameManager有關
+        // 第一關預設解鎖
         if (levelIndex == 1)
             PlayerPrefs.SetInt("Level_1" + "unlocked", 1);
 
+        // 讀取解鎖狀態
         unlocked = PlayerPrefs.GetInt("Level_" + levelIndex + "unlocked", 0) == 1;
         UpdateLevelButtonText();
     }
 
     private void UpdateLevelButtonText()
     {
-        //關卡未解鎖的名稱
-        if (unlocked == false)
-            myText.text = "Locked";
+        // ★ 動態尋找名叫 "LockIcon" 的子物件，絕對不會因為 Clone 而抓錯人！
+        Transform iconTransform = transform.Find("LockIcon");
+        GameObject currentLockIcon = iconTransform != null ? iconTransform.gameObject : null;
 
-        //和下面的[調整關卡名稱在這]一致
+        if (unlocked == false)
+        {
+            // 未解鎖：顯示鎖頭，並把文字變成「空字串」 (不關閉物件)
+            if (currentLockIcon != null) currentLockIcon.SetActive(true);
+            if (myText != null) myText.text = "";
+        }
         else
-            myText.text = "LV." + levelIndex;
+        {
+            // 已解鎖：隱藏鎖頭，顯示正確數字
+            if (currentLockIcon != null) currentLockIcon.SetActive(false);
+            if (myText != null) myText.text = "LV." + levelIndex;
+        }
     }
 
     public void EnableClickOnButton(bool enable) => canClick = enable;
@@ -99,7 +113,9 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
     {
         levelIndex = transform.GetSiblingIndex() + 1;
 
-        //調整關卡名稱在這
+        // ★ 新增防呆：如果是「遊戲執行中(Play Mode)」，就不要讓它強制改字，才不會覆蓋掉我們設定的空字串！
+        if (Application.isPlaying) return;
+
         if (myText != null)
             myText.text = "LV." + levelIndex;
     }

@@ -32,6 +32,12 @@ public class Enemy : MonoBehaviour , IDamagable
     [SerializeField] private float turnSpeed = 10;
     [SerializeField] protected Vector3[] myWaypoints;
 
+    [Header("護盾設定")]
+    [Tooltip("設為 0 代表沒有護盾")]
+    public float maxShield = 0;
+    public float currentShield = 0;
+    public Enemy_Shield shieldObject;
+
     protected int nextWaypointIndex;
     protected int currentWaypointIndex;
     protected float totalDistance;
@@ -187,17 +193,26 @@ public class Enemy : MonoBehaviour , IDamagable
 
     public virtual float DistanceToFinishLine()
     {
-        float dist = agent.remainingDistance;
+        // 1. 怪物走到「目前鎖定的目標點」的距離
+        float distToNextPoint = agent.remainingDistance;
 
-        // ★ 新增這段防呆：
-        // 如果路徑還在計算中 (pathPending)，或是距離顯示為 0 (還沒更新到)
-        // 我們就改用 "怪物到目標點" 的直線距離來當作暫時的參考值
-        if (agent.pathPending || dist == 0)
+        // 防呆：如果導航還沒算好路徑
+        if (agent.pathPending || distToNextPoint == 0)
         {
-            dist = Vector3.Distance(transform.position, agent.destination);
+            distToNextPoint = Vector3.Distance(transform.position, agent.destination);
         }
 
-        return totalDistance + dist;
+        // 2. ★ 核心修改：即時計算後續所有未走路段的總和 ★
+        float remainingPathDistance = 0;
+
+        // 從怪物目前正在前往的點 (currentWaypointIndex) 開始，一路加到最後一個點
+        for (int i = currentWaypointIndex; i < myWaypoints.Length - 1; i++)
+        {
+            remainingPathDistance += Vector3.Distance(myWaypoints[i], myWaypoints[i + 1]);
+        }
+
+        // 3. 兩者相加，這就是怪物距離主堡最真實、絕對不會出錯的距離！
+        return distToNextPoint + remainingPathDistance;
     }
 
     private void CollectTotalDistance()
@@ -250,10 +265,27 @@ public class Enemy : MonoBehaviour , IDamagable
 
     public Vector3 CenterPoint() => centerPoint.position;
     public EnemyType GetEnemyType() => enemyType;
-    
+
     public virtual void TakeDamage(float damage)
     {
-        currentHp = currentHp - damage;
+        // 先檢查有沒有護盾
+        if (currentShield > 0)
+        {
+            currentShield -= damage;
+
+            // 播放護盾被打到的特效
+            if (shieldObject != null)
+                shieldObject.ActivateShieldImpact();
+
+            // 護盾破裂
+            if (currentShield <= 0 && shieldObject != null)
+                shieldObject.gameObject.SetActive(false);
+
+            return; // 護盾把這次傷害吸收了，不扣血
+        }
+
+        // 如果沒有護盾，或是護盾已經破了，就扣真實血量
+        currentHp -= damage;
 
         if (currentHp <= 0 && isDead == false)
         {
@@ -286,19 +318,22 @@ public class Enemy : MonoBehaviour , IDamagable
 
         if (myPortal != null)
         {
-            // 加入這行 Debug
-            Debug.Log($"怪物 {gameObject.name} 死亡，通知 Portal 移除。");
             myPortal.RemoveActiveEnemy(gameObject);
-        }
-        else
-        {
-            Debug.LogError($"怪物 {gameObject.name} 找不到 Portal！無法通知移除！");
         }
     }
 
     protected virtual void OnEnable()
     {
+        // 每次從物件池拿出來時，重置護盾
+        currentShield = maxShield;
+        EnableShieldIfNeeded();
+    }
 
+    private void EnableShieldIfNeeded()
+    {
+        // 如果有設定護盾模型，且最大護盾值大於0，就顯示護盾
+        if (shieldObject != null && currentShield > 0)
+            shieldObject.gameObject.SetActive(true);
     }
 
     protected virtual void OnDisable()

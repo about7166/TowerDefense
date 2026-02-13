@@ -1993,7 +1993,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2433685130750938396}
-  - component: {fileID: 2296081024223531155}
   m_Layer: 0
   m_Name: UI_SFX
   m_TagString: Untagged
@@ -2020,103 +2019,6 @@ Transform:
   - {fileID: 3893005431911817595}
   m_Father: {fileID: 6509083483170096082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &2296081024223531155
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760129795244975013}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b8cab79e81e870148a3ca59bbcf31d1e, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &768876467530154055
 GameObject:
   m_ObjectHideFlags: 0
@@ -8395,14 +8297,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d26e72f14c1224e816ed93c597d9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 8b866a1bcffeca34cb012170d39fb3c4, type: 2}
   mixerMultiplier: 25
-  sfxSlider: {fileID: 0}
-  sfxParameter: 
-  sfxSliderText: {fileID: 0}
-  bgmSlider: {fileID: 0}
-  bgmParameter: 
-  bgmSliderText: {fileID: 0}
+  sfxSlider: {fileID: 9219897961028004806}
+  sfxParameter: sfxVolume
+  sfxSliderText: {fileID: 3429680286705315116}
+  bgmSlider: {fileID: 6492124086791233529}
+  bgmParameter: bgmVolume
+  bgmSliderText: {fileID: 5416158631085522523}
   keyboardSensitivitySlider: {fileID: 1279073668951623681}
   keyboardSensitivityText: {fileID: 9156159013148842347}
   keyboardSensitivityParameter: keyboardSensitivity
@@ -18373,6 +18275,10 @@ PrefabInstance:
       value: Hammer
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: towerPrice
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerToBuild
       value: 
       objectReference: {fileID: 6859414018800471089, guid: 6ee6859b5b1ee2249821d283ff4ecdb3, type: 3}
@@ -18391,6 +18297,10 @@ PrefabInstance:
     - target: {fileID: 5013975599403844061, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 43.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_text
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6619801554368667519, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Sprite
@@ -18520,7 +18430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerPrice
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerAttackRadius
@@ -18528,7 +18438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_text
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8338090159551566337, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Pivot.x
@@ -18669,6 +18579,10 @@ PrefabInstance:
       value: Just Fan
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: towerPrice
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerToBuild
       value: 
       objectReference: {fileID: 4167651417933437089, guid: faa5b76f676a4e64ea9cd85b2f4820ea, type: 3}
@@ -18687,6 +18601,10 @@ PrefabInstance:
     - target: {fileID: 5013975599403844061, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 43.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_text
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6619801554368667519, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Sprite
@@ -18827,6 +18745,10 @@ PrefabInstance:
       value: Spider Nest
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: towerPrice
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerToBuild
       value: 
       objectReference: {fileID: 550870603370131365, guid: 939c9ca62928e274087031177fc71234, type: 3}
@@ -18845,6 +18767,14 @@ PrefabInstance:
     - target: {fileID: 5013975599403844061, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 55.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_text
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_fontSize
+      value: 22.3
       objectReference: {fileID: 0}
     - target: {fileID: 6619801554368667519, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Sprite
@@ -18988,7 +18918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerPrice
-      value: 25
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerToBuild
@@ -19004,7 +18934,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_text
-      value: 25
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_fontSize
+      value: 22.25
       objectReference: {fileID: 0}
     - target: {fileID: 6619801554368667519, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Sprite
@@ -19151,6 +19085,10 @@ PrefabInstance:
       value: Anti-air Harpoon
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: towerPrice
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerToBuild
       value: 
       objectReference: {fileID: 8678851651452611309, guid: 887e880e646e02440ba0df7e51126927, type: 3}
@@ -19169,6 +19107,14 @@ PrefabInstance:
     - target: {fileID: 5013975599403844061, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 43.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_text
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_fontSize
+      value: 22.25
       objectReference: {fileID: 0}
     - target: {fileID: 6619801554368667519, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Sprite
@@ -19309,6 +19255,10 @@ PrefabInstance:
       value: Rapid Fire Gun
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: towerPrice
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerToBuild
       value: 
       objectReference: {fileID: 1191765361667163845, guid: d1498d64f8a5bf1459e91868695dc4cc, type: 3}
@@ -19347,6 +19297,14 @@ PrefabInstance:
     - target: {fileID: 5013975599403844061, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_text
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341946123918081290, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
+      propertyPath: m_fontSize
+      value: 22.55
       objectReference: {fileID: 0}
     - target: {fileID: 6619801554368667519, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Sprite
