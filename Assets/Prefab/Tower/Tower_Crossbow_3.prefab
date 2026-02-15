@@ -1423,8 +1423,8 @@ MonoBehaviour:
   attackSfx: {fileID: 5004680671661687285}
   nextUpgradePrefab: {fileID: 0}
   upgradeCost: 0
-  sellReward: 574
-  damage: 40
+  sellReward: 473
+  damage: 50
 --- !u!114 &5186443242408838718
 MonoBehaviour:
   m_ObjectHideFlags: 0

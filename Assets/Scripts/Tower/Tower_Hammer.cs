@@ -1,16 +1,20 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using RangeAttribute = UnityEngine.RangeAttribute;
 
 public class Tower_Hammer : Tower
 {
     private Hammer_Visuals hammerVisuals;
 
     [Header("槌子設定")]
+    [SerializeField] private float damage = 15f;
+
     [Range(0, 1)]
     [SerializeField] private float slowMultiplier = 0.4f;
     [SerializeField] private float slowDuration;
+
+    // ★ 優化 1：宣告在類別層級，重複使用這些容器，不再產生記憶體垃圾
+    private Collider[] collidersBuffer = new Collider[50]; // 假設範圍內最多同時有 50 個敵人
+    private List<Enemy> validTargets = new List<Enemy>();
 
     protected override void Awake()
     {
@@ -34,24 +38,33 @@ public class Tower_Hammer : Tower
 
         foreach (var enemy in ValidEnemyTargets())
         {
-            enemy.SlowEnemy(slowMultiplier, slowDuration);
+            enemy.TakeDamage(damage);
+
+            if (enemy.gameObject.activeSelf)
+            {
+                enemy.SlowEnemy(slowMultiplier, slowDuration);
+            }
         }
     }
 
     private List<Enemy> ValidEnemyTargets()
     {
-        List<Enemy> targets = new List<Enemy>();
-        Collider[] enemiesAround = Physics.OverlapSphere(transform.position, attackRange, whatIsTargetable);
+        // ★ 優化 2：清空舊名單，重複使用
+        validTargets.Clear();
 
-        foreach (Collider enemy in enemiesAround)
+        // ★ 優化 3：使用 NonAlloc 方法，將掃描到的敵人填入我們預先準備好的 collidersBuffer
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, collidersBuffer, whatIsTargetable);
+
+        // 只讀取實際抓到的數量 (hitCount)
+        for (int i = 0; i < hitCount; i++)
         {
-            Enemy newEnemy = enemy.GetComponent<Enemy>();
+            Enemy newEnemy = collidersBuffer[i].GetComponent<Enemy>();
 
             if (newEnemy != null)
-                targets.Add(newEnemy);
+                validTargets.Add(newEnemy);
         }
 
-        return targets;
+        return validTargets;
     }
 
     protected override bool CanAttack()

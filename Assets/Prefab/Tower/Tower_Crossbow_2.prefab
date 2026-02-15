@@ -1422,9 +1422,9 @@ MonoBehaviour:
   towerAttacksForward: 0
   attackSfx: {fileID: 5004680671661687285}
   nextUpgradePrefab: {fileID: 7222356455492698134, guid: d32fa2a3e93fb044082f270bef9b8790, type: 3}
-  upgradeCost: 500
-  sellReward: 224
-  damage: 20
+  upgradeCost: 375
+  sellReward: 210
+  damage: 25
 --- !u!114 &5186443242408838718
 MonoBehaviour:
   m_ObjectHideFlags: 0

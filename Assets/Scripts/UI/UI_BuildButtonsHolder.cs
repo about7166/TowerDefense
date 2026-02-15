@@ -6,6 +6,9 @@ public class UI_BuildButtonsHolder : MonoBehaviour
 {
     private UI_Animator uiAnimator;
 
+    // ★ 1. 新增：用來抓取 BuildManager，讓我們可以隨時查勤
+    private BuildManager buildManager;
+
     [SerializeField] private float yPositionOffset;
     [SerializeField] private float openAnimationDuration = 0.1f;
     private bool isBuildMenuActive;
@@ -17,15 +20,47 @@ public class UI_BuildButtonsHolder : MonoBehaviour
     private UI_BuildButton lastSelectedButton;
     private Transform previewTower;
 
+    // ★ 2. 新增：用來記錄「上一次選到的是哪一塊地」
+    private BuildSlot trackedSlot;
+
     private void Awake()
     {
         uiAnimator = GetComponentInParent<UI_Animator>();
         buildButtonEffects = GetComponentsInChildren<UI_BuildButtonOnHoverEffect>();
         buildButtons = GetComponentsInChildren<UI_BuildButton>();
+
+        // ★ 3. 取得 BuildManager
+        buildManager = FindFirstObjectByType<BuildManager>();
     }
+
     private void Update()
     {
         CheckBuildButtonsHotkeys();
+        CheckIfSlotChanged(); // ★ 4. 每一幀檢查地塊有沒有被切換
+    }
+
+    // ★ 5. 終極殺招：只要發現換地塊了，立刻清除所有殘留的預覽！
+    private void CheckIfSlotChanged()
+    {
+        if (buildManager == null) return;
+
+        BuildSlot currentSlot = buildManager.GetSelectedSlot();
+
+        // 如果現在選擇的地塊，跟我們記錄的不同 (代表玩家點了新地塊，或是按右鍵取消選擇了)
+        if (currentSlot != trackedSlot)
+        {
+            trackedSlot = currentSlot; // 更新記錄
+
+            // 強制清除所有按鈕的預覽狀態
+            foreach (var button in buildButtons)
+            {
+                if (button != null)
+                    button.SelectButton(false);
+            }
+
+            lastSelectedButton = null;
+            previewTower = null;
+        }
     }
 
     private void CheckBuildButtonsHotkeys()
@@ -91,6 +126,7 @@ public class UI_BuildButtonsHolder : MonoBehaviour
         lastSelectedButton = newLastSelected;
         previewTower = newPreview;
     }
+
     public void UpdateUnlockedButtons()
     {
         unlockedButtons = new List<UI_BuildButton>();
@@ -105,6 +141,15 @@ public class UI_BuildButtonsHolder : MonoBehaviour
     public void ShowBuildButtons(bool showButtons)
     {
         isBuildMenuActive = showButtons;
+
+        // 原本的強制清除保留著也沒關係，多一層防護
+        foreach (var button in buildButtons)
+        {
+            if (button != null)
+                button.SelectButton(false);
+        }
+        lastSelectedButton = null;
+        previewTower = null;
 
         float yOffset = isBuildMenuActive ? yPositionOffset : -yPositionOffset;
         float methodDelay = isBuildMenuActive ? openAnimationDuration : 0;

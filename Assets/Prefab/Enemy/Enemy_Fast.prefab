@@ -5403,10 +5403,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   centerPoint: {fileID: 3634866746783196020}
-  maxHp: 21
+  maxHp: 10
   currentHp: 0
-  moneyReward: 5
-  damageToCastle: 1
+  moneyReward: 3
+  damageToCastle: 2
   turnSpeed: 10
   myWaypoints: []
   maxShield: 0

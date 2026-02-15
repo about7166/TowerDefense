@@ -4870,7 +4870,7 @@ MonoBehaviour:
   centerPoint: {fileID: 5828181254773262190}
   maxHp: 12
   currentHp: 0
-  moneyReward: 4
+  moneyReward: 2
   damageToCastle: 1
   turnSpeed: 10
   myWaypoints: []

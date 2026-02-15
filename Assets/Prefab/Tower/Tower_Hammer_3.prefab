@@ -24898,13 +24898,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
   dynamicTargetChange: 0
-  attackCooldown: 6
+  attackCooldown: 1.8
   enemyPriorityType: 7
   towerHead: {fileID: 0}
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
   rotationSpeed: 10
-  attackRange: 4
+  attackRange: 4.8
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
@@ -24914,10 +24914,11 @@ MonoBehaviour:
   towerAttacksForward: 0
   attackSfx: {fileID: 0}
   nextUpgradePrefab: {fileID: 0}
-  upgradeCost: 100
-  sellReward: 50
-  slowMultiplier: 0.4
-  slowDuration: 2
+  upgradeCost: 0
+  sellReward: 630
+  damage: 45
+  slowMultiplier: 0.2
+  slowDuration: 3
 --- !u!114 &4941643595439936587
 MonoBehaviour:
   m_ObjectHideFlags: 0

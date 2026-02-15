@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour , IPointerDownHandler
+public class Tower : MonoBehaviour, IPointerDownHandler
 {
     protected ObjectPoolManager objectPool;
     public Enemy currentEnemy;
@@ -40,10 +40,12 @@ public class Tower : MonoBehaviour , IPointerDownHandler
     public Tower nextUpgradePrefab;
     public int upgradeCost = 100;
 
-    // ★ 新增：賣出價格
     [Tooltip("賣掉這座塔可以拿回多少錢")]
     public int sellReward = 50;
 
+    // ★ 優化重點：將 List 移到這裡，重複使用，不再每次 new 出來製造垃圾
+    private List<Enemy> priorityTargets = new List<Enemy>();
+    private List<Enemy> possibleTargets = new List<Enemy>();
 
     protected virtual void Awake()
     {
@@ -69,11 +71,6 @@ public class Tower : MonoBehaviour , IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // 檢查是否點擊到 UI (這行其實在新系統會自動處理，但保留著也無妨)
-        // 注意：如果你有點擊穿透問題，這裡通常不需要改，
-        // 因為 EventSystem 會自動判斷擋在前面的 UI。
-
-        // 呼叫升級選單
         if (TowerUpgradeUI.instance != null)
         {
             TowerUpgradeUI.instance.SelectTower(this);
@@ -82,13 +79,13 @@ public class Tower : MonoBehaviour , IPointerDownHandler
 
     public void DeactivateTower(float duration, GameObject empFxPrefab)
     {
-        if(deactiveatedTowerCo != null)
+        if (deactiveatedTowerCo != null)
             StopCoroutine(deactiveatedTowerCo);
 
-        if(currentEmpFx != null)
+        if (currentEmpFx != null)
             objectPool.Remove(currentEmpFx);
 
-        currentEmpFx = objectPool.Get(empFxPrefab, transform.position + new Vector3(0,.5f,0),Quaternion.identity);
+        currentEmpFx = objectPool.Get(empFxPrefab, transform.position + new Vector3(0, .5f, 0), Quaternion.identity);
         deactiveatedTowerCo = StartCoroutine(DeactivateTowerCo(duration));
     }
 
@@ -143,7 +140,6 @@ public class Tower : MonoBehaviour , IPointerDownHandler
 
     protected virtual void Attack()
     {
-        //Debug.Log("Attack performed at " + Time.time);
         lastTimeAttacked = Time.time;
     }
 
@@ -154,13 +150,16 @@ public class Tower : MonoBehaviour , IPointerDownHandler
 
     protected virtual Enemy FindEnemyWithinRange()
     {
-        List<Enemy> priorityTargets = new List<Enemy>();
-        List<Enemy> possibleTargets = new List<Enemy>();
+        // ★ 優化重點：每次索敵前，先清空這兩個名單
+        priorityTargets.Clear();
+        possibleTargets.Clear();
 
         int enemiesAround = Physics.OverlapSphereNonAlloc(transform.position, attackRange, allocatedColliders, whatIsEnemy);
 
         for (int i = 0; i < enemiesAround; i++)
         {
+            if (allocatedColliders[i] == null) continue;
+
             Enemy newEnemy = allocatedColliders[i].GetComponent<Enemy>();
 
             if (newEnemy == null)

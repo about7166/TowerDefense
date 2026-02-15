@@ -49,16 +49,25 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SelectButton(bool select)
     {
+        // ★ 修正：如果是要「取消選取 (select == false)」，我們不需要檢查地塊，直接關閉預覽就好！
+        if (select == false)
+        {
+            if (towerPreview != null) towerPreview.gameObject.SetActive(false);
+            if (onHoverEffect != null) onHoverEffect.ShowcaseButton(false);
+            return; // 關閉完就直接結束
+        }
+
         BuildSlot slotToUse = buildManager.GetSelectedSlot();
 
+        // 只有在「開啟 (select == true)」時，才需要檢查地塊存不存在
         if (slotToUse == null)
             return;
 
         Vector3 previewPosition = slotToUse.GetBuildPosition(1f);
 
-        towerPreview.gameObject.SetActive(select);
-        towerPreview.ShowPreview(select, previewPosition);
-        onHoverEffect.ShowcaseButton(select);
+        towerPreview.gameObject.SetActive(true);
+        towerPreview.ShowPreview(true, previewPosition);
+        onHoverEffect.ShowcaseButton(true);
         buildButtonHolder.SetLastSelected(this, towerPreview.transform);
     }
 

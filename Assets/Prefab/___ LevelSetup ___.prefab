@@ -44,22 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f0b8ca85968d849a20c47e2af526b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCurrency: 100
+  levelCurrency: 300
   towerUnlocks:
   - towerName: Crossbow
     unlocked: 1
   - towerName: Cannon
     unlocked: 1
-  - towerName: Rapid Fire Gun
-    unlocked: 1
   - towerName: Hammer
     unlocked: 1
+  - towerName: Machine Gun
+    unlocked: 0
   - towerName: Spider Nest
-    unlocked: 1
+    unlocked: 0
   - towerName: Anti-air Harpoon
-    unlocked: 1
+    unlocked: 0
   - towerName: Just Fan
-    unlocked: 1
+    unlocked: 0
   myMainGrid: {fileID: 0}
   myWaveManager: {fileID: 0}
   extraObjectsToDelete:

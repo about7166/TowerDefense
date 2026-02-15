@@ -19538,7 +19538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1063020204325233559, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_Name
-      value: BuildButton_UI_Rapid Fire Gun
+      value: BuildButton_UI_Machine Gun
       objectReference: {fileID: 0}
     - target: {fileID: 1811683135778414780, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -19546,7 +19546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1811772069541609473, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_text
-      value: Rapid Fire Gun
+      value: Machine Gun
       objectReference: {fileID: 0}
     - target: {fileID: 2611691340633529190, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -19554,7 +19554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerName
-      value: Rapid Fire Gun
+      value: Machine Gun
       objectReference: {fileID: 0}
     - target: {fileID: 4675391518439363485, guid: d42688b1a02e22e4db3dfac2b5a28772, type: 3}
       propertyPath: towerPrice

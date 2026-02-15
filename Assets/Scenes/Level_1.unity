@@ -25152,7 +25152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[3].fastEnemy
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[4].fastEnemy
@@ -25188,15 +25188,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[2].basicEnemy
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[3].basicEnemy
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[4].basicEnemy
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[5].basicEnemy
@@ -25224,19 +25224,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[3].fastEnemy_2
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[3].fastEnemy_3
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[4].fastEnemy_2
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[4].fastEnemy_3
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[5].fastEnemy_2
@@ -25272,7 +25272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[2].basicEnemy_3
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[3].basicEnemy_2
@@ -25288,7 +25288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[4].basicEnemy_3
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[6].basicEnemy_2
@@ -31216,6 +31216,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2280561561775221683, guid: ce6856b5d4b12b1499f851ca75710879, type: 3}
+      propertyPath: towerName
+      value: Machine Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2280561561775221683, guid: ce6856b5d4b12b1499f851ca75710879, type: 3}
+      propertyPath: towerPrice
+      value: 280
+      objectReference: {fileID: 0}
     - target: {fileID: 2617942742559905778, guid: ce6856b5d4b12b1499f851ca75710879, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -31335,6 +31343,10 @@ PrefabInstance:
     - target: {fileID: 5409105919105411784, guid: ce6856b5d4b12b1499f851ca75710879, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5874073005065771961, guid: ce6856b5d4b12b1499f851ca75710879, type: 3}
+      propertyPath: m_Name
+      value: BuildButton_UI_Machine Gun
       objectReference: {fileID: 0}
     - target: {fileID: 6415334975145842972, guid: ce6856b5d4b12b1499f851ca75710879, type: 3}
       propertyPath: m_AnchorMax.y
@@ -75285,10 +75297,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4673499679714831265}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: levelCurrency
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: myWaveManager
       value: 
       objectReference: {fileID: 732683011}
@@ -75340,30 +75348,6 @@ PrefabInstance:
       propertyPath: 'extraObjectsToDelete.Array.data[11]'
       value: 
       objectReference: {fileID: 2551959638299569652}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: towerUnlocks.Array.data[1].unlocked
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: towerUnlocks.Array.data[2].unlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: towerUnlocks.Array.data[3].unlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: towerUnlocks.Array.data[4].unlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: towerUnlocks.Array.data[5].unlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
-      propertyPath: towerUnlocks.Array.data[6].unlocked
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7731653516642423262, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.549156

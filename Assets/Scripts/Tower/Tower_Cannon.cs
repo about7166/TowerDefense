@@ -8,6 +8,9 @@ public class Tower_Cannon : Tower
     [SerializeField] private float timeToTarget = 1.5f;
     [SerializeField] private ParticleSystem attackVFX;
 
+    // ★ 新增：大砲專用的第二個緩衝區，避免跟父類別的 allocatedColliders 打架
+    private Collider[] explosionBuffer = new Collider[50];
+
     protected override void Attack()
     {
         base.Attack();
@@ -21,12 +24,16 @@ public class Tower_Cannon : Tower
 
     protected override Enemy FindEnemyWithinRange()
     {
+        // 這裡使用父類別的 allocatedColliders
         int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, attackRange, allocatedColliders, whatIsEnemy);
         Enemy bestTarget = null;
         int maxNearByEnemies = 0;
 
         for (int i = 0; i < collidersFound; i++)
         {
+            // ★ 安全檢查
+            if (allocatedColliders[i] == null) continue;
+
             Transform enemyTransform = allocatedColliders[i].transform;
 
             int amountOfEnemiesAround = EnemiesAroundEnemy(enemyTransform);
@@ -43,7 +50,8 @@ public class Tower_Cannon : Tower
 
     private int EnemiesAroundEnemy(Transform enemyToCheck)
     {
-        return Physics.OverlapSphereNonAlloc(enemyToCheck.position, 1, allocatedColliders, whatIsEnemy);
+        // ★ 修正：這裡一定要改用 explosionBuffer，絕對不能用 allocatedColliders！
+        return Physics.OverlapSphereNonAlloc(enemyToCheck.position, 1, explosionBuffer, whatIsEnemy);
     }
 
     protected override void HandleRotation()
