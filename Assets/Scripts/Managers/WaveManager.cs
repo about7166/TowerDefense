@@ -15,6 +15,8 @@ public class WaveDetails
     public int fastEnemy_2;
     public int fastEnemy_3;
     public int heavyEnemy;
+    public int heavyEnemy_2;
+    public int heavyEnemy_3;
     public int swarmEnemy;
     public int stealthEnemy;
     public int flyingEnemy;
@@ -51,6 +53,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject fastEnemy_2;
     [SerializeField] private GameObject fastEnemy_3;
     [SerializeField] private GameObject heavyEnemy;
+    [SerializeField] private GameObject heavyEnemy_2;
+    [SerializeField] private GameObject heavyEnemy_3;
     [SerializeField] private GameObject swarmEnemy;
     [SerializeField] private GameObject stealthEnemy;
     [SerializeField] private GameObject flyingEnemy;
@@ -324,6 +328,16 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < levelWaves[waveIndex].heavyEnemy; i++)
         {
             newEnemyList.Add(heavyEnemy);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].heavyEnemy_2; i++)
+        {
+            newEnemyList.Add(heavyEnemy_2);
+        }
+
+        for (int i = 0; i < levelWaves[waveIndex].heavyEnemy_3; i++)
+        {
+            newEnemyList.Add(heavyEnemy_3);
         }
 
         for (int i = 0; i < levelWaves[waveIndex].swarmEnemy; i++)

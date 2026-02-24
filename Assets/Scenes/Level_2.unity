@@ -50587,6 +50587,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1952343307049189261, guid: f8b4a50734d58174b83f3c41fa1806b6, type: 3}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: heavyEnemy_2
+      value: 
+      objectReference: {fileID: 4676259463643854155, guid: 95f30c6d9a759ff4aa2e9a99a7bd0a4f, type: 3}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: heavyEnemy_3
+      value: 
+      objectReference: {fileID: 4676259463643854155, guid: 54bc50374a205ae49a967764286abc9a, type: 3}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: droneNavSurface
       value: 
       objectReference: {fileID: 732683012}
