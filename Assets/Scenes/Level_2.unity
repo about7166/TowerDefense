@@ -142002,6 +142002,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 48dc062058055184fa85ec6786ba5f88, type: 2}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
+      propertyPath: extraObjectsToDelete.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: 'extraObjectsToDelete.Array.data[0]'
       value: 
       objectReference: {fileID: 1489632801}
@@ -142036,15 +142040,15 @@ PrefabInstance:
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: 'extraObjectsToDelete.Array.data[8]'
       value: 
-      objectReference: {fileID: 938328398}
+      objectReference: {fileID: 1083179080}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: 'extraObjectsToDelete.Array.data[9]'
       value: 
-      objectReference: {fileID: 1083179080}
+      objectReference: {fileID: 905632905}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: 'extraObjectsToDelete.Array.data[10]'
       value: 
-      objectReference: {fileID: 905632905}
+      objectReference: {fileID: 938328398}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: 'extraObjectsToDelete.Array.data[11]'
       value: 

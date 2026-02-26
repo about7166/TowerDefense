@@ -23,7 +23,10 @@ public class EnemyPortal : MonoBehaviour
 
     private List<GameObject> enemiesToCreate = new List<GameObject>();
     private List<GameObject> activeEnemies = new List<GameObject>();
-
+    [Space]
+    // ★ 新增：天空航線的終點站
+    [SerializeField] private Transform skyEndpoint;
+    public Transform GetSkyEndpoint() => skyEndpoint;
 
     private void Awake()
     {
@@ -67,9 +70,13 @@ public class EnemyPortal : MonoBehaviour
         GameObject newEnemy = objectPool.Get(randomEnemy, transform.position, Quaternion.identity);
 
         Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+
+        // ★ 修正：先將怪物移動到空中的飛行傳送門
+        PlaceEnemyAtFlyPortalIfNeeded(newEnemy, enemyScript.GetEnemyType());
+
+        // ★ 然後才呼叫 SetupEnemy 喚醒導航大腦 (這樣牠醒來時，腳下就會是天空網格了)
         enemyScript.SetupEnemy(this);
 
-        PlaceEnemyAtFlyPortalIfNeeded(newEnemy, enemyScript.GetEnemyType());
         activeEnemies.Add(newEnemy);
     }
 

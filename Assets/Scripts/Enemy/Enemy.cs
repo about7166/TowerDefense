@@ -49,6 +49,10 @@ public class Enemy : MonoBehaviour , IDamagable
     private Coroutine disableHideCo;
     private int originalLayerIndex;
 
+    // ★ 新增：用來記錄目前的緩速狀態
+    private Coroutine activeSlowCoroutine;
+    private float currentSlowMultiplier = 1f; // 1 代表沒有被緩速
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -74,7 +78,28 @@ public class Enemy : MonoBehaviour , IDamagable
     {
         myPortal = myNewPortal;
 
-        UpdateWaypoints(myPortal.currentWaypoints);
+        // ★ 修正：判斷怪物類型，給予不同的導航目標
+        if (enemyType == EnemyType.Flying)
+        {
+            Transform skyEnd = myPortal.GetSkyEndpoint();
+            if (skyEnd != null)
+            {
+                // 如果是飛行怪，只給牠一個目標：天空跑道的終點！NavMesh 會自動幫牠沿著跑道走。
+                Vector3[] flyWaypoints = new Vector3[1];
+                flyWaypoints[0] = skyEnd.position;
+                UpdateWaypoints(flyWaypoints);
+            }
+            else
+            {
+                Debug.LogWarning("警告：忘記把 Sky_Endpoint 放進 EnemyPortal 裡了！");
+            }
+        }
+        else
+        {
+            // 如果是地面怪物，照常讀取地面的多個彎曲 Waypoints
+            UpdateWaypoints(myPortal.currentWaypoints);
+        }
+
         CollectTotalDistance();
         ResetEnemy();
         BeginMovement();
@@ -98,18 +123,48 @@ public class Enemy : MonoBehaviour , IDamagable
     protected void ResetEnemy()
     {
         gameObject.layer = originalLayerIndex;
-
         visuals.MakeTransparent(false);
-
         currentHp = maxHp;
         isDead = false;
 
-        agent.speed = originalSpeed;
-        agent.enabled = true;
-    }
+        currentSlowMultiplier = 1f;
+        if (activeSlowCoroutine != null)
+        {
+            StopCoroutine(activeSlowCoroutine);
+            activeSlowCoroutine = null;
+        }
 
+        agent.speed = originalSpeed;
+
+        // ============ 👇 修改重點 1：精準尋找專屬網格 👇 ============
+        // 建立過濾器，告訴系統：「我是誰(飛行或地面)，就只找我能走的路！」
+        NavMeshQueryFilter filter = new NavMeshQueryFilter();
+        filter.agentTypeID = agent.agentTypeID; // ★ 關鍵：綁定怪物的專屬 Agent Type
+        filter.areaMask = NavMesh.AllAreas;
+
+        // 把搜尋半徑加大到 5.0f，容錯率更高
+        if (UnityEngine.AI.NavMesh.SamplePosition(transform.position, out UnityEngine.AI.NavMeshHit hit, 5.0f, filter))
+        {
+            agent.enabled = false;
+            transform.position = hit.position; // 吸附到精準座標
+            agent.enabled = true;
+            agent.Warp(hit.position); // 雙重保險：強制更新內部座標
+        }
+        else
+        {
+            Debug.LogError($"嚴重錯誤：怪物 {name} 在 {transform.position} 附近找不到任何專屬的 NavMesh！");
+            agent.enabled = true;
+        }
+        // ============ 👆 修改結束 👆 ============
+    }
     protected virtual void Update()
-    {        
+    {
+        // ============ 👇 修改重點 2：保險絲 👇 ============
+        // 如果大腦還沒開啟，或是沒有踩在網格上，就絕對不要往下執行 (根絕紅字)
+        if (agent.enabled == false || agent.isOnNavMesh == false)
+            return;
+        // ===============================================
+
         FaceTarget(agent.steeringTarget);
 
         if (ShouldChangeWaypoint())
@@ -118,16 +173,38 @@ public class Enemy : MonoBehaviour , IDamagable
         }
     }
 
-    public void SlowEnemy(float slowMultiplier, float duration) => StartCoroutine(SlowEnemyCo(slowMultiplier, duration));
-
-    private IEnumerator SlowEnemyCo(float slowMultiplier, float duration)
+    public void SlowEnemy(float newSlowMultiplier, float duration)
     {
-        agent.speed = originalSpeed;
-        agent.speed = agent.speed * slowMultiplier;
+        // 💡 邏輯判斷：數字越小代表緩速越強 (例如 0.2 的緩速效果大於 0.8)
+        // 只有在「目前沒被緩速(1f)」或「新緩速比舊緩速強(或一樣強)」時，才套用新緩速
+        if (currentSlowMultiplier == 1f || newSlowMultiplier <= currentSlowMultiplier)
+        {
+            // 如果身上已經有舊的緩速協程，先把它停掉，確保不會疊加衝突
+            if (activeSlowCoroutine != null)
+            {
+                StopCoroutine(activeSlowCoroutine);
+            }
 
+            // 啟動新的、最強的緩速
+            activeSlowCoroutine = StartCoroutine(SlowEnemyRoutine(newSlowMultiplier, duration));
+        }
+    }
+
+    private IEnumerator SlowEnemyRoutine(float multiplier, float duration)
+    {
+        // 紀錄目前正在運作的緩速強度
+        currentSlowMultiplier = multiplier;
+
+        // 套用速度
+        agent.speed = originalSpeed * multiplier;
+
+        // 等待持續時間結束
         yield return new WaitForSeconds(duration);
 
+        // 緩速結束，恢復正常狀態
         agent.speed = originalSpeed;
+        currentSlowMultiplier = 1f;
+        activeSlowCoroutine = null;
     }
 
     public void DisableHide(float duration)
@@ -193,6 +270,10 @@ public class Enemy : MonoBehaviour , IDamagable
 
     public virtual float DistanceToFinishLine()
     {
+        // ★ 加入保護：如果沒在網格上，直接回傳最大值，當作牠還很遠
+        if (agent.enabled == false || agent.isOnNavMesh == false)
+            return 9999f;
+
         // 1. 怪物走到「目前鎖定的目標點」的距離
         float distToNextPoint = agent.remainingDistance;
 
