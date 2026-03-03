@@ -6,7 +6,8 @@ public class TileSetHolder : MonoBehaviour
 
     [Header("基礎地塊")]
     public GameObject tileRoad;
-    public GameObject tileField;
+    public GameObject tileCanBuild; // ★ 原本的 tileField 改成這個
+    public GameObject tileNoBuild;  // ★ 新增的不可建造地塊
     public GameObject tileSideway;
 
     [Header("拐角地塊")]

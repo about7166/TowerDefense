@@ -69,7 +69,8 @@ public class TileSlot : MonoBehaviour
     {
         BuildSlot buildSlot = GetComponent<BuildSlot>();
 
-        if (refereneTile != tileSetHolder.tileField)
+        // ★ 把這裡的 tileField 改成 tileCanBuild
+        if (refereneTile != tileSetHolder.tileCanBuild)
         {
             if (buildSlot != null)
                 DestroyImmediate(buildSlot);

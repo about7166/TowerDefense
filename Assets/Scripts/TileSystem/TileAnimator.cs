@@ -166,6 +166,17 @@ public class TileAnimator : MonoBehaviour
         Material dissolveMatInstance = meshRenderer.material;
 
         dissolveMatInstance.SetColor("_BaseColor", originalMaterial.GetColor("_BaseColor"));
+        // ================= 👇 新增這段來複製貼圖 👇 =================
+        if (originalMaterial.HasProperty("_BaseMap"))
+        {
+            dissolveMatInstance.SetTexture("_BaseMap", originalMaterial.GetTexture("_BaseMap"));
+        }
+        else if (originalMaterial.HasProperty("_MainTex"))
+        {
+            // 兼容舊版 Standard Shader 的貼圖命名
+            dissolveMatInstance.SetTexture("_BaseMap", originalMaterial.GetTexture("_MainTex"));
+        }
+        // ================= 👆 新增結束 👆 =================
         dissolveMatInstance.SetFloat("_Metallic", originalMaterial.GetFloat("_Metallic"));
         dissolveMatInstance.SetFloat("_Smoothness", originalMaterial.GetFloat("_Smoothness"));
         dissolveMatInstance.SetFloat("_Dissolve", startValue);
