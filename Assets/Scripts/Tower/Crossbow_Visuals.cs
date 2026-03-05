@@ -154,11 +154,14 @@ public class Crossbow_Visuals : MonoBehaviour
         while (Time.time - startTime < duration)
         {
             float tValue = (Time.time - startTime) / duration;
-            rotor.position = Vector3.Lerp(rotorUnloaded.position, rotorLoaded.position, tValue);
+
+            // ★ 修改重點：改用 localPosition
+            rotor.localPosition = Vector3.Lerp(rotorUnloaded.localPosition, rotorLoaded.localPosition, tValue);
             yield return null;
         }
 
-        rotor.position = rotorLoaded.position;
+        // ★ 修改重點：結尾也改用 localPosition
+        rotor.localPosition = rotorLoaded.localPosition;
     }
 
     private void UpdateStringVisual(LineRenderer lineRenderer, Transform startPoint, Transform endPoint)

@@ -20,12 +20,22 @@ public class Tower_Crossbow : Tower
 
         if (Physics.Raycast(gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity, whatIsTargetable))
         {
-            towerHead.forward = directionToEnemy;
+            // ============ 👇 修改重點：強制水平轉向 👇 ============
+
+            Vector3 lookDir = directionToEnemy;
+            lookDir.y = 0; // 把上下傾斜的角度拿掉，只留水平方向
+
+            if (lookDir != Vector3.zero)
+            {
+                towerHead.forward = lookDir; // 這樣它就永遠不會低頭了！
+            }
+
+            // ============ 👆 修改結束 👆 ============
 
             IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
             damagable.TakeDamage(damage);
 
-            visuals.CreateOnHitFX(hitInfo.point); //擊中特效
+            visuals.CreateOnHitFX(hitInfo.point);
             visuals.PlayAttackVFX(gunPoint.position, hitInfo.point);
             visuals.PlayReloaxVFX(attackCooldown);
             AudioManager.instance?.PlaySFX(attackSfx, true);
