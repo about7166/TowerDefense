@@ -247,8 +247,15 @@ public class TileAnimator : MonoBehaviour
     {
         List<GameObject> extraObjects = new List<GameObject>();
 
+        // 搜尋生怪塔
         extraObjects.AddRange(FindObjectsOfType<EnemyPortal>().Select(component => component.gameObject));
+        // 搜尋主堡
         extraObjects.AddRange(FindObjectsOfType<Castle>().Select(component => component.gameObject));
+
+        // ================= 👇 新增這段 👇 =================
+        // 搜尋所有帶有 MapDecoration 標籤的裝飾物
+        extraObjects.AddRange(FindObjectsOfType<MapDecoration>().Select(component => component.gameObject));
+        // ================= ===============================
 
         return extraObjects;
     }
