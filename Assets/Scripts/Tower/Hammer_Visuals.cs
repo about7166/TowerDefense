@@ -50,23 +50,25 @@ public class Hammer_Visuals : MonoBehaviour
 
     private IEnumerator HammerAttackCo()
     {
-        valveRotation.AdjustRotationSpeed(25);
+        // ★ 加入 null 檢查：只有當 valveRotation 存在時才執行
+        if (valveRotation != null) valveRotation.AdjustRotationSpeed(25);
+
         StartCoroutine(ChangePositionCo(hammer, -attackOffsetY, attackDuration));
         StartCoroutine(ChangeScaleCo(hammerHolder, hammerHolderScaleY, attackDuration));
 
-        StartCoroutine(ChangePositionCo(sideHandle, 0.45f, attackDuration));
-        StartCoroutine(ChangeScaleCo(sideWire, 0.1f, attackDuration));
-
+        // ★ 加入 null 檢查：只有當物件存在時才執行位移與縮放
+        if (sideHandle != null) StartCoroutine(ChangePositionCo(sideHandle, 0.45f, attackDuration));
+        if (sideWire != null) StartCoroutine(ChangeScaleCo(sideWire, 0.1f, attackDuration));
 
         yield return new WaitForSeconds(attackDuration);
         PlayVFXs();
 
-        valveRotation.AdjustRotationSpeed(3);
+        if (valveRotation != null) valveRotation.AdjustRotationSpeed(3);
         StartCoroutine(ChangePositionCo(hammer, attackOffsetY, reloadDuration));
         StartCoroutine(ChangeScaleCo(hammerHolder, hammerHolderTargetScaleY, reloadDuration));
 
-        StartCoroutine(ChangePositionCo(sideHandle, -0.45f, reloadDuration));
-        StartCoroutine(ChangeScaleCo(sideWire, 1f, reloadDuration));
+        if (sideHandle != null) StartCoroutine(ChangePositionCo(sideHandle, -0.45f, reloadDuration));
+        if (sideWire != null) StartCoroutine(ChangeScaleCo(sideWire, 1f, reloadDuration));
     }
     private IEnumerator ChangePositionCo(Transform transform, float yOffset, float duration = 0.1f)
     {
