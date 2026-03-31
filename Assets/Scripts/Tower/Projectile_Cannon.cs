@@ -11,6 +11,9 @@ public class Projectile_Cannon : MonoBehaviour
     [SerializeField] private LayerMask whatIsEnemy;
     [SerializeField] private GameObject explosionFx;
 
+    // ★ 效能優化：預先準備一個陣列來裝炸到的敵人 (跟 Hammer 一樣)
+    private Collider[] hitColliders = new Collider[20];
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,7 +22,12 @@ public class Projectile_Cannon : MonoBehaviour
 
     public void SetupProjectile(Vector3 newVelocity, float newDamage, ObjectPoolManager newPool)
     {
-        trail.Clear();
+        // ★ 防呆：確定有這個元件才清空軌跡
+        if (trail != null)
+        {
+            trail.Clear();
+        }
+
         objectPool = newPool;
         rb.linearVelocity = newVelocity;
         damage = newDamage;
@@ -27,11 +35,12 @@ public class Projectile_Cannon : MonoBehaviour
 
     private void DamageEnemiesAround()
     {
-        Collider[] enemiesAround = Physics.OverlapSphere(transform.position, damageRadius, whatIsEnemy);
+        // ★ 效能優化：改用 NonAlloc 版本，不產生額外的記憶體垃圾
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, hitColliders, whatIsEnemy);
 
-        foreach (Collider enemy in enemiesAround)
+        for (int i = 0; i < hitCount; i++)
         {
-            IDamagable damagable = enemy.GetComponent<IDamagable>();
+            IDamagable damagable = hitColliders[i].GetComponent<IDamagable>();
 
             if (damagable != null)
             {
@@ -42,16 +51,19 @@ public class Projectile_Cannon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // ✅ 修正版：直接檢查對方腳本，不用管 Tag 了
+        // ★ 關鍵防護：忽略所有「隱形的偵測圈 (Trigger)」
+        if (other.isTrigger)
+            return;
+
         if (other.GetComponent<Tower>() != null)
             return;
 
-        // 也要忽略自己人 (其他大砲子彈)
         if (other.GetComponent<Projectile_Cannon>() != null)
             return;
 
         DamageEnemiesAround();
 
+        // 產生爆炸特效並回收砲彈
         objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.5f, 0));
         objectPool.Remove(gameObject);
     }

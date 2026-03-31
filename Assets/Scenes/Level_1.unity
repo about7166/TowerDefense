@@ -27458,6 +27458,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: levelWaves.Array.data[0].stealthEnemy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[1].basicEnemy_2
       value: 15
       objectReference: {fileID: 0}

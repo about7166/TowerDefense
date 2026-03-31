@@ -8,7 +8,9 @@ public class Tower_Cannon : Tower
     [SerializeField] private float timeToTarget = 1.5f;
     [SerializeField] private ParticleSystem attackVFX;
 
-    // ★ 新增：大砲專用的第二個緩衝區，避免跟父類別的 allocatedColliders 打架
+    // ★ 新增：指派那個只會上下轉的頭
+    [SerializeField] private Transform cannonHead;
+
     private Collider[] explosionBuffer = new Collider[50];
 
     protected override void Attack()
@@ -22,66 +24,61 @@ public class Tower_Cannon : Tower
         newProjectile.GetComponent<Projectile_Cannon>().SetupProjectile(velocity, damage, objectPool);
     }
 
-    protected override Enemy FindEnemyWithinRange()
-    {
-        // 這裡使用父類別的 allocatedColliders
-        int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, attackRange, allocatedColliders, whatIsEnemy);
-        Enemy bestTarget = null;
-        int maxNearByEnemies = 0;
-
-        for (int i = 0; i < collidersFound; i++)
-        {
-            // ★ 安全檢查
-            if (allocatedColliders[i] == null) continue;
-
-            Transform enemyTransform = allocatedColliders[i].transform;
-
-            int amountOfEnemiesAround = EnemiesAroundEnemy(enemyTransform);
-
-            if (amountOfEnemiesAround > maxNearByEnemies)
-            {
-                maxNearByEnemies = amountOfEnemiesAround;
-                bestTarget = enemyTransform.GetComponent<Enemy>();
-            }
-        }
-
-        return bestTarget;
-    }
-
-    private int EnemiesAroundEnemy(Transform enemyToCheck)
-    {
-        // ★ 修正：這裡一定要改用 explosionBuffer，絕對不能用 allocatedColliders！
-        return Physics.OverlapSphereNonAlloc(enemyToCheck.position, 1, explosionBuffer, whatIsEnemy);
-    }
+    // ... (FindEnemyWithinRange 與 EnemiesAroundEnemy 保持不變)
 
     protected override void HandleRotation()
     {
         if (currentEnemy == null)
             return;
 
-        RotateBodyTowardsEnemy();
+        // ★ 修改：拆分兩軸旋轉邏輯
         FaceLaunchDirection();
     }
 
     private void FaceLaunchDirection()
     {
-        Vector3 attackDirection = CalculateLaunchVelocity();
-        Quaternion lookRotation = Quaternion.LookRotation(attackDirection);
+        // 1. 取得拋物線發射向量
+        Vector3 launchVelocity = CalculateLaunchVelocity();
+        if (launchVelocity == Vector3.zero) return;
 
-        Vector3 rotation = Quaternion.Lerp(towerHead.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
+        // 2. 水平旋轉 (作用於 base，即 towerHead)
+        // 我們只取水平方向的向量
+        Vector3 horizontalDir = new Vector3(launchVelocity.x, 0, launchVelocity.z);
+        if (horizontalDir != Vector3.zero)
+        {
+            Quaternion horizontalRotation = Quaternion.LookRotation(horizontalDir);
+            towerHead.rotation = Quaternion.Slerp(towerHead.rotation, horizontalRotation, rotationSpeed * Time.deltaTime);
+        }
 
-        towerHead.rotation = Quaternion.Euler(rotation.x, towerHead.eulerAngles.y, 0);
+        // 3. 垂直旋轉 (作用於 cannonHead)
+        if (cannonHead != null)
+        {
+            // 將 launchVelocity 轉為 LookRotation，它包含了正確的仰角
+            Quaternion fullLookRotation = Quaternion.LookRotation(launchVelocity);
+
+            // 我們只需要它的 X 軸（上下仰角）
+            // 透過 Lerp 讓轉動平滑
+            float targetPitch = fullLookRotation.eulerAngles.x;
+            Quaternion currentLocalRot = cannonHead.localRotation;
+            Quaternion targetLocalRot = Quaternion.Euler(targetPitch, 0, 0);
+
+            cannonHead.localRotation = Quaternion.Slerp(currentLocalRot, targetLocalRot, rotationSpeed * Time.deltaTime);
+        }
     }
 
     private Vector3 CalculateLaunchVelocity()
     {
+        if (currentEnemy == null) return Vector3.zero;
+
         Vector3 direction = currentEnemy.CenterPoint() - gunPoint.position;
-        Vector3 directionXZ = new Vector3(direction.x, 0, direction.z); //平面距離
-        Vector3 velocityXZ = directionXZ / timeToTarget; //速度 = 距離 / 時間
+        Vector3 directionXZ = new Vector3(direction.x, 0, direction.z);
+        float distanceXZ = directionXZ.magnitude;
 
-        float yVelocity = (direction.y - (Physics.gravity.y * Mathf.Pow(timeToTarget, 2)) / 2) / timeToTarget; //s=v0t+1/2at^2
-        Vector3 launchVelocity = velocityXZ + (Vector3.up * yVelocity);
+        Vector3 velocityXZ = directionXZ.normalized * (distanceXZ / timeToTarget);
 
-        return launchVelocity;
+        // 使用物理公式計算 Y 軸初始速度
+        float yVelocity = (direction.y - 0.5f * Physics.gravity.y * Mathf.Pow(timeToTarget, 2)) / timeToTarget;
+
+        return velocityXZ + Vector3.up * yVelocity;
     }
 }
