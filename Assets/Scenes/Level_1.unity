@@ -27290,6 +27290,10 @@ PrefabInstance:
       value: WaveManger
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: basicEnemy
+      value: 
+      objectReference: {fileID: 477544853449020274, guid: 208606ccbbea52e40baacabfebe23702, type: 3}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: currentGrid
       value: 
       objectReference: {fileID: 4673499679714831265}
