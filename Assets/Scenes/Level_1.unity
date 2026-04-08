@@ -27290,6 +27290,10 @@ PrefabInstance:
       value: WaveManger
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: fastEnemy
+      value: 
+      objectReference: {fileID: 8515383959338803102, guid: 7e78070e5b25baa4bb85db19fbbffef8, type: 3}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: basicEnemy
       value: 
       objectReference: {fileID: 477544853449020274, guid: 208606ccbbea52e40baacabfebe23702, type: 3}
@@ -27419,6 +27423,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[9].basicEnemy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
+      propertyPath: levelWaves.Array.data[0].fastEnemy_2
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}

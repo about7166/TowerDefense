@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2810724353703665790}
   m_Layer: 7
   m_Name: MyEnemyBase_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,8 +124,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.39279574, z: 0.3}
-  m_Center: {x: 0, y: 0.20139787, z: 0}
+  m_Size: {x: 0.3, y: 0.39, z: 0.3}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!54 &2810724353703665790
 Rigidbody:
   m_ObjectHideFlags: 0

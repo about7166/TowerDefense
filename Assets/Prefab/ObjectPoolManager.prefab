@@ -61,6 +61,7 @@ MonoBehaviour:
   - {fileID: 4929134077077773025, guid: 59f0a2b60ca636a4cbf8e094deea989c, type: 3}
   - {fileID: 5631384923115419768, guid: 36c1f4c85917b3841a2fb074fe2bc9be, type: 3}
   - {fileID: 477544853449020274, guid: 208606ccbbea52e40baacabfebe23702, type: 3}
+  - {fileID: 8515383959338803102, guid: 7e78070e5b25baa4bb85db19fbbffef8, type: 3}
   projectilePools:
   - {fileID: 1313409016005531288, guid: ac0e290506b5ba948a979d419ade31f0, type: 3}
   - {fileID: 5266919654063318630, guid: 307e615d8aa2fe343ae60695ab070f30, type: 3}
