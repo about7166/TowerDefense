@@ -69962,20 +69962,72 @@ PrefabInstance:
       value: -0.3226
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: fastEnemy
+      value: 
+      objectReference: {fileID: 7465225409365831956, guid: 434ec332df292624bb1d7105bb0c3a85, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: basicEnemy
+      value: 
+      objectReference: {fileID: 477544853449020274, guid: 208606ccbbea52e40baacabfebe23702, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: heavyEnemy
+      value: 
+      objectReference: {fileID: 945300725135932872, guid: 53f4008d30149ed4a94bceacca3441ad, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: currentGrid
       value: 
       objectReference: {fileID: 1150395579}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: fastEnemy_2
+      value: 
+      objectReference: {fileID: 7465225409365831956, guid: 3a8f9b4beac11c04d955ae5c6891a51b, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: fastEnemy_3
+      value: 
+      objectReference: {fileID: 7465225409365831956, guid: 5ba8752a3d2d05e45b4e7404022509c7, type: 3}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: flyingEnemy
       value: 
       objectReference: {fileID: 6485706694490513557, guid: 27a4acc9f78d87340a1bae07143cec72, type: 3}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: basicEnemy_2
+      value: 
+      objectReference: {fileID: 477544853449020274, guid: 7e5694420525fdb4f8e46ec9976f67f1, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: basicEnemy_3
+      value: 
+      objectReference: {fileID: 477544853449020274, guid: 314cef573acdf1e47970b68c3ce58d4c, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: heavyEnemy_2
+      value: 
+      objectReference: {fileID: 945300725135932872, guid: 74ac2ec688f099f4ab944352aeb7e0b4, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: heavyEnemy_3
+      value: 
+      objectReference: {fileID: 945300725135932872, guid: 18893b3f9859b7f49813ea98e51832a4, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: flyingEnemy_2
+      value: 
+      objectReference: {fileID: 6485706694490513557, guid: d8777f356a644bb4aba4e040eb87238b, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: flyingEnemy_3
+      value: 
+      objectReference: {fileID: 6485706694490513557, guid: f5591f3a2a58c77488cfa67f1b54a064, type: 3}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: flyingNavMeshColliders.Array.size
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].fastEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].basicEnemy
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].heavyEnemy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: 'flyingNavMeshColliders.Array.data[5]'
@@ -69986,8 +70038,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].fastEnemy_2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].fastEnemy_3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].flyingEnemy
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].basicEnemy_2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].basicEnemy_3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].heavyEnemy_2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].heavyEnemy_3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].flyingEnemy_2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
+      propertyPath: levelWaves.Array.data[0].flyingEnemy_3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].flyingBossEnemy
