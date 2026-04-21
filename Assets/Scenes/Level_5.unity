@@ -70019,15 +70019,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].fastEnemy
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].basicEnemy
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].heavyEnemy
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: 'flyingNavMeshColliders.Array.data[5]'
@@ -70039,39 +70039,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].fastEnemy_2
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].fastEnemy_3
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].flyingEnemy
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].basicEnemy_2
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].basicEnemy_3
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].heavyEnemy_2
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].heavyEnemy_3
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].flyingEnemy_2
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].flyingEnemy_3
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2529669538830563598, guid: f13ff52272b67d346806e50900a7ad9b, type: 3}
       propertyPath: levelWaves.Array.data[0].flyingBossEnemy

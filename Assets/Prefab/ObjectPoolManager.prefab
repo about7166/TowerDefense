@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 1931165734540889600, guid: c887a3a679905894e8a900b00abf1aeb, type: 3}
   - {fileID: 1005620888706481572, guid: d8f09373acc6a914a82ae4816bf25786, type: 3}
   - {fileID: 8436154029982507919, guid: 989fb5797e1799c43aaf9e3713bb1744, type: 3}
+  - {fileID: 8499971205692400993, guid: 6f7700e264a6cd54cb199aa18c01741d, type: 3}
   vfxPools:
   - {fileID: 5072045690011629040, guid: 0ce7fe204e0f6ce46ae422b7f5333eb9, type: 3}
   - {fileID: 601840662465736758, guid: ef2bed5e89e0b364b9a55bba606dc1fc, type: 3}
