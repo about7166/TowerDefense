@@ -194,23 +194,27 @@ MonoBehaviour:
     swarmEnemy: 0
     stealthEnemy: 0
     flyingEnemy: 1
+    flyingEnemy_2: 0
+    flyingEnemy_3: 0
     flyingBossEnemy: 1
     spiderBossEnemy: 0
   waveIndex: 0
   yOffset: 5
   tileDelay: 0.001
-  basicEnemy: {fileID: 1952343307049189261, guid: 7fc997a7f7740664593db0e038f24351, type: 3}
-  basicEnemy_2: {fileID: 1952343307049189261, guid: 55c3c184c2f24224789013a257a83a4f, type: 3}
-  basicEnemy_3: {fileID: 1952343307049189261, guid: f8b4a50734d58174b83f3c41fa1806b6, type: 3}
-  fastEnemy: {fileID: 8549745425916897304, guid: 832814e17a0ac5f4d8f99f0009ae71d6, type: 3}
-  fastEnemy_2: {fileID: 8549745425916897304, guid: 97a4f9830994f9140ad0934a4fd38942, type: 3}
-  fastEnemy_3: {fileID: 8549745425916897304, guid: 335d8e3d22f5bce46866c859fac8f592, type: 3}
-  heavyEnemy: {fileID: 4676259463643854155, guid: 481de9de4786ab248b7f841da0e4aa46, type: 3}
-  heavyEnemy_2: {fileID: 4676259463643854155, guid: 95f30c6d9a759ff4aa2e9a99a7bd0a4f, type: 3}
-  heavyEnemy_3: {fileID: 4676259463643854155, guid: 54bc50374a205ae49a967764286abc9a, type: 3}
+  basicEnemy: {fileID: 477544853449020274, guid: 208606ccbbea52e40baacabfebe23702, type: 3}
+  basicEnemy_2: {fileID: 477544853449020274, guid: 7e5694420525fdb4f8e46ec9976f67f1, type: 3}
+  basicEnemy_3: {fileID: 477544853449020274, guid: 314cef573acdf1e47970b68c3ce58d4c, type: 3}
+  fastEnemy: {fileID: 7465225409365831956, guid: 434ec332df292624bb1d7105bb0c3a85, type: 3}
+  fastEnemy_2: {fileID: 7465225409365831956, guid: 3a8f9b4beac11c04d955ae5c6891a51b, type: 3}
+  fastEnemy_3: {fileID: 7465225409365831956, guid: 5ba8752a3d2d05e45b4e7404022509c7, type: 3}
+  heavyEnemy: {fileID: 945300725135932872, guid: 53f4008d30149ed4a94bceacca3441ad, type: 3}
+  heavyEnemy_2: {fileID: 945300725135932872, guid: 74ac2ec688f099f4ab944352aeb7e0b4, type: 3}
+  heavyEnemy_3: {fileID: 945300725135932872, guid: 18893b3f9859b7f49813ea98e51832a4, type: 3}
   swarmEnemy: {fileID: 4929134077077773025, guid: 59f0a2b60ca636a4cbf8e094deea989c, type: 3}
   stealthEnemy: {fileID: 4271213193262600458, guid: 04ceb3aad66b74741bd7fa195ef01ee3, type: 3}
-  flyingEnemy: {fileID: 3047515795709317973, guid: 74b70b7dcebeb0047812380a53da4446, type: 3}
+  flyingEnemy: {fileID: 6485706694490513557, guid: 27a4acc9f78d87340a1bae07143cec72, type: 3}
+  flyingEnemy_2: {fileID: 6485706694490513557, guid: d8777f356a644bb4aba4e040eb87238b, type: 3}
+  flyingEnemy_3: {fileID: 6485706694490513557, guid: f5591f3a2a58c77488cfa67f1b54a064, type: 3}
   flyingBossEnemy: {fileID: 6922555436145900442, guid: 927c772182e72cd46905a52a102a035f, type: 3}
   spiderBossEnemy: {fileID: 5631384923115419768, guid: 36c1f4c85917b3841a2fb074fe2bc9be, type: 3}
   gameBegun: 0

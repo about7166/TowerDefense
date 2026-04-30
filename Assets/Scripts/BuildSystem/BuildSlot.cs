@@ -110,4 +110,10 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public Vector3 GetBuildPosition(float yOffset) => defaultposition + new Vector3(0, yOffset);
+
+    // 新增這個方法，讓外部可以更新它的預設位置
+    public void UpdateDefaultPosition(Vector3 newPosition)
+    {
+        defaultposition = newPosition;
+    }
 }

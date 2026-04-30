@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 434565722588865748}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9060999, z: 0}
+  m_LocalPosition: {x: 0, y: 0.987, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14674,8 +14674,8 @@ Transform:
   m_GameObject: {fileID: 3218974551697635957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.094, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.2080001, z: 0}
+  m_LocalScale: {x: 1, y: 6.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7856117707445745695}
@@ -19807,7 +19807,7 @@ MonoBehaviour:
   attackOffsetY: 0.57
   attackDuration: 0.1
   reloadDuration: 2
-  hammerHolderScaleY: 7
+  hammerHolderScaleY: 6.5
   hammerHolderTargetScaleY: 1
 --- !u!54 &6466118265512298730
 Rigidbody:

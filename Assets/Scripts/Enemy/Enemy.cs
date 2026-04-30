@@ -71,7 +71,8 @@ public class Enemy : MonoBehaviour , IDamagable
 
     protected virtual void Start()
     {
-
+        // 確保 ObjectPoolManager 已經在 Awake 準備好之後，我們再抓取它
+        objectPool = ObjectPoolManager.instance;
     }
 
     public void SetupEnemy(EnemyPortal myNewPortal)
@@ -377,15 +378,22 @@ public class Enemy : MonoBehaviour , IDamagable
 
     public virtual void Die()
     {
-        gameManager.UpdateCurrency(moneyReward);
+        // 🚀 防呆保護：確定有 GameManager 才給錢
+        if (gameManager != null)
+            gameManager.UpdateCurrency(moneyReward);
+        else
+            Debug.LogWarning($"警告：場景中找不到 GameManager！怪物 {gameObject.name} 無法掉落金幣！");
+
         RemoveEnemy();
     }
 
-    // 當敵人抵達終點 (或撞到主堡) 時呼叫這個方法
     public void ReachCastleAndDealDamage()
     {
-        // 傳入負的 damageToCastle 來扣主堡血量
-        gameManager.UpdateHp(-damageToCastle);
+        // 🚀 防呆保護：確定有 GameManager 才扣血
+        if (gameManager != null)
+            gameManager.UpdateHp(-damageToCastle);
+        else
+            Debug.LogWarning($"警告：場景中找不到 GameManager！怪物 {gameObject.name} 無法對主堡造成傷害！");
 
         // 撞到主堡後，將自己從場上移除
         RemoveEnemy();

@@ -20,8 +20,6 @@ public class Tower_Crossbow : Tower
 
         if (Physics.Raycast(gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity, whatIsTargetable))
         {
-            // ============ 👇 修改重點：強制水平轉向 👇 ============
-
             Vector3 lookDir = directionToEnemy;
             lookDir.y = 0; // 把上下傾斜的角度拿掉，只留水平方向
 
@@ -30,15 +28,21 @@ public class Tower_Crossbow : Tower
                 towerHead.forward = lookDir; // 這樣它就永遠不會低頭了！
             }
 
-            // ============ 👆 修改結束 👆 ============
-
+            // ============ 👇 加上安全鎖 👇 ============
             IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
-            damagable.TakeDamage(damage);
 
+            // 如果射中的東西真的有血條腳本 (是活著的怪物)，才進行扣血
+            if (damagable != null)
+            {
+                damagable.TakeDamage(damage);
+            }
+
+            // 確保不管射中怪物還是射空，視覺特效跟「拉弓裝填」的動作都必須照常執行！
             visuals.CreateOnHitFX(hitInfo.point);
             visuals.PlayAttackVFX(gunPoint.position, hitInfo.point);
             visuals.PlayReloaxVFX(attackCooldown);
             AudioManager.instance?.PlaySFX(attackSfx, true);
+            // ============ 👆 修改結束 👆 ============
         }
     }
 }

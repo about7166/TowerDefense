@@ -190,19 +190,39 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < grid.Count; i++)
         {
             TileSlot currentTile = grid[i].GetComponent<TileSlot>();
-            TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
+            TileSlot referenceNewTile = newGrid[i].GetComponent<TileSlot>();
 
-            bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
-                                   currentTile.GetOriginalMaterial() != newTile.GetOriginalMaterial() ||
-                                   currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
-                                   currentTile.transform.rotation != newTile.transform.rotation;
+            bool shouldBeUpdated = currentTile.GetMesh() != referenceNewTile.GetMesh() ||
+                                   currentTile.GetOriginalMaterial() != referenceNewTile.GetOriginalMaterial() ||
+                                   currentTile.GetAllChildren().Count != referenceNewTile.GetAllChildren().Count ||
+                                   currentTile.transform.rotation != referenceNewTile.transform.rotation;
 
             if (shouldBeUpdated)
             {
                 tilesToRemove.Add(currentTile);
-                tilesToAdd.Add(newTile);
 
-                grid[i] = newTile.gameObject;
+                // ============ 👇 修改這段 👇 ============
+
+                // 1. 先抓取舊地塊的位置 (保留 X 和 Z)
+                Vector3 correctPosition = currentTile.transform.position;
+
+                // 2. 🚀 關鍵：把 Y 軸高度替換成「新地塊」原本設定好的高度！
+                correctPosition.y = referenceNewTile.transform.position.y;
+
+                // 3. 在這個融合了新舊座標的精準位置上生成地塊
+                GameObject spawnedNewTile = Instantiate(referenceNewTile.gameObject, correctPosition, referenceNewTile.transform.rotation);
+
+                // ============ 👆 修改結束 👆 ============
+
+                TileSlot actualNewTile = spawnedNewTile.GetComponent<TileSlot>();
+
+                // 讓新地塊一開始是隱藏的
+                spawnedNewTile.SetActive(false);
+
+                tilesToAdd.Add(actualNewTile);
+
+                // 將新地塊更新到目前的陣列中
+                grid[i] = spawnedNewTile;
             }
         }
 
@@ -229,11 +249,17 @@ public class WaveManager : MonoBehaviour
 
     private void AddTile(TileSlot newTile)
     {
-        newTile.gameObject.SetActive(true);
-        newTile.transform.position += new Vector3(0, -yOffset, 0);
         newTile.transform.parent = currentGrid.transform;
+        Vector3 targetPosition = newTile.transform.position;
+        newTile.transform.position = targetPosition + new Vector3(0, -yOffset, 0);
+        newTile.gameObject.SetActive(true);
 
-        Vector3 targetPosition = newTile.transform.position + new Vector3(0, yOffset, 0);
+        // 🚀 新增這段：如果這個新地塊是 Can Build，告訴它正確的預設位置是 targetPosition！
+        BuildSlot buildSlot = newTile.GetComponent<BuildSlot>();
+        if (buildSlot != null)
+        {
+            buildSlot.UpdateDefaultPosition(targetPosition);
+        }
 
         tileAnimator.DissolveTile(true, newTile.transform);
         tileAnimator.MoveTile(newTile.transform, targetPosition, true);

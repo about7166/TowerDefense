@@ -117,7 +117,10 @@ public class Crossbow_Visuals : MonoBehaviour
 
     public void PlayAttackVFX(Vector3 startPoint, Vector3 endPoint)
     {
-        StartCoroutine(VFXCoroutione(startPoint,endPoint));
+        // 新增這行：發射瞬間，弓弦瞬間彈回最前方（卸載狀態）！
+        rotor.localPosition = rotorUnloaded.localPosition;
+
+        StartCoroutine(VFXCoroutione(startPoint, endPoint));
     }
 
     private IEnumerator VFXCoroutione(Vector3 startPoint, Vector3 endPoint)

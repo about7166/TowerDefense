@@ -138,42 +138,69 @@ public class TileSlotEditor : Editor
 
         GUILayout.Label("橋及斜坡選項", centeredStyle);
 
+        // --- Hill 1 系列 ---
         GUILayout.BeginHorizontal();
-
+        if (GUILayout.Button("Hill 1 L", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_1_L);
         if (GUILayout.Button("Hill 1", GUILayout.Width(threebuttonWidth)))
-        {
             ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_1);
-        }
+        if (GUILayout.Button("Hill 1 R", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_1_R);
+        GUILayout.EndHorizontal();
 
+        // --- Hill 2 系列 ---
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Hill 2 L", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_2_L);
         if (GUILayout.Button("Hill 2", GUILayout.Width(threebuttonWidth)))
-        {
             ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_2);
-        }
+        if (GUILayout.Button("Hill 2 R", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_2_R);
+        GUILayout.EndHorizontal();
 
+        // --- Hill 3 系列 ---
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Hill 3 L", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_3_L);
         if (GUILayout.Button("Hill 3", GUILayout.Width(threebuttonWidth)))
-        {
             ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_3);
-        }
+        if (GUILayout.Button("Hill 3 R", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileHill_3_R);
+        GUILayout.EndHorizontal();
 
+        // --- Bridge Middle 系列 ---
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("noBuild M", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeNoBuild_Middle);
+        if (GUILayout.Button("road M", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeRoad_Middle);
+        if (GUILayout.Button("sideway M", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeSideway_Middle);
+        GUILayout.EndHorizontal();
+
+        // --- Bridge Side 系列 ---
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("noBuild S", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeNoBuild_Side);
+        if (GUILayout.Button("road S", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeRoad_Side);
+        if (GUILayout.Button("sideway S", GUILayout.Width(threebuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeSideway_Side);
+        GUILayout.EndHorizontal();
+
+        // --- Bridge Corner 系列 ---
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Bridge inner corner", GUILayout.Width(twobuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeInnerCorner);
+        if (GUILayout.Button("Bridge small outer corner", GUILayout.Width(twobuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeOuterCornerSmall);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Bridge with Field", GUILayout.Width(threebuttonWidth)))
-        {
-            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeField);
-        }
-
-        if (GUILayout.Button("Bridge with Road", GUILayout.Width(threebuttonWidth)))
-        {
-            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeRoad);
-        }
-
-        if (GUILayout.Button("Bridge with Sideway", GUILayout.Width(threebuttonWidth)))
-        {
-            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeSideway);
-        }
-
+        if (GUILayout.Button("noBuild inner corner", GUILayout.Width(twobuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeNoBuild_InnerCorner);
+        if (GUILayout.Button("noBuild small outer corner", GUILayout.Width(twobuttonWidth)))
+            ApplyTileChange(FindFirstObjectByType<TileSetHolder>().tileBridgeNoBuild_OuterCornerSmall);
         GUILayout.EndHorizontal();
 
         GUILayout.Label("關卡按鈕", centeredStyle);

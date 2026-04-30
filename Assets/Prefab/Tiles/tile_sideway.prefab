@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 6748772099317985299}
   - component: {fileID: 2718895173137898393}
   - component: {fileID: 3349932858906369307}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: tile_sideway_road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
