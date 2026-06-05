@@ -24508,7 +24508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[0].fastEnemy
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[1].fastEnemy
@@ -24548,7 +24548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[0].basicEnemy
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.data[1].basicEnemy
