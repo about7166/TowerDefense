@@ -19,47 +19,59 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 26498306813952
-    m_Localized: Play
+    m_Localized: PLAY
     m_Metadata:
       m_Items: []
   - m_Id: 1135449639366656
-    m_Localized: Settings
+    m_Localized: SETTINGS
     m_Metadata:
       m_Items: []
   - m_Id: 1135449668726784
-    m_Localized: Tutorial
+    m_Localized: TUTORIAL
     m_Metadata:
       m_Items: []
   - m_Id: 1135449668726785
-    m_Localized: Credits
+    m_Localized: CREDITS
     m_Metadata:
       m_Items: []
   - m_Id: 1135449672921088
-    m_Localized: Quit
+    m_Localized: QUIT
     m_Metadata:
       m_Items: []
   - m_Id: 3691231773863936
-    m_Localized: Settings
+    m_Localized: SETTINGS
     m_Metadata:
       m_Items: []
   - m_Id: 3691231803224064
-    m_Localized: Volume
+    m_Localized: VOLUME
     m_Metadata:
       m_Items: []
   - m_Id: 3691231803224065
-    m_Localized: Sound effects
+    m_Localized: SOUND EFFECTS
     m_Metadata:
       m_Items: []
   - m_Id: 3691231803224066
-    m_Localized: Background music
+    m_Localized: BACKGROUND MUSIC
     m_Metadata:
       m_Items: []
   - m_Id: 3694718142263296
-    m_Localized: Camera
+    m_Localized: CAMERA
     m_Metadata:
       m_Items: []
   - m_Id: 3694718142263297
-    m_Localized: Language
+    m_Localized: LANGUAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756152979456
+    m_Localized: PAN SPEED - WASD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756178145280
+    m_Localized: PAN SPEED - MOUSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4119208194093056
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   references:

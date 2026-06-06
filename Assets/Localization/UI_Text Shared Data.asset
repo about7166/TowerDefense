@@ -59,6 +59,18 @@ MonoBehaviour:
     m_Key: Language_Button
     m_Metadata:
       m_Items: []
+  - m_Id: 4118756152979456
+    m_Key: Pan Speed - WASD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756178145280
+    m_Key: Pan Speed - Mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4119208194093056
+    m_Key: Back_Button
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
