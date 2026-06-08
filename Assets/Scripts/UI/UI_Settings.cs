@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.Localization.Settings;
 
 public class UI_Settings : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class UI_Settings : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private float mixerMultiplier = 25;
+
+    [Header("左側分頁切換 (Tabs)")]
+    [SerializeField] private GameObject[] tabActiveBackgrounds; // 用來放那條藍色的 BG_Active
+    [SerializeField] private GameObject[] contentPanels;        // 用來放右邊的 SubPanel_...
 
     [Header("SFX設定")]
     [SerializeField] private Slider sfxSlider;
@@ -47,6 +53,9 @@ public class UI_Settings : MonoBehaviour
     {
         camController = FindFirstObjectByType<CameraController>();
         LoadSettings();
+
+        // 每次打開設定面板，強制切回第一個分頁 (0 = Volume)
+        SwitchTab(0);
     }
 
     // ★ 1. 把 private 改成 public，並刪除 UI_Settings 裡的 Start() 方法 (因為用不到了)
@@ -108,6 +117,40 @@ public class UI_Settings : MonoBehaviour
             camController.AdjustMouseSensitivity(newSensitivity);
 
         mouseSensitivityText.text = Mathf.RoundToInt(value * 100) + "%";
+    }
+
+    // 切換分頁的核心邏輯
+    public void SwitchTab(int tabIndex)
+    {
+        // 1. 先把所有的「藍色高光背景」和「右側面板」通通關閉
+        for (int i = 0; i < contentPanels.Length; i++)
+        {
+            if (tabActiveBackgrounds[i] != null) tabActiveBackgrounds[i].SetActive(false);
+            if (contentPanels[i] != null) contentPanels[i].SetActive(false);
+        }
+
+        // 2. 只把「被點擊的那個 (tabIndex)」打開
+        if (tabIndex < tabActiveBackgrounds.Length && tabActiveBackgrounds[tabIndex] != null)
+            tabActiveBackgrounds[tabIndex].SetActive(true);
+
+        if (tabIndex < contentPanels.Length && contentPanels[tabIndex] != null)
+            contentPanels[tabIndex].SetActive(true);
+    }
+
+    // 給 Dropdown 呼叫的公開方法
+    public void ChangeLanguage(int localeID)
+    {
+        StartCoroutine(SetLocale(localeID));
+    }
+
+    // 實際執行切換語言的協程 (確保 Localization 系統準備好才切換)
+    private IEnumerator SetLocale(int localeID)
+    {
+        // 等待 Localization 系統初始化完成
+        yield return LocalizationSettings.InitializationOperation;
+
+        // 根據 Dropdown 傳來的數字 (0, 1, 2) 切換到對應的語言
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
     }
 
     private void OnDisable()
