@@ -71,6 +71,50 @@ MonoBehaviour:
     m_Key: Back_Button
     m_Metadata:
       m_Items: []
+  - m_Id: 4824198197948416
+    m_Key: GameOver_001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308544
+    m_Key: GameOver_002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308545
+    m_Key: GameOver_003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308546
+    m_Key: GameOver_004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308547
+    m_Key: GameOver_005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308548
+    m_Key: GameOver_006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308549
+    m_Key: GameOver_007
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308550
+    m_Key: GameOver_008
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826130945814528
+    m_Key: GameOver_UI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226880
+    m_Key: MainMenu_Button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226881
+    m_Key: TryAgain_Buttin
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

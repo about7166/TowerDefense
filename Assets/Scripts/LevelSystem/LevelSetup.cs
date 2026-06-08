@@ -66,6 +66,13 @@ public class LevelSetup : MonoBehaviour
     {
         UI ui = FindFirstObjectByType<UI>();
 
+        // 加入這行最強防呆檢查：如果沒抓到 UI 或是按鈕系統，就不要往下執行！
+        if (ui == null || ui.buildButtonsUI == null)
+        {
+            Debug.LogWarning("找不到 UI 總管，跳過解鎖防禦塔！(可能是因為你正在單獨測試關卡場景)");
+            return;
+        }
+
         foreach (var unlockData in towerUnlocks)//找每座塔的資料
         {
             foreach (var buildButton in ui.buildButtonsUI.GetBuildButtons())//找按鈕

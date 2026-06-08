@@ -17,6 +17,9 @@ public class UI_Settings : MonoBehaviour
     [SerializeField] private GameObject[] tabActiveBackgrounds; // 用來放那條藍色的 BG_Active
     [SerializeField] private GameObject[] contentPanels;        // 用來放右邊的 SubPanel_...
 
+    [Header("語言設定")]
+    [SerializeField] private TMP_Dropdown languageDropdown;
+
     [Header("SFX設定")]
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private string sfxParameter;
@@ -56,6 +59,9 @@ public class UI_Settings : MonoBehaviour
 
         // 每次打開設定面板，強制切回第一個分頁 (0 = Volume)
         SwitchTab(0);
+
+        // 新增這行：開啟面板時，同步下拉選單的顯示
+        StartCoroutine(SyncLanguageDropdown());
     }
 
     // ★ 1. 把 private 改成 public，並刪除 UI_Settings 裡的 Start() 方法 (因為用不到了)
@@ -151,6 +157,27 @@ public class UI_Settings : MonoBehaviour
 
         // 根據 Dropdown 傳來的數字 (0, 1, 2) 切換到對應的語言
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
+    }
+
+    // ★ 負責同步下拉選單與目前語言的方法
+    private System.Collections.IEnumerator SyncLanguageDropdown()
+    {
+        // 1. 等待多國語言系統準備好
+        yield return LocalizationSettings.InitializationOperation;
+
+        // 2. 取得目前系統記憶的語言，以及所有的語言清單
+        var currentLocale = LocalizationSettings.SelectedLocale;
+        var availableLocales = LocalizationSettings.AvailableLocales.Locales;
+
+        // 3. 找出目前語言在清單裡是第幾個 (0=英文, 1=繁中, 2=簡中)
+        int index = availableLocales.IndexOf(currentLocale);
+
+        // 4. 把下拉選單切換到對應的數字。
+        // 使用 SetValueWithoutNotify 是為了「只改變畫面顯示」，不觸發 OnValueChanged 去重新載入一次語言
+        if (languageDropdown != null && index >= 0)
+        {
+            languageDropdown.SetValueWithoutNotify(index);
+        }
     }
 
     private void OnDisable()

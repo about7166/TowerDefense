@@ -74,6 +74,50 @@ MonoBehaviour:
     m_Localized: BACK
     m_Metadata:
       m_Items: []
+  - m_Id: 4824198197948416
+    m_Localized: Spend your coins to build more towers!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308544
+    m_Localized: "Pay attention to each tower\u2019s attack range."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308545
+    m_Localized: Place towers beside enemy paths for better results!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308546
+    m_Localized: Sometimes upgrading towers is better than building new ones.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308547
+    m_Localized: Different enemies require different types of towers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308548
+    m_Localized: Place high-damage towers where they can attack the longest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308549
+    m_Localized: Watch the enemy route before placing your towers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308550
+    m_Localized: "Don\u2019t let your coins sit idle. Turn them into firepower!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826130945814528
+    m_Localized: GAME OVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226880
+    m_Localized: MAIN MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226881
+    m_Localized: TRY AGAIN
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
