@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Text_it
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: it
+  m_SharedData: {fileID: 11400000, guid: fdeb1a7b215423049be222be86458a0c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 26498306813952
+    m_Localized: GIOCA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449639366656
+    m_Localized: IMPOSTAZIONI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449668726784
+    m_Localized: TUTORIAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449668726785
+    m_Localized: RICONOSCIMENTI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449672921088
+    m_Localized: ESCI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231773863936
+    m_Localized: IMPOSTAZIONI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231803224064
+    m_Localized: VOLUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231803224065
+    m_Localized: EFFETTI SONORI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231803224066
+    m_Localized: MUSICA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3694718142263296
+    m_Localized: TELECAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3694718142263297
+    m_Localized: LINGUA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756152979456
+    m_Localized: VEL. TELECAMERA - WASD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756178145280
+    m_Localized: VEL. TELECAMERA - MOUSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4119208194093056
+    m_Localized: INDIETRO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198197948416
+    m_Localized: "Spendi monete per costruire pi\xF9 torri!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308544
+    m_Localized: Fai attenzione al raggio d'attacco.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308545
+    m_Localized: Piazza le torri vicino ai percorsi nemici!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308546
+    m_Localized: "A volte potenziare \xE8 meglio che costruire."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308547
+    m_Localized: Nemici diversi richiedono torri diverse.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308548
+    m_Localized: Piazza le torri ad alto danno in punti strategici.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308549
+    m_Localized: Osserva il percorso nemico prima di costruire.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308550
+    m_Localized: Non conservare monete. Trasformale in potenza di fuoco!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826130945814528
+    m_Localized: GAME OVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226880
+    m_Localized: MENU PRINCIPALE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226881
+    m_Localized: RIPROVA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063535741251584
+    m_Localized: 'Nemici uccisi :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063535779000320
+    m_Localized: 'PV :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098880425984
+    m_Localized: VITTORIA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098905591808
+    m_Localized: LIVELLO SUCCESSIVO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780902051840
+    m_Localized: FINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780935606272
+    m_Localized: "Grazie per aver giocato!\\nQuesto gioco \xE8 stato creato con passione,\\ne
+      il tuo viaggio significa molto per me.\\nAlla prossima avventura!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5183481720745984
+    m_Localized: SVILUPPATO DA
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

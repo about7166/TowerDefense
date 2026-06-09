@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Text_de
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: fdeb1a7b215423049be222be86458a0c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 26498306813952
+    m_Localized: SPIELEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449639366656
+    m_Localized: EINSTELLUNGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449668726784
+    m_Localized: TUTORIAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449668726785
+    m_Localized: CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135449672921088
+    m_Localized: BEENDEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231773863936
+    m_Localized: EINSTELLUNGEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231803224064
+    m_Localized: "LAUTST\xC4RKE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231803224065
+    m_Localized: SOUNDEFFEKTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3691231803224066
+    m_Localized: HINTERGRUNDMUSIK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3694718142263296
+    m_Localized: KAMERA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3694718142263297
+    m_Localized: SPRACHE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756152979456
+    m_Localized: KAMERAGESCHW. - WASD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4118756178145280
+    m_Localized: KAMERAGESCHW. - MAUS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4119208194093056
+    m_Localized: "ZUR\xDCCK"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198197948416
+    m_Localized: "Gib M\xFCnzen aus, um T\xFCrme zu bauen!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308544
+    m_Localized: Achte auf die Angriffsreichweite.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308545
+    m_Localized: "Platziere T\xFCrme an den Wegen der Feinde!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308546
+    m_Localized: Manchmal sind Upgrades besser als Neubauten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308547
+    m_Localized: "Verschiedene Feinde erfordern andere T\xFCrme."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308548
+    m_Localized: "Platziere starke T\xFCrme an strategischen Orten."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308549
+    m_Localized: Beobachte die Route vor dem Bauen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4824198227308550
+    m_Localized: "Lass M\xFCnzen nicht liegen. Nutze sie f\xFCr Feuerkraft!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826130945814528
+    m_Localized: GAME OVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226880
+    m_Localized: "HAUPTMEN\xDC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4826727535226881
+    m_Localized: NOCHMAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063535741251584
+    m_Localized: "Get\xF6tete Feinde :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063535779000320
+    m_Localized: 'HP :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098880425984
+    m_Localized: SIEG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098905591808
+    m_Localized: "N\xC4CHSTES LEVEL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780902051840
+    m_Localized: ENDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780935606272
+    m_Localized: "Danke f\xFCrs Spielen!\\nDieses Spiel wurde mit Leidenschaft gemacht,\\nund
+      deine Reise bedeutet mir alles.\\nBis zum n\xE4chsten Abenteuer!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5183481720745984
+    m_Localized: ENTWICKELT VON
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

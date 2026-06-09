@@ -118,6 +118,36 @@ MonoBehaviour:
     m_Localized: TRY AGAIN
     m_Metadata:
       m_Items: []
+  - m_Id: 5063535741251584
+    m_Localized: 'Enemy Killed :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063535779000320
+    m_Localized: 'Health :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098880425984
+    m_Localized: VICTORY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098905591808
+    m_Localized: NEXT LEVEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780902051840
+    m_Localized: THE END
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780935606272
+    m_Localized: "Thank you so much for playing! \nThis game was made with endless
+      passion, \nand your journey through it means the world to me. \nHope to see
+      you in the next adventure!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5183481720745984
+    m_Localized: CREDITS BY
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

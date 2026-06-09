@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxHp;
     [SerializeField] private int currentHp;
 
+    // ★ 新增這兩行：這是對外開放的「唯讀通道」，讓別人只能看、不能亂改血量！
+    public int MaxHp => maxHp;
+    public int CurrentHp => currentHp;
+
     public int enemiesKilled {  get; private set; }
 
     private bool gameLost;

@@ -115,6 +115,34 @@ MonoBehaviour:
     m_Key: TryAgain_Buttin
     m_Metadata:
       m_Items: []
+  - m_Id: 5063535741251584
+    m_Key: Victory_EnemyKilled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063535779000320
+    m_Key: Victory_Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098880425984
+    m_Key: Victory_UI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5066098905591808
+    m_Key: Next Level_Button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780902051840
+    m_Key: TheEnd_UI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5096780935606272
+    m_Key: TheEnd_001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5183481720745984
+    m_Key: CreditsBy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
