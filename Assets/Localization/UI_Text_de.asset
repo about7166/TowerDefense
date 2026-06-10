@@ -147,6 +147,34 @@ MonoBehaviour:
     m_Localized: ENTWICKELT VON
     m_Metadata:
       m_Items: []
+  - m_Id: 5452975861018624
+    m_Localized: "1. BESCH\xDCTZE DEN TEMPEL"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184448
+    m_Localized: 'Halte Feinde auf, bevor sie den Tempel erreichen.
+
+      Wenn deine
+      HP 0 erreichen, verlierst du.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184449
+    m_Localized: 2. BAUE EINEN TURM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184450
+    m_Localized: "Tippe auf ein Baufeld. W\xE4hle einen Turm und dr\xFCcke auf Kaufen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184451
+    m_Localized: 3. VERBESSERE EINEN TURM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184452
+    m_Localized: "W\xE4hle einen platzierten Turm.\nDr\xFCcke auf Verbessern, um
+      seine Werte zu erh\xF6hen."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

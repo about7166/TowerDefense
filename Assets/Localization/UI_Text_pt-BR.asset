@@ -147,6 +147,33 @@ MonoBehaviour:
     m_Localized: DESENVOLVIDO POR
     m_Metadata:
       m_Items: []
+  - m_Id: 5452975861018624
+    m_Localized: 1. PROTEJA O TEMPLO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184448
+    m_Localized: "Pare os inimigos antes que alcancem o Templo.\nSe seu HP chegar
+      a 0, voc\xEA perde."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184449
+    m_Localized: 2. CONSTRUA UMA TORRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184450
+    m_Localized: "Toque em um espa\xE7o de constru\xE7\xE3o. Escolha uma torre e
+      pressione Comprar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184451
+    m_Localized: 3. MELHORE UMA TORRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184452
+    m_Localized: "Selecione uma torre constru\xEDda.\nPressione Melhorar para aumentar
+      seus atributos."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

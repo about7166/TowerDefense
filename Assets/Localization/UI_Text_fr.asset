@@ -148,6 +148,33 @@ MonoBehaviour:
     m_Localized: "D\xC9VELOPP\xC9 PAR"
     m_Metadata:
       m_Items: []
+  - m_Id: 5452975861018624
+    m_Localized: "1. PROT\xC9GEZ LE TEMPLE"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184448
+    m_Localized: "Arr\xEAtez les ennemis avant qu'ils n'atteignent le Temple.\nSi
+      vos PV tombent \xE0 0, vous perdez."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184449
+    m_Localized: 2. CONSTRUISEZ UNE TOUR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184450
+    m_Localized: Touchez une case de construction. Choisissez une tour et appuyez
+      sur Acheter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184451
+    m_Localized: "3. AM\xC9LIOREZ UNE TOUR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184452
+    m_Localized: "S\xE9lectionnez une tour plac\xE9e.\nAppuyez sur Am\xE9liorer pour
+      augmenter ses stats."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

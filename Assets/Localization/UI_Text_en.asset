@@ -148,6 +148,31 @@ MonoBehaviour:
     m_Localized: CREDITS BY
     m_Metadata:
       m_Items: []
+  - m_Id: 5452975861018624
+    m_Localized: 1. PROTECT THE TEMPLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184448
+    m_Localized: Stop enemies before they reach the Temple.\nIf your HP reaches 0,
+      you lose.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184449
+    m_Localized: 2. BUILD A TOWER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184450
+    m_Localized: Tap a build tile.Choose a tower and press Buy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184451
+    m_Localized: 3. UPGRADE A TOWER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184452
+    m_Localized: Select a placed tower.\nPress Upgrade to improve its stats.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

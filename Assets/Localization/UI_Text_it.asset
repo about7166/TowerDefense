@@ -147,6 +147,36 @@ MonoBehaviour:
     m_Localized: SVILUPPATO DA
     m_Metadata:
       m_Items: []
+  - m_Id: 5452975861018624
+    m_Localized: 1. PROTEGGI IL TEMPIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184448
+    m_Localized: 'Ferma i nemici prima che raggiungano il Tempio.
+
+      Se i tuoi
+      PV scendono a 0, perdi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184449
+    m_Localized: 2. COSTRUISCI UNA TORRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184450
+    m_Localized: Tocca una casella di costruzione. Scegli una torre e premi Compra.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184451
+    m_Localized: 3. POTENZIA UNA TORRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184452
+    m_Localized: 'Seleziona una torre piazzata.
+
+      Premi Potenzia per migliorarne
+      le statistiche.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -112,7 +112,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4826727535226881
-    m_Key: TryAgain_Buttin
+    m_Key: TryAgain_Button
     m_Metadata:
       m_Items: []
   - m_Id: 5063535741251584
@@ -141,6 +141,30 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 5183481720745984
     m_Key: CreditsBy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975861018624
+    m_Key: Tutorial_001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184448
+    m_Key: Tutorial_001_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184449
+    m_Key: Tutorial_002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184450
+    m_Key: Tutorial_002_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184451
+    m_Key: Tutorial_003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5452975886184452
+    m_Key: Tutorial_003_1
     m_Metadata:
       m_Items: []
   m_Metadata:
