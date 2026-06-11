@@ -173,6 +173,14 @@ MonoBehaviour:
     m_Localized: Select a placed tower.\nPress Upgrade to improve its stats.
     m_Metadata:
       m_Items: []
+  - m_Id: 5826887677521920
+    m_Localized: PAUSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5826887702687744
+    m_Localized: RESUME
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
