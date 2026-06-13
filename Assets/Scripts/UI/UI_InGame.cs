@@ -68,14 +68,28 @@ public class UI_InGame : MonoBehaviour
     //}
 
     //"威脅值"改成"血量
-    public void UpdateHealthPointsUI(int currentHp, int maxHp) => healthPointText.text = "Health : " + currentHp + "/" + maxHp;
+    // 1. 去掉 "Health : "，只保留純數字顯示 (例如 20/20)
+    public void UpdateHealthPointsUI(int currentHp, int maxHp)
+    {
+        healthPointText.text = currentHp + "/" + maxHp;
+    }
 
-    public void UpdateCurrencyUI(int value) => currencyText.text = "$ " + value;
+    // 2. 去掉 "$ "，只保留純金錢數字 (例如 1000)
+    public void UpdateCurrencyUI(int value)
+    {
+        currencyText.text = value.ToString();
+    }
 
-    public void UpdateWaveTimerUI(float value) => waveTimerText.text = "Seconds : " + value.ToString("00");
+    // 3. 將原本的 "Seconds : 20" 升級成精緻的倒數計時格式 (例如 00:20)
+    public void UpdateWaveTimerUI(float value)
+    {
+        int minutes = Mathf.FloorToInt(value / 60f);
+        int seconds = Mathf.FloorToInt(value % 60f);
+        waveTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
     public void EnableWaveTimer(bool enable)
     {
-        // 🔴 關鍵防護：如果 UI 本身已經關閉了，或者物件正在被毀滅中，就直接跳過
+        // 關鍵防護：如果 UI 本身已經關閉了，或者物件正在被毀滅中，就直接跳過
         if (this == null || !gameObject.activeInHierarchy)
             return;
 
@@ -85,7 +99,7 @@ public class UI_InGame : MonoBehaviour
         float yOffset = enable ? -waveTimerOffset : waveTimerOffset;
         Vector3 offset = new Vector3(0, yOffset);
 
-        // 🔴 防護：確保 uiAnimator 還活著
+        // 防護：確保 uiAnimator 還活著
         if (uiAnimator == null) uiAnimator = GetComponentInParent<UI_Animator>();
         if (uiAnimator == null) return;
 
