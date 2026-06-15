@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Create Config File",
+  "description": "Creating config file for the diamond-rewards-system spec",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": ""
+  }
+}
