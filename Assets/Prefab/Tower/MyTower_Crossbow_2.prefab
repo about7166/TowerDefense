@@ -62,6 +62,14 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 3105749135244613691}
   rotationSpeed: 10
+  ui_damage: 100
+  ui_dotText: None
+  isSingleTarget: 1
+  isAoE: 0
+  isSlow: 0
+  canAttackGround: 1
+  canAttackAir: 1
+  hasDoT: 0
   attackRange: 5
   whatIsEnemy:
     serializedVersion: 2

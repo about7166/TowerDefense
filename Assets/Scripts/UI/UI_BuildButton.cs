@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+// 改成這樣：
+// ★ 補上 IPointerDownHandler
 public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private UI ui;
@@ -10,6 +12,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private GameManager gameManager;
     private UI_BuildButtonsHolder buildButtonHolder;
     private UI_BuildButtonOnHoverEffect onHoverEffect;
+    private UI_TowerInfoPanel infoPanel;
 
 
     [SerializeField] private string towerName;
@@ -37,6 +40,8 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private void Start()
     {
         CreateTowerPreview();
+        // 加入這行：遊戲開始時，自動去畫面上把那個大面板找出來！
+        infoPanel = FindFirstObjectByType<UI_TowerInfoPanel>(FindObjectsInactive.Include);
     }
     private void CreateTowerPreview()
     {
@@ -49,11 +54,11 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SelectButton(bool select)
     {
-        // ★ 修正：如果是要「取消選取 (select == false)」，我們不需要檢查地塊，直接關閉預覽就好！
+        // 修正：如果是要「取消選取 (select == false)」，我們不需要檢查地塊，直接關閉預覽就好！
         if (select == false)
         {
             if (towerPreview != null) towerPreview.gameObject.SetActive(false);
-            if (onHoverEffect != null) onHoverEffect.ShowcaseButton(false);
+            //if (onHoverEffect != null) onHoverEffect.ShowcaseButton(false);
             return; // 關閉完就直接結束
         }
 
@@ -67,7 +72,7 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         towerPreview.gameObject.SetActive(true);
         towerPreview.ShowPreview(true, previewPosition);
-        onHoverEffect.ShowcaseButton(true);
+        //onHoverEffect.ShowcaseButton(true);
         buildButtonHolder.SetLastSelected(this, towerPreview.transform);
     }
 
@@ -83,6 +88,9 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void ConfirmTowerBuild()
     {
         buildManager.BuildTower(towerToBuild, towerPrice, towerPreview.transform);
+
+        // ★ 新增這行：買塔的時候，把面板順便關閉！
+        if (infoPanel != null) infoPanel.ClosePanel();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -110,8 +118,43 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         gameObject.name = "BuildButton_UI_" + towerName;
     }
 
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    ConfirmTowerBuild();
+    //}
+    // ★ 當玩家點擊這張卡片的「任何空白處」時，關閉詳細資訊面板
     public void OnPointerDown(PointerEventData eventData)
     {
-        ConfirmTowerBuild();
+        if (infoPanel != null)
+            infoPanel.ClosePanel();
+    }
+    // 新增這個方法：用來打開詳細資訊介面
+    public void OpenTowerDetails()
+    {
+        RectTransform myRect = GetComponent<RectTransform>();
+
+        // ★ 智慧判斷：如果面板已經開著，且玩家點擊的是「同一個」驚嘆號
+        if (infoPanel != null && infoPanel.gameObject.activeSelf)
+        {
+            // 比較面板和按鈕的 X 座標來確認是不是同一個
+            if (Mathf.Abs(infoPanel.GetComponent<RectTransform>().position.x - myRect.position.x) < 0.1f)
+            {
+                infoPanel.ClosePanel(); // 關掉它
+                return; // 提早結束，就不會往下執行重新開啟了！
+            }
+        }
+
+        // --- 以下是你原本的開啟邏輯 ---
+        if (buildButtonHolder != null && towerPreview != null)
+        {
+            towerPreview.gameObject.SetActive(false);
+            buildButtonHolder.SetLastSelected(null, null);
+        }
+
+        if (infoPanel != null)
+        {
+            Tower myTowerData = towerToBuild.GetComponent<Tower>();
+            infoPanel.OpenPanel(myRect, myTowerData);
+        }
     }
 }

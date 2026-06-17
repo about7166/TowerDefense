@@ -24,6 +24,23 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     [SerializeField] protected Transform gunPoint;
     [SerializeField] protected float rotationSpeed = 10;
 
+    //  從這裡開始加入 UI 需要的公開變數 
+    [Header("UI 面板顯示專用數值")]
+    [Tooltip("基礎攻擊力 (UI 顯示用)")]
+    public float ui_damage = 100f;
+
+    [Tooltip("特殊屬性說明，例如 1x10s 或 None")]
+    public string ui_dotText = "None";
+
+    [Header("UI 攻擊類型 (勾選代表該塔擁有此能力)")]
+    public bool isSingleTarget = true;
+    public bool isAoE = false;
+    public bool isSlow = false;
+    public bool canAttackGround = true;
+    public bool canAttackAir = false;
+    public bool hasDoT = false;
+    //  加入到這裡結束 
+
     [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected LayerMask whatIsEnemy;
     [SerializeField] protected LayerMask whatIsTargetable;

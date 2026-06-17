@@ -32,6 +32,10 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (buildManger.CheckIfPointerOverUI())
+            return;
+
+        // --- 以下維持不變 ---
         if (buildSlotAvailable == false || tileAnimator.IsGridMoving())
             return;
 

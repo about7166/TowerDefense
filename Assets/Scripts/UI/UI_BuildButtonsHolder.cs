@@ -6,31 +6,32 @@ public class UI_BuildButtonsHolder : MonoBehaviour
 {
     private UI_Animator uiAnimator;
 
-    // ★ 1. 新增：用來抓取 BuildManager，讓我們可以隨時查勤
+    // 1. 新增：用來抓取 BuildManager，讓我們可以隨時查勤
     private BuildManager buildManager;
+    private UI_TowerInfoPanel infoPanel;
 
     [SerializeField] private float yPositionOffset;
     [SerializeField] private float openAnimationDuration = 0.1f;
     private bool isBuildMenuActive;
 
-    private UI_BuildButtonOnHoverEffect[] buildButtonEffects;
+    //private UI_BuildButtonOnHoverEffect[] buildButtonEffects;
     private UI_BuildButton[] buildButtons;
 
     private List<UI_BuildButton> unlockedButtons;
     private UI_BuildButton lastSelectedButton;
     private Transform previewTower;
 
-    // ★ 2. 新增：用來記錄「上一次選到的是哪一塊地」
+    // 2. 新增：用來記錄「上一次選到的是哪一塊地」
     private BuildSlot trackedSlot;
 
     private void Awake()
     {
         uiAnimator = GetComponentInParent<UI_Animator>();
-        buildButtonEffects = GetComponentsInChildren<UI_BuildButtonOnHoverEffect>();
         buildButtons = GetComponentsInChildren<UI_BuildButton>();
-
-        // ★ 3. 取得 BuildManager
         buildManager = FindFirstObjectByType<BuildManager>();
+
+        // ★ 新增這行：遊戲開始時，自動抓取畫面上的資訊面板
+        infoPanel = FindFirstObjectByType<UI_TowerInfoPanel>(FindObjectsInactive.Include);
     }
 
     private void Update()
@@ -39,7 +40,7 @@ public class UI_BuildButtonsHolder : MonoBehaviour
         CheckIfSlotChanged(); // ★ 4. 每一幀檢查地塊有沒有被切換
     }
 
-    // ★ 5. 終極殺招：只要發現換地塊了，立刻清除所有殘留的預覽！
+    // 5. 終極殺招：只要發現換地塊了，立刻清除所有殘留的預覽！
     private void CheckIfSlotChanged()
     {
         if (buildManager == null) return;
@@ -60,6 +61,12 @@ public class UI_BuildButtonsHolder : MonoBehaviour
 
             lastSelectedButton = null;
             previewTower = null;
+
+            // ★★★ 新增這段：當玩家取消選取地塊時，順便關閉詳細資訊面板！ ★★★
+            if (infoPanel != null)
+            {
+                infoPanel.ClosePanel();
+            }
         }
     }
 
@@ -155,14 +162,14 @@ public class UI_BuildButtonsHolder : MonoBehaviour
         float methodDelay = isBuildMenuActive ? openAnimationDuration : 0;
 
         uiAnimator.ChangePosition(transform, new Vector3(0, yOffset), openAnimationDuration);
-        Invoke(nameof(ToggleButtonMovement), methodDelay);
+        //Invoke(nameof(ToggleButtonMovement), methodDelay);
     }
 
-    private void ToggleButtonMovement()
-    {
-        foreach (var button in buildButtonEffects)
-        {
-            button.ToggleMovement(isBuildMenuActive);
-        }
-    }
+    //private void ToggleButtonMovement()
+    //{
+    //    foreach (var button in buildButtonEffects)
+    //    {
+    //        button.ToggleMovement(isBuildMenuActive);
+    //    }
+    //}
 }

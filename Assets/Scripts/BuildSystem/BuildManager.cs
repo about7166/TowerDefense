@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems; // ★ 必須加上這行！
 
 public class BuildManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private float camShakeDuration = 0.15f;
     [SerializeField] private float camShakeMagnitude = 0.02f; //晃動幅度
 
-    private bool isMouseOverUI;
+    public bool isMouseOverUI;
 
     private void Awake()
     {
@@ -44,7 +45,8 @@ public class BuildManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (isMouseOverUI)
+            // ★ 1. 改用全新的神仙雷達！
+            if (CheckIfPointerOverUI())
                 return;
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
@@ -57,6 +59,26 @@ public class BuildManager : MonoBehaviour
         }
     }
 
+    // ★ 2. 新增這個無敵的 UI 掃描魔法
+    public bool CheckIfPointerOverUI()
+    {
+        if (EventSystem.current == null) return false;
+
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            // 只要滑鼠底下有任何物件是屬於 "UI" 圖層 (Layer) 的，就判定在 UI 上！
+            if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public void UpdateBuildManager(WaveManager newWaveManager, GridBuilder newCurrentGrid)
     {
         currentGrid = newCurrentGrid;
