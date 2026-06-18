@@ -25,7 +25,7 @@ public class Tower_SpiderNest : Tower
         InitializeSpiders();
         reloadTimeMultiplier = 1 - attackTimeMultiplier;
     }
-
+    public override float GetAttackDamage() => damage;
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

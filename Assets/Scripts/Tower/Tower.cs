@@ -26,8 +26,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //  從這裡開始加入 UI 需要的公開變數 
     [Header("UI 面板顯示專用數值")]
-    [Tooltip("基礎攻擊力 (UI 顯示用)")]
-    public float ui_damage = 100f;
+    //[Tooltip("基礎攻擊力 (UI 顯示用)")]
+    //public float ui_damage = 100f;
 
     [Tooltip("特殊屬性說明，例如 1x10s 或 None")]
     public string ui_dotText = "None";
@@ -266,7 +266,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     public float GetAttackRange() => attackRange;
     public float GetAttackCooldown() => attackCooldown;
-
+    public virtual float GetAttackDamage() => 0f;
+    public virtual float GetSlowPercentage() => 0f;
 
     protected virtual void OnDrawGizmos()
     {

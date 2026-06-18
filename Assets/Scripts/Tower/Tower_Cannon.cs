@@ -12,7 +12,7 @@ public class Tower_Cannon : Tower
     [SerializeField] private Transform cannonHead;
 
     private Collider[] explosionBuffer = new Collider[50];
-
+    public override float GetAttackDamage() => damage;
     protected override void Attack()
     {
         base.Attack();

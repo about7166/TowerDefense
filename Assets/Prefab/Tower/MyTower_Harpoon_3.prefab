@@ -365,6 +365,14 @@ MonoBehaviour:
   towerBody: {fileID: 1863130494112915380}
   gunPoint: {fileID: 93786905050003918}
   rotationSpeed: 10
+  ui_damage: 120
+  ui_dotText: 40 x 3s
+  isSingleTarget: 1
+  isAoE: 0
+  isSlow: 1
+  canAttackGround: 0
+  canAttackAir: 1
+  hasDoT: 1
   attackRange: 9
   whatIsEnemy:
     serializedVersion: 2
@@ -381,8 +389,8 @@ MonoBehaviour:
   projectileDefaultPosition: {fileID: 93786905050003918}
   projectileSpeed: 15
   initialDamage: 120
-  damageOverTime: 120
-  overTimeEffectDuration: 3
+  damageOverTime: 3
+  overTimeEffectDuration: 120
   slowEffect: 0.5
 --- !u!114 &7934892471237589671
 MonoBehaviour:

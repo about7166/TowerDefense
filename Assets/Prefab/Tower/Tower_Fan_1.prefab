@@ -583,7 +583,6 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
   rotationSpeed: 10
-  ui_damage: 100
   ui_dotText: None
   isSingleTarget: 1
   isAoE: 0

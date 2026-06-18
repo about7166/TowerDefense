@@ -18,7 +18,7 @@ public class Tower_MachineGun : Tower
         base.Awake();
         machineGunVisuals = GetComponent<MachineGun_Visuals>();
     }
-
+    public override float GetAttackDamage() => damage;
     protected override void Attack()
     {
 

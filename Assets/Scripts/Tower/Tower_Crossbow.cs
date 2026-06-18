@@ -13,6 +13,7 @@ public class Tower_Crossbow : Tower
         base.Awake();
         visuals = GetComponent<Crossbow_Visuals>();
     }
+    public override float GetAttackDamage() => damage;
     protected override void Attack()
     {
         base.Attack();

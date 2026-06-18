@@ -15,13 +15,13 @@ public class Tower_Hammer : Tower
     // ★ 優化 1：宣告在類別層級，重複使用這些容器，不再產生記憶體垃圾
     private Collider[] collidersBuffer = new Collider[50]; // 假設範圍內最多同時有 50 個敵人
     private List<Enemy> validTargets = new List<Enemy>();
-
+    public override float GetSlowPercentage() => (1f - slowMultiplier) * 100f;
     protected override void Awake()
     {
         base.Awake();
         hammerVisuals = GetComponent<Hammer_Visuals>();
     }
-
+    public override float GetAttackDamage() => damage;
     protected override void FixedUpdate()
     {
         if (towerActive == false)

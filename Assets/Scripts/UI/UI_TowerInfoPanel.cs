@@ -16,7 +16,7 @@ public class UI_TowerInfoPanel : MonoBehaviour
     [Header("=== 攻擊類型 (Attack Type) ===")]
     [SerializeField] private Image bg_Single;
     [SerializeField] private TextMeshProUGUI text_Single;
-    [SerializeField] private Image icon_Single; // ★ 新增：箭矢圖案
+    [SerializeField] private Image icon_Single;
 
     [SerializeField] private Image bg_AoE;
     [SerializeField] private TextMeshProUGUI text_AoE;
@@ -40,8 +40,8 @@ public class UI_TowerInfoPanel : MonoBehaviour
 
 
     [Header("=== 屬性數值 (Attributes) ===")]
-    [SerializeField] private Image icon_Damage;       // ★ 新增：劍圖案
-    [SerializeField] private TextMeshProUGUI label_Damage; // ★ 新增："Damage" 文字
+    [SerializeField] private Image icon_Damage;
+    [SerializeField] private TextMeshProUGUI label_Damage;
     [SerializeField] private TextMeshProUGUI value_Damage;
 
     [SerializeField] private Image icon_Range;
@@ -51,6 +51,11 @@ public class UI_TowerInfoPanel : MonoBehaviour
     [SerializeField] private Image icon_CD;
     [SerializeField] private TextMeshProUGUI label_CD;
     [SerializeField] private TextMeshProUGUI value_CD;
+
+    // ★ 新增：Slow 屬性的三個元件
+    [SerializeField] private Image icon_SlowAttr;
+    [SerializeField] private TextMeshProUGUI label_SlowAttr;
+    [SerializeField] private TextMeshProUGUI value_SlowAttr;
 
     [SerializeField] private Image icon_DoTAttr;
     [SerializeField] private TextMeshProUGUI label_DoTAttr;
@@ -71,7 +76,7 @@ public class UI_TowerInfoPanel : MonoBehaviour
 
         if (towerData != null)
         {
-            // 1. 更新上方的攻擊類型 (背景換圖 + 文字與圖示透明度)
+            // 1. 更新上方的攻擊類型
             UpdateSkillVisual(bg_Single, text_Single, icon_Single, towerData.isSingleTarget);
             UpdateSkillVisual(bg_AoE, text_AoE, icon_AoE, towerData.isAoE);
             UpdateSkillVisual(bg_Slow, text_Slow, icon_Slow, towerData.isSlow);
@@ -79,17 +84,23 @@ public class UI_TowerInfoPanel : MonoBehaviour
             UpdateSkillVisual(bg_Air, text_Air, icon_Air, towerData.canAttackAir);
             UpdateSkillVisual(bg_DoT, text_DoT, icon_DoT, towerData.hasDoT);
 
-            // 2. 更新下方的屬性數值 (填入數字，並根據數值決定要不要變半透明)
-            if (value_Damage != null) value_Damage.text = towerData.ui_damage.ToString();
+            // 2. 更新下方的屬性數值
+            if (value_Damage != null) value_Damage.text = towerData.GetAttackDamage().ToString();
             if (value_Range != null) value_Range.text = towerData.GetAttackRange().ToString();
             if (value_CD != null) value_CD.text = towerData.GetAttackCooldown().ToString() + "s";
             if (value_DoTAttr != null) value_DoTAttr.text = towerData.ui_dotText;
 
-            // 讓下方的屬性圖示與文字也具備智慧半透明功能 (例如沒有 DoT 時，整行變暗)
-            UpdateAttributeVisual(icon_Damage, label_Damage, value_Damage, towerData.ui_damage > 0);
+            // ★ 新增：讀取緩速 % 數並加上 "%" 符號
+            if (value_SlowAttr != null) value_SlowAttr.text = towerData.GetSlowPercentage().ToString("F0") + "%";
+
+            // 讓下方的屬性圖示與文字也具備智慧半透明功能
+            UpdateAttributeVisual(icon_Damage, label_Damage, value_Damage, towerData.GetAttackDamage() > 0);
             UpdateAttributeVisual(icon_Range, label_Range, value_Range, towerData.GetAttackRange() > 0);
             UpdateAttributeVisual(icon_CD, label_CD, value_CD, towerData.GetAttackCooldown() > 0);
             UpdateAttributeVisual(icon_DoTAttr, label_DoTAttr, value_DoTAttr, towerData.hasDoT);
+
+            // ★ 新增：如果緩速 % 數大於 0，這個欄位才會亮起
+            UpdateAttributeVisual(icon_SlowAttr, label_SlowAttr, value_SlowAttr, towerData.GetSlowPercentage() > 0);
         }
     }
 
@@ -105,7 +116,6 @@ public class UI_TowerInfoPanel : MonoBehaviour
         if (bgImage != null)
             bgImage.sprite = hasSkill ? haveSkillSprite : noSkillSprite;
 
-        // 計算透明度：有技能為 1 (完全不透明)，沒技能為 80/255 (約 31%)
         float targetAlpha = hasSkill ? 1f : (80f / 255f);
 
         SetAlpha(textComponent, targetAlpha);
@@ -121,7 +131,6 @@ public class UI_TowerInfoPanel : MonoBehaviour
         SetAlpha(valueText, targetAlpha);
     }
 
-    // 這個魔法可以同時吃下 Image 和 TextMeshProUGUI，幫它們改透明度！
     private void SetAlpha(Graphic graphicElement, float alpha)
     {
         if (graphicElement != null)
