@@ -583,6 +583,11 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
   rotationSpeed: 10
+  towerName: Crossbow
+  towerLevel: 1
+  towerIcon: {fileID: 0}
+  attributeIcon1: {fileID: 0}
+  attributeIcon2: {fileID: 0}
   ui_dotText: None
   isSingleTarget: 1
   isAoE: 0
@@ -590,6 +595,7 @@ MonoBehaviour:
   canAttackGround: 1
   canAttackAir: 0
   hasDoT: 0
+  highlightMaterial: {fileID: 0}
   attackRange: 10
   whatIsEnemy:
     serializedVersion: 2

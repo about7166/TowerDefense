@@ -26,8 +26,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //  從這裡開始加入 UI 需要的公開變數 
     [Header("UI 面板顯示專用數值")]
-    //[Tooltip("基礎攻擊力 (UI 顯示用)")]
-    //public float ui_damage = 100f;
+
+    // ★ 加入這四行，讓塔帶著自己的資料和照片！
+    public string towerName = "Crossbow";
+    public int towerLevel = 1;      // 👈 就是少了這一行！補上它紅線就消失了
+    public Sprite towerIcon;        // 大圖示
+    public Sprite attributeIcon1;   // 左下角小圖示
+    public Sprite attributeIcon2;   // 右下角小圖示
 
     [Tooltip("特殊屬性說明，例如 1x10s 或 None")]
     public string ui_dotText = "None";
@@ -40,6 +45,15 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     public bool canAttackAir = false;
     public bool hasDoT = false;
     //  加入到這裡結束 
+
+    [Header("選取特效 (綠色光暈)")]
+    [SerializeField] private Material highlightMaterial;
+
+    // 用來記錄哪些模型需要發光
+    private Renderer[] towerRenderers;
+
+    // ★ 新增：用來裝「發光分身」的清單
+    private List<GameObject> highlightClones = new List<GameObject>();
 
     [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected LayerMask whatIsEnemy;
@@ -66,6 +80,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     protected virtual void Awake()
     {
+        // ★ 遊戲開始時，自動往下搜尋並抓取這座塔的所有模型 (包含頭、身體、大砲等)
+        towerRenderers = GetComponentsInChildren<Renderer>();
     }
 
     protected virtual void Start()
@@ -88,12 +104,76 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (TowerUpgradeUI.instance != null)
+        BuildManager buildManager = FindFirstObjectByType<BuildManager>();
+
+        // 防穿透
+        if (buildManager != null && buildManager.CheckIfPointerOverUI())
+            return;
+
+        // ★ 任務一重點：如果正在建造塔，強制把它收回去！
+        if (buildManager != null)
+            buildManager.CancelBuildAction();
+
+        // 呼叫升級面板
+        if (UI_TowerUpgradePanel.instance != null)
         {
-            TowerUpgradeUI.instance.SelectTower(this);
+            UI_TowerUpgradePanel.instance.SelectTower(this);
         }
     }
+    public void ToggleHighlight(bool isOn)
+    {
+        if (highlightMaterial == null || towerRenderers == null) return;
 
+        if (isOn)
+        {
+            // 如果已經有分身了，就不要重複製造
+            if (highlightClones.Count > 0) return;
+
+            // 為每個零件製造一個發光分身
+            foreach (Renderer r in towerRenderers)
+            {
+                if (r is ParticleSystemRenderer) continue; // 略過粒子特效
+
+                // 1. 製造一個空的分身物件
+                GameObject clone = new GameObject(r.gameObject.name + "_Highlight");
+                clone.transform.SetParent(r.transform, false); // 綁定在原本零件的底下
+
+                // 2. 讓分身稍微變胖一點點 (1.05倍)，這樣才會包覆在外面
+                clone.transform.localScale = Vector3.one * 1.05f;
+
+                // 3. 把原本零件的網格 (Mesh) 複製給分身
+                MeshFilter originalFilter = r.GetComponent<MeshFilter>();
+                if (originalFilter != null)
+                {
+                    MeshFilter cloneFilter = clone.AddComponent<MeshFilter>();
+                    cloneFilter.sharedMesh = originalFilter.sharedMesh;
+                }
+
+                // 4. 給分身加上渲染器，並「只」穿上綠色發光材質
+                MeshRenderer cloneRenderer = clone.AddComponent<MeshRenderer>();
+
+                // 處理多 Submesh 問題：網格有幾個區塊，我們就塞幾個發光材質給它！
+                Material[] cloneMats = new Material[r.sharedMaterials.Length];
+                for (int i = 0; i < cloneMats.Length; i++)
+                {
+                    cloneMats[i] = highlightMaterial;
+                }
+                cloneRenderer.sharedMaterials = cloneMats;
+
+                // 5. 把分身記錄下來
+                highlightClones.Add(clone);
+            }
+        }
+        else
+        {
+            // 取消選取時，把所有分身銷毀
+            foreach (GameObject clone in highlightClones)
+            {
+                if (clone != null) Destroy(clone);
+            }
+            highlightClones.Clear();
+        }
+    }
     public void DeactivateTower(float duration, GameObject empFxPrefab)
     {
         if (deactiveatedTowerCo != null)

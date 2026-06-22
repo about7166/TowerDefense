@@ -29608,7 +29608,6 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
   rotationSpeed: 10
-  ui_damage: 45
   ui_dotText: None
   isSingleTarget: 0
   isAoE: 1
@@ -29616,6 +29615,7 @@ MonoBehaviour:
   canAttackGround: 1
   canAttackAir: 0
   hasDoT: 0
+  highlightMaterial: {fileID: 2100000, guid: a108ca7905f32704f9f2fcb230ae1be9, type: 2}
   attackRange: 4.8
   whatIsEnemy:
     serializedVersion: 2

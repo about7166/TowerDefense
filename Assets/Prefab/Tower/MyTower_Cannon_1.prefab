@@ -5055,7 +5055,9 @@ MonoBehaviour:
   towerBody: {fileID: 6264010727129242219}
   gunPoint: {fileID: 5809659342065630255}
   rotationSpeed: 5
-  ui_damage: 15
+  towerName: Cannon
+  towerIcon: {fileID: 0}
+  towerLevel: 1
   ui_dotText: None
   isSingleTarget: 0
   isAoE: 1
@@ -5063,6 +5065,7 @@ MonoBehaviour:
   canAttackGround: 1
   canAttackAir: 0
   hasDoT: 0
+  highlightMaterial: {fileID: 2100000, guid: a108ca7905f32704f9f2fcb230ae1be9, type: 2}
   attackRange: 4
   whatIsEnemy:
     serializedVersion: 2
