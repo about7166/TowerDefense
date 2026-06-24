@@ -104,20 +104,28 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log(" 1. 成功點到塔了！");
+
         BuildManager buildManager = FindFirstObjectByType<BuildManager>();
-
-        // 防穿透
         if (buildManager != null && buildManager.CheckIfPointerOverUI())
+        {
+            Debug.Log(" 2. 點擊失敗！被某個隱形的 UI 擋住了！");
             return;
+        }
 
-        // ★ 任務一重點：如果正在建造塔，強制把它收回去！
         if (buildManager != null)
             buildManager.CancelBuildAction();
 
-        // 呼叫升級面板
+        Debug.Log(" 3. 通過防穿透測試！目前的面板狀態是：" + UI_TowerUpgradePanel.instance);
+
         if (UI_TowerUpgradePanel.instance != null)
         {
             UI_TowerUpgradePanel.instance.SelectTower(this);
+            Debug.Log(" 4. 成功呼叫面板並發光！");
+        }
+        else
+        {
+            Debug.Log(" 4. 找不到面板實體！一定是 Awake 沒執行！");
         }
     }
     public void ToggleHighlight(bool isOn)

@@ -6,7 +6,69 @@ using System.Collections.Generic;
 
 public class UI_TowerUpgradePanel : MonoBehaviour
 {
-    public static UI_TowerUpgradePanel instance;
+    private static UI_TowerUpgradePanel _instance;
+    public static UI_TowerUpgradePanel instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<UI_TowerUpgradePanel>(FindObjectsInactive.Include);
+                if (_instance != null) _instance.ForceInit();
+            }
+            return _instance;
+        }
+    }
+
+    private bool isInitialized = false;
+
+    // ★ 新增：畫圓專用的雷射筆
+    private LineRenderer rangeIndicator;
+
+    private void Awake()
+    {
+        ForceInit();
+    }
+
+    public void ForceInit()
+    {
+        if (isInitialized) return;
+        isInitialized = true;
+
+        _instance = this;
+
+        if (upgradeButton != null) upgradeButton.onClick.AddListener(UpgradeSelectedTower);
+        if (sellButton != null) sellButton.onClick.AddListener(SellSelectedTower);
+
+        if (panelObject != null) panelObject.SetActive(false);
+
+        // ★ 自動生成畫圓形的工具，不用手動掛載！
+        CreateRangeIndicator();
+    }
+
+    private void CreateRangeIndicator()
+    {
+        if (rangeIndicator != null) return;
+
+        GameObject lineObj = new GameObject("DynamicRangeIndicator");
+        lineObj.transform.SetParent(this.transform);
+        rangeIndicator = lineObj.AddComponent<LineRenderer>();
+
+        rangeIndicator.useWorldSpace = true;
+        rangeIndicator.loop = true;          // 讓線的頭尾相連變成完整的圓
+        rangeIndicator.positionCount = 60;   // 60 個點可以畫出很平滑的圓
+
+        rangeIndicator.startWidth = rangeLineWidth;
+        rangeIndicator.endWidth = rangeLineWidth;
+
+        // 使用 Unity 內建的基本材質來發光
+        rangeIndicator.material = new Material(Shader.Find("Sprites/Default"));
+        rangeIndicator.startColor = rangeColor;
+        rangeIndicator.endColor = rangeColor;
+
+        lineObj.SetActive(false);
+    }
+
     private Tower selectedTower;
 
     [Header("介面主體")]
@@ -25,6 +87,16 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [SerializeField] private Image attributeIcon1_Image;
     [SerializeField] private Image attributeIcon2_Image;
     [SerializeField] private TextMeshProUGUI currentLevelText;
+    [SerializeField] private TextMeshProUGUI nextLevelText;
+
+    [Header("排版自動置中系統")]
+    [SerializeField] private HorizontalLayoutGroup[] statRows;
+    [SerializeField] private int maxPadding = 120;
+
+    // ★ 新增：攻擊範圍圈的設定 (你可以在 Inspector 微調)
+    [Header("攻擊範圍顯示設定")]
+    [SerializeField] private Color rangeColor = new Color(1f, 1f, 1f, 0.4f); // 預設為半透明白色
+    [SerializeField] private float rangeLineWidth = 0.15f; // 線條粗細
 
     [Header("LV.1 (目前數值)")]
     [SerializeField] private TextMeshProUGUI current_Damage;
@@ -35,6 +107,8 @@ public class UI_TowerUpgradePanel : MonoBehaviour
 
     [Header("LV.2 (升級後數值)")]
     [SerializeField] private GameObject nextStatsGroup;
+    [SerializeField] private GameObject[] upgradeArrows;
+
     [SerializeField] private TextMeshProUGUI next_Damage;
     [SerializeField] private TextMeshProUGUI next_Range;
     [SerializeField] private TextMeshProUGUI next_CD;
@@ -53,15 +127,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [SerializeField] private AudioClip upgradeSound;
     [SerializeField] private AudioClip sellSound;
 
-    private void Awake()
-    {
-        instance = this;
-        panelObject.SetActive(false);
-
-        if (upgradeButton != null) upgradeButton.onClick.AddListener(UpgradeSelectedTower);
-        if (sellButton != null) sellButton.onClick.AddListener(SellSelectedTower);
-    }
-
     private void Update() => DetectClickOutside();
 
     public void SelectTower(Tower tower)
@@ -75,6 +140,9 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         panelObject.SetActive(true);
         UpdateUI();
 
+        // ★ 開啟面板時，同時畫出範圍圈！
+        ShowRangeIndicator();
+
         if (animCoroutine != null) StopCoroutine(animCoroutine);
         animCoroutine = StartCoroutine(SlidePanel(shownPosY));
     }
@@ -87,8 +155,32 @@ public class UI_TowerUpgradePanel : MonoBehaviour
             selectedTower = null;
         }
 
+        // ★ 關閉面板時，把範圍圈藏起來！
+        if (rangeIndicator != null) rangeIndicator.gameObject.SetActive(false);
+
         if (animCoroutine != null) StopCoroutine(animCoroutine);
         animCoroutine = StartCoroutine(SlidePanel(hiddenPosY, true));
+    }
+
+    // ★ 新增：計算並畫出範圍圈的魔法
+    private void ShowRangeIndicator()
+    {
+        if (selectedTower == null || rangeIndicator == null) return;
+
+        rangeIndicator.gameObject.SetActive(true);
+
+        float radius = selectedTower.GetAttackRange();
+        // 圓心稍微抬高一點點 (0.2f)，避免跟地板的模型穿插交疊
+        Vector3 center = selectedTower.transform.position + Vector3.up * 0.2f;
+
+        // 利用三角函數算出 60 個點，連成一個完美的圓
+        for (int i = 0; i < 60; i++)
+        {
+            float angle = ((float)i / 60) * Mathf.PI * 2f;
+            float x = Mathf.Sin(angle) * radius;
+            float z = Mathf.Cos(angle) * radius;
+            rangeIndicator.SetPosition(i, center + new Vector3(x, 0, z));
+        }
     }
 
     private System.Collections.IEnumerator SlidePanel(float targetY, bool disableAfter = false)
@@ -115,15 +207,12 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     {
         if (selectedTower == null) return;
 
-        // ★ 自動抓取塔的名字和大圖示
         if (towerNameText != null) towerNameText.text = selectedTower.towerName;
         if (towerIconImage != null && selectedTower.towerIcon != null) towerIconImage.sprite = selectedTower.towerIcon;
 
-        // ★ 自動抓取塔的兩個屬性小圖示
         if (attributeIcon1_Image != null && selectedTower.attributeIcon1 != null) attributeIcon1_Image.sprite = selectedTower.attributeIcon1;
         if (attributeIcon2_Image != null && selectedTower.attributeIcon2 != null) attributeIcon2_Image.sprite = selectedTower.attributeIcon2;
 
-        // ★ 自動抓取目前的屬性和賣出的價錢
         if (current_Damage != null) current_Damage.text = selectedTower.GetAttackDamage().ToString();
         if (current_Range != null) current_Range.text = selectedTower.GetAttackRange().ToString();
         if (current_CD != null) current_CD.text = selectedTower.GetAttackCooldown().ToString() + "s";
@@ -136,12 +225,34 @@ public class UI_TowerUpgradePanel : MonoBehaviour
 
         if (nextPrefab != null)
         {
-            // ★ 如果有下一等：標題顯示目前的等級
+            if (statRows != null)
+            {
+                foreach (var row in statRows)
+                {
+                    if (row != null) row.padding = new RectOffset(0, 0, 0, 0);
+                }
+            }
+
             if (currentLevelText != null) currentLevelText.text = "LV." + selectedTower.towerLevel;
+            if (nextLevelText != null) nextLevelText.text = "LV." + (selectedTower.towerLevel + 1);
 
             if (nextStatsGroup != null) nextStatsGroup.SetActive(true);
             if (upgradeButton != null) upgradeButton.interactable = true;
             if (upgradeCostText != null) upgradeCostText.text = selectedTower.upgradeCost.ToString();
+
+            if (next_Damage != null) next_Damage.gameObject.SetActive(true);
+            if (next_Range != null) next_Range.gameObject.SetActive(true);
+            if (next_CD != null) next_CD.gameObject.SetActive(true);
+            if (next_Slow != null) next_Slow.gameObject.SetActive(true);
+            if (next_DoT != null) next_DoT.gameObject.SetActive(true);
+
+            if (upgradeArrows != null)
+            {
+                foreach (var arrow in upgradeArrows)
+                {
+                    if (arrow != null) arrow.SetActive(true);
+                }
+            }
 
             if (next_Damage != null) next_Damage.text = nextPrefab.GetAttackDamage().ToString();
             if (next_Range != null) next_Range.text = nextPrefab.GetAttackRange().ToString();
@@ -151,12 +262,34 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         }
         else
         {
-            // ★ 如果滿等了：標題自動加上 (MAX)！
+            if (statRows != null)
+            {
+                foreach (var row in statRows)
+                {
+                    if (row != null) row.padding = new RectOffset(maxPadding, maxPadding, 0, 0);
+                }
+            }
+
             if (currentLevelText != null) currentLevelText.text = "LV." + selectedTower.towerLevel + " (MAX)";
+            if (nextLevelText != null) nextLevelText.text = "";
 
             if (nextStatsGroup != null) nextStatsGroup.SetActive(false);
             if (upgradeButton != null) upgradeButton.interactable = false;
             if (upgradeCostText != null) upgradeCostText.text = "MAX";
+
+            if (next_Damage != null) next_Damage.gameObject.SetActive(false);
+            if (next_Range != null) next_Range.gameObject.SetActive(false);
+            if (next_CD != null) next_CD.gameObject.SetActive(false);
+            if (next_Slow != null) next_Slow.gameObject.SetActive(false);
+            if (next_DoT != null) next_DoT.gameObject.SetActive(false);
+
+            if (upgradeArrows != null)
+            {
+                foreach (var arrow in upgradeArrows)
+                {
+                    if (arrow != null) arrow.SetActive(false);
+                }
+            }
         }
     }
 
@@ -217,12 +350,26 @@ public class UI_TowerUpgradePanel : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = Input.mousePosition;
+            List<RaycastResult> uiResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, uiResults);
+
+            foreach (RaycastResult result in uiResults)
+            {
+                if (result.gameObject.transform.IsChildOf(panelObject.transform))
+                {
+                    return;
+                }
+            }
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (selectedTower != null && hit.collider.gameObject == selectedTower.gameObject) return;
+                if (selectedTower != null && hit.collider.gameObject == selectedTower.gameObject)
+                {
+                    return;
+                }
             }
 
             Hide();

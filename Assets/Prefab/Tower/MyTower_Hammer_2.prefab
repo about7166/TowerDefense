@@ -19769,7 +19769,12 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
   rotationSpeed: 10
-  ui_dotText: None
+  towerName: Hammer
+  towerLevel: 2
+  towerIcon: {fileID: 21300000, guid: 0a64a6e4311cf2e418c38c775c620586, type: 3}
+  attributeIcon1: {fileID: 21300000, guid: 1b2d9dfe34d9cad42af9b584aabe0364, type: 3}
+  attributeIcon2: {fileID: 21300000, guid: 9f629ced2275acf479780aa5982b2735, type: 3}
+  ui_dotText: 0
   isSingleTarget: 0
   isAoE: 1
   isSlow: 1

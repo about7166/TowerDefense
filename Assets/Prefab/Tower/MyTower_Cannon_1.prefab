@@ -5056,9 +5056,11 @@ MonoBehaviour:
   gunPoint: {fileID: 5809659342065630255}
   rotationSpeed: 5
   towerName: Cannon
-  towerIcon: {fileID: 0}
   towerLevel: 1
-  ui_dotText: None
+  towerIcon: {fileID: 21300000, guid: 1345103f4ea7b2b4695eedb7ac316dba, type: 3}
+  attributeIcon1: {fileID: 21300000, guid: 1b2d9dfe34d9cad42af9b584aabe0364, type: 3}
+  attributeIcon2: {fileID: 21300000, guid: a4eac420ec0bbb1438d41583a1b45257, type: 3}
+  ui_dotText: 0
   isSingleTarget: 0
   isAoE: 1
   isSlow: 0

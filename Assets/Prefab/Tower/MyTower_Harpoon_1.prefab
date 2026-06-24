@@ -425,6 +425,11 @@ MonoBehaviour:
   towerBody: {fileID: 7938872115468505756}
   gunPoint: {fileID: 6863191639139250328}
   rotationSpeed: 10
+  towerName: Harpoon
+  towerLevel: 1
+  towerIcon: {fileID: 21300000, guid: 32ffeddd389eb544fb86322a9ce4163f, type: 3}
+  attributeIcon1: {fileID: 21300000, guid: 4769ca4b956eb46439e600f5c1167072, type: 3}
+  attributeIcon2: {fileID: 21300000, guid: dc3af92f89196ac41a12ebb54c701fcb, type: 3}
   ui_dotText: 5 x 2s
   isSingleTarget: 1
   isAoE: 0

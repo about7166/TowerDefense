@@ -97,3 +97,7 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+Assets/Localization/client_secret_312658798376-q9vbljc6fk9991cjpic2ha8fbk0nf3ag.apps.googleusercontent.com.json
+Assets/Localization/client_secret_312658798376-q9vbljc6fk9991cjpic2ha8fbk0nf3ag.apps.googleusercontent.com.json.meta
+Assets/Localization/MyGoogleSheets.asset
+Assets/Localization/MyGoogleSheets.asset.meta

@@ -839,7 +839,12 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 2485170572834062700}
   rotationSpeed: 10
-  ui_dotText: None
+  towerName: Crossbow
+  towerLevel: 3
+  towerIcon: {fileID: 21300000, guid: 65e8e82268b90224aa46fb3478e7c8f5, type: 3}
+  attributeIcon1: {fileID: 21300000, guid: 70d88143a3cb1474a885f7aaf89bbff4, type: 3}
+  attributeIcon2: {fileID: 21300000, guid: 81fbc8587a7d70846817261b882d34be, type: 3}
+  ui_dotText: 0
   isSingleTarget: 1
   isAoE: 0
   isSlow: 0
