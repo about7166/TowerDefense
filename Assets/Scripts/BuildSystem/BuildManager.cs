@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; // ★ 必須加上這行！
+using UnityEngine.EventSystems;
 
 public class BuildManager : MonoBehaviour
 {
@@ -15,13 +15,24 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private LayerMask whatToIgnore;
 
     [Header("塔的預覽材質")]
-    [SerializeField] private Material attackRadiusMaterial;
+    // ★ 舊的 attackRadiusMaterial 已經徹底移除，只留下模型半透明預覽用的材質！
     [SerializeField] private Material buildPreviewMaterial;
+
+    // ==========================================
+    // 預覽範圍圈設定
+    // ==========================================
+    [Header("預覽範圍圈設定")]
+    public Sprite rangeGradientSprite; // 內圈漸層圖片
+    public Material rangeLineMaterial; // 外圈線條材質
+    public Color rangeFillColor = new Color(0f, 1f, 0.5f, 0.3f); //內圈填充顏色
+    [ColorUsage(true, true)] public Color rangeBorderColor = new Color(0f, 1f, 0.5f, 1f); //外圈顏色
+    public float rangeBorderThickness = 0.1f; //外圈粗細
+    // ==========================================
 
     [Header("建造設定")]
     [SerializeField] private float towerCenterY = 0.5f;
     [SerializeField] private float camShakeDuration = 0.15f;
-    [SerializeField] private float camShakeMagnitude = 0.02f; //晃動幅度
+    [SerializeField] private float camShakeMagnitude = 0.02f;
 
     public bool isMouseOverUI;
 
@@ -29,8 +40,6 @@ public class BuildManager : MonoBehaviour
     {
         ui = FindFirstObjectByType<UI>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
-
-        //MakeBuildSlotNotAvalibleIfNeeded(waveManger, currentGrid);
     }
 
     private void Start()
@@ -45,7 +54,6 @@ public class BuildManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            // ★ 1. 改用全新的神仙雷達！
             if (CheckIfPointerOverUI())
                 return;
 
@@ -59,7 +67,6 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    // ★ 2. 新增這個無敵的 UI 掃描魔法
     public bool CheckIfPointerOverUI()
     {
         if (EventSystem.current == null) return false;
@@ -71,7 +78,6 @@ public class BuildManager : MonoBehaviour
 
         foreach (RaycastResult result in results)
         {
-            // 只要滑鼠底下有任何物件是屬於 "UI" 圖層 (Layer) 的，就判定在 UI 上！
             if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
             {
                 return true;
@@ -79,6 +85,7 @@ public class BuildManager : MonoBehaviour
         }
         return false;
     }
+
     public void UpdateBuildManager(WaveManager newWaveManager, GridBuilder newCurrentGrid)
     {
         currentGrid = newCurrentGrid;
@@ -190,6 +197,7 @@ public class BuildManager : MonoBehaviour
     }
 
     public BuildSlot GetSelectedSlot() => selectedBuildSlot;
-    public Material GetAttackRadiusMaterial() => attackRadiusMaterial;
+
+    // ★ 舊的 GetAttackRadiusMaterial() 已經刪除
     public Material GetBuildPreviewMaterial() => buildPreviewMaterial;
 }

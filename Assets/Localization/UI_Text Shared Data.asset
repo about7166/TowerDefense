@@ -175,6 +175,82 @@ MonoBehaviour:
     m_Key: Pause_Resume
     m_Metadata:
       m_Items: []
+  - m_Id: 15296131280547840
+    m_Key: Tower_Crossbow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713664
+    m_Key: Tower_Cannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713665
+    m_Key: Tower_Hammer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713666
+    m_Key: Tower_Machine Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713667
+    m_Key: Tower_Harpoon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713668
+    m_Key: TowerInfo_AttackType
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713669
+    m_Key: TowerInfo_Single
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713670
+    m_Key: TowerInfo_AoE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102272
+    m_Key: TowerInfo_Slow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102273
+    m_Key: TowerInfo_Ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102274
+    m_Key: TowerInfo_Air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102275
+    m_Key: TowerInfo_DoT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102276
+    m_Key: TowerInfo_Attributes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102277
+    m_Key: TowerInfo_Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102278
+    m_Key: TowerInfo_Range
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102279
+    m_Key: TowerInfo_CD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102280
+    m_Key: TowerUpgrade_UPDRADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102281
+    m_Key: TowerUpgrade_SELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15361636955729920
+    m_Key: PLAY_NEXT WAVE
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

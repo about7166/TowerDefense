@@ -17,7 +17,7 @@ public class RadiusDisplay : MonoBehaviour
         lineRenderer.useWorldSpace = true;
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
-        lineRenderer.material = FindFirstObjectByType<BuildManager>().GetAttackRadiusMaterial();
+        //lineRenderer.material = FindFirstObjectByType<BuildManager>().GetAttackRadiusMaterial();
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 

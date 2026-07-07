@@ -183,6 +183,82 @@ MonoBehaviour:
     m_Localized: CONTINUER
     m_Metadata:
       m_Items: []
+  - m_Id: 15296131280547840
+    m_Localized: "Tour d'Arbal\xE8te"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713664
+    m_Localized: Tour Canon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713665
+    m_Localized: Tour Marteau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713666
+    m_Localized: Tour Mitrailleuse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713667
+    m_Localized: Tour Harpon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713668
+    m_Localized: Type
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713669
+    m_Localized: Mono
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713670
+    m_Localized: AoE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102272
+    m_Localized: Ralenti
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102273
+    m_Localized: Sol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102274
+    m_Localized: Air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102275
+    m_Localized: DoT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102276
+    m_Localized: Stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102277
+    m_Localized: "D\xE9g\xE2ts"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102278
+    m_Localized: "Port\xE9e"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102279
+    m_Localized: CD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102280
+    m_Localized: "Am\xE9liorer"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102281
+    m_Localized: Vendre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15361636955729920
+    m_Localized: VAGUE SUIVANTE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

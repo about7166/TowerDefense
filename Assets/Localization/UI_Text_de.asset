@@ -183,6 +183,82 @@ MonoBehaviour:
     m_Localized: WIEDER AUFNEHMEN
     m_Metadata:
       m_Items: []
+  - m_Id: 15296131280547840
+    m_Localized: Armbrustturm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713664
+    m_Localized: Kanonenturm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713665
+    m_Localized: Hammerturm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713666
+    m_Localized: MG-Turm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713667
+    m_Localized: Harpunenturm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713668
+    m_Localized: Angriff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713669
+    m_Localized: Einzel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713670
+    m_Localized: AoE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102272
+    m_Localized: Langsam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102273
+    m_Localized: Boden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102274
+    m_Localized: Luft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102275
+    m_Localized: DoT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102276
+    m_Localized: Werte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102277
+    m_Localized: Schaden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102278
+    m_Localized: Reichw.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102279
+    m_Localized: CD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102280
+    m_Localized: Upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102281
+    m_Localized: Verkaufen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15361636955729920
+    m_Localized: "N\xC4CHSTE WELLE"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

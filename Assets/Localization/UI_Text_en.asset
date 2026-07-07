@@ -181,6 +181,82 @@ MonoBehaviour:
     m_Localized: RESUME
     m_Metadata:
       m_Items: []
+  - m_Id: 15296131280547840
+    m_Localized: Crossbow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713664
+    m_Localized: Cannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713665
+    m_Localized: Hammer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713666
+    m_Localized: Machine Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713667
+    m_Localized: Harpoon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713668
+    m_Localized: Attack Type
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713669
+    m_Localized: Single
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713670
+    m_Localized: AoE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102272
+    m_Localized: Slow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102273
+    m_Localized: Ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102274
+    m_Localized: Air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102275
+    m_Localized: DoT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102276
+    m_Localized: Attributes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102277
+    m_Localized: Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102278
+    m_Localized: Range
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102279
+    m_Localized: CD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102280
+    m_Localized: UPGRADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102281
+    m_Localized: SELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15361636955729920
+    m_Localized: NEXT WAVE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

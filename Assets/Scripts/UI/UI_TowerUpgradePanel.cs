@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.Localization.Settings; // ★ 多國語系
 
 public class UI_TowerUpgradePanel : MonoBehaviour
 {
@@ -22,8 +23,27 @@ public class UI_TowerUpgradePanel : MonoBehaviour
 
     private bool isInitialized = false;
 
-    // ★ 新增：畫圓專用的雷射筆
-    private LineRenderer rangeIndicator;
+    // ==========================================
+    // ★ 攻擊範圍顯示系統變數 (英雄聯盟風格)
+    // ==========================================
+    private LineRenderer rangeBorder;
+    private SpriteRenderer rangeFill;
+
+    [Header("攻擊範圍顯示設定")]
+    [Tooltip("請放入那張『外圍白、內心透明』的漸層圓形 Sprite")]
+    public Sprite gradientFillSprite;
+
+    [Tooltip("請放入你截圖裡的那個 Circle 材質球，或是任何 Unlit 材質球")]
+    public Material lineMaterial;
+
+    [SerializeField] private Color fillColor = new Color(0f, 1f, 0.5f, 0.3f); // 內圈漸層顏色
+
+    [ColorUsage(true, true)] // 開啟 HDR，讓這個顏色可以發光！
+    [SerializeField] private Color borderColor = new Color(0f, 1f, 0.5f, 1f); // 外框實線顏色
+
+    [SerializeField] private float borderThickness = 0.1f; // 外框粗細
+    // ==========================================
+
 
     private void Awake()
     {
@@ -42,31 +62,48 @@ public class UI_TowerUpgradePanel : MonoBehaviour
 
         if (panelObject != null) panelObject.SetActive(false);
 
-        // ★ 自動生成畫圓形的工具，不用手動掛載！
+        // 初始化範圍指示器
         CreateRangeIndicator();
     }
 
     private void CreateRangeIndicator()
     {
-        if (rangeIndicator != null) return;
+        if (rangeBorder != null && rangeFill != null) return;
 
-        GameObject lineObj = new GameObject("DynamicRangeIndicator");
-        lineObj.transform.SetParent(this.transform);
-        rangeIndicator = lineObj.AddComponent<LineRenderer>();
+        // 1. 建立總開關 (父物件)
+        GameObject indicatorObj = new GameObject("DynamicRangeIndicator");
 
-        rangeIndicator.useWorldSpace = true;
-        rangeIndicator.loop = true;          // 讓線的頭尾相連變成完整的圓
-        rangeIndicator.positionCount = 60;   // 60 個點可以畫出很平滑的圓
+        // ★★★ 問題就出在這裡！請把這行「刪除」或「加上雙斜線註解」★★★
+        // indicatorObj.transform.SetParent(this.transform); 
 
-        rangeIndicator.startWidth = rangeLineWidth;
-        rangeIndicator.endWidth = rangeLineWidth;
+        // 2. 製作內圈光暈 (SpriteRenderer)
+        GameObject fillObj = new GameObject("Fill_Gradient");
+        fillObj.transform.SetParent(indicatorObj.transform);
+        fillObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
-        // 使用 Unity 內建的基本材質來發光
-        rangeIndicator.material = new Material(Shader.Find("Sprites/Default"));
-        rangeIndicator.startColor = rangeColor;
-        rangeIndicator.endColor = rangeColor;
+        rangeFill = fillObj.AddComponent<SpriteRenderer>();
+        rangeFill.sprite = gradientFillSprite;
+        rangeFill.color = fillColor;
+        rangeFill.sortingOrder = 4;
 
-        lineObj.SetActive(false);
+        // 3. 製作發光外框 (LineRenderer)
+        GameObject borderObj = new GameObject("Border_Line");
+        borderObj.transform.SetParent(indicatorObj.transform);
+
+        rangeBorder = borderObj.AddComponent<LineRenderer>();
+        rangeBorder.useWorldSpace = true;
+        rangeBorder.loop = true;
+        rangeBorder.positionCount = 60;
+
+        rangeBorder.startWidth = borderThickness;
+        rangeBorder.endWidth = borderThickness;
+
+        if (lineMaterial != null) rangeBorder.material = lineMaterial;
+        rangeBorder.startColor = borderColor;
+        rangeBorder.endColor = borderColor;
+        rangeBorder.sortingOrder = 5;
+
+        indicatorObj.SetActive(false);
     }
 
     private Tower selectedTower;
@@ -93,11 +130,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [SerializeField] private HorizontalLayoutGroup[] statRows;
     [SerializeField] private int maxPadding = 120;
 
-    // ★ 新增：攻擊範圍圈的設定 (你可以在 Inspector 微調)
-    [Header("攻擊範圍顯示設定")]
-    [SerializeField] private Color rangeColor = new Color(1f, 1f, 1f, 0.4f); // 預設為半透明白色
-    [SerializeField] private float rangeLineWidth = 0.15f; // 線條粗細
-
     [Header("LV.1 (目前數值)")]
     [SerializeField] private TextMeshProUGUI current_Damage;
     [SerializeField] private TextMeshProUGUI current_Range;
@@ -108,7 +140,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [Header("LV.2 (升級後數值)")]
     [SerializeField] private GameObject nextStatsGroup;
     [SerializeField] private GameObject[] upgradeArrows;
-
     [SerializeField] private TextMeshProUGUI next_Damage;
     [SerializeField] private TextMeshProUGUI next_Range;
     [SerializeField] private TextMeshProUGUI next_CD;
@@ -140,7 +171,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         panelObject.SetActive(true);
         UpdateUI();
 
-        // ★ 開啟面板時，同時畫出範圍圈！
         ShowRangeIndicator();
 
         if (animCoroutine != null) StopCoroutine(animCoroutine);
@@ -155,31 +185,35 @@ public class UI_TowerUpgradePanel : MonoBehaviour
             selectedTower = null;
         }
 
-        // ★ 關閉面板時，把範圍圈藏起來！
-        if (rangeIndicator != null) rangeIndicator.gameObject.SetActive(false);
+        // ★ 關閉面板時，把範圍圈父物件藏起來
+        if (rangeFill != null) rangeFill.transform.parent.gameObject.SetActive(false);
 
         if (animCoroutine != null) StopCoroutine(animCoroutine);
         animCoroutine = StartCoroutine(SlidePanel(hiddenPosY, true));
     }
 
-    // ★ 新增：計算並畫出範圍圈的魔法
     private void ShowRangeIndicator()
     {
-        if (selectedTower == null || rangeIndicator == null) return;
+        if (selectedTower == null || rangeFill == null || rangeBorder == null) return;
 
-        rangeIndicator.gameObject.SetActive(true);
+        rangeFill.transform.parent.gameObject.SetActive(true);
 
         float radius = selectedTower.GetAttackRange();
-        // 圓心稍微抬高一點點 (0.2f)，避免跟地板的模型穿插交疊
-        Vector3 center = selectedTower.transform.position + Vector3.up * 0.2f;
+        Vector3 center = selectedTower.transform.position + Vector3.up * 0.15f;
 
-        // 利用三角函數算出 60 個點，連成一個完美的圓
+        // --- A. 更新內圈漸層圖大小 ---
+        rangeFill.transform.position = center;
+        float spriteSize = rangeFill.sprite != null ? rangeFill.sprite.bounds.size.x : 1f;
+        float targetScale = (radius * 2f) / spriteSize;
+        rangeFill.transform.localScale = new Vector3(targetScale, targetScale, 1f);
+
+        // --- B. 更新外框線 60 個點的位置 ---
         for (int i = 0; i < 60; i++)
         {
             float angle = ((float)i / 60) * Mathf.PI * 2f;
             float x = Mathf.Sin(angle) * radius;
             float z = Mathf.Cos(angle) * radius;
-            rangeIndicator.SetPosition(i, center + new Vector3(x, 0, z));
+            rangeBorder.SetPosition(i, center + new Vector3(x, 0, z));
         }
     }
 
@@ -207,7 +241,13 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     {
         if (selectedTower == null) return;
 
-        if (towerNameText != null) towerNameText.text = selectedTower.towerName;
+        // ★ 動態讀取多國語系 Excel 資料
+        if (towerNameText != null)
+        {
+            string myKey = "Tower_" + selectedTower.towerName;
+            towerNameText.text = LocalizationSettings.StringDatabase.GetLocalizedString("UI_Text", myKey);
+        }
+
         if (towerIconImage != null && selectedTower.towerIcon != null) towerIconImage.sprite = selectedTower.towerIcon;
 
         if (attributeIcon1_Image != null && selectedTower.attributeIcon1 != null) attributeIcon1_Image.sprite = selectedTower.attributeIcon1;

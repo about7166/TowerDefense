@@ -5266,7 +5266,7 @@ MonoBehaviour:
     m_Bits: 128
   whatIsTargetable:
     serializedVersion: 2
-    m_Bits: 4225
+    m_Bits: 128
   towerAttacksForward: 0
   attackSfx: {fileID: 0}
   nextUpgradePrefab: {fileID: 4774972850737263452, guid: ad976d598c0a2d94e9aae5f0a9039608, type: 3}

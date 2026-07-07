@@ -182,6 +182,82 @@ MonoBehaviour:
     m_Localized: RETOMAR
     m_Metadata:
       m_Items: []
+  - m_Id: 15296131280547840
+    m_Localized: Torre de Besta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713664
+    m_Localized: "Torre de Canh\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713665
+    m_Localized: Torre de Martelo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713666
+    m_Localized: Torre de Metralhadora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713667
+    m_Localized: "Torre de Arp\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713668
+    m_Localized: Tipo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713669
+    m_Localized: Alvo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131305713670
+    m_Localized: AoE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102272
+    m_Localized: "Lentid\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102273
+    m_Localized: Solo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102274
+    m_Localized: "A\xE9reo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102275
+    m_Localized: DoT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102276
+    m_Localized: Atributos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102277
+    m_Localized: Dano
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102278
+    m_Localized: Alcance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102279
+    m_Localized: CD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102280
+    m_Localized: Melhorar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15296131314102281
+    m_Localized: Vender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15361636955729920
+    m_Localized: "PR\xD3XIMA ONDA"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

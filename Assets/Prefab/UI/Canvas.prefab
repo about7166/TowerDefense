@@ -28946,6 +28946,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa557ccd7ab351842843b34139ead01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_TowerUpgradePanel
+  gradientFillSprite: {fileID: 0}
+  lineMaterial: {fileID: 0}
+  fillColor: {r: 0, g: 1, b: 0.5, a: 0.3}
+  borderColor: {r: 0, g: 1, b: 0.5, a: 1}
+  borderThickness: 0.1
   panelObject: {fileID: 6134594366038461009}
   panelRect: {fileID: 4346123965901498026}
   hiddenPosY: -500
@@ -28959,8 +28964,6 @@ MonoBehaviour:
   nextLevelText: {fileID: 7875155249561113425}
   statRows: []
   maxPadding: 120
-  rangeColor: {r: 1, g: 1, b: 1, a: 0.4}
-  rangeLineWidth: 0.15
   current_Damage: {fileID: 3143186713223954589}
   current_Range: {fileID: 992172913260162620}
   current_CD: {fileID: 8242568321693058335}
