@@ -87,10 +87,23 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void ConfirmTowerBuild()
     {
+        // 修正 1：在送出建造指令前，強制重新喚醒預覽圖並確認地塊位置
+        SelectButton(true);
+
+        // 修正 2：增加一道安全鎖。如果真的找不到地塊，就直接退出，絕對不執行後續的扣錢與建造
+        if (buildManager.GetSelectedSlot() == null)
+        {
+            return;
+        }
+
+        // 原本的建造與扣款邏輯
         buildManager.BuildTower(towerToBuild, towerPrice, towerPreview.transform);
 
-        // ★ 新增這行：買塔的時候，把面板順便關閉！
-        if (infoPanel != null) infoPanel.ClosePanel();
+        // 買塔的時候，把面板順便關閉
+        if (infoPanel != null)
+        {
+            infoPanel.ClosePanel();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
