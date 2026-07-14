@@ -11,7 +11,11 @@ public class Projectile_Cannon : MonoBehaviour
     [SerializeField] private LayerMask whatIsEnemy;
     [SerializeField] private GameObject explosionFx;
 
-    // ★ 效能優化：預先準備一個陣列來裝炸到的敵人 (跟 Hammer 一樣)
+    [Header("爆炸音效設定")]
+    [SerializeField] private AudioClip explosionSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float explosionVolume = 0.8f; // 預設音量 0.8，可在 Unity 自由拉動
+    
     private Collider[] hitColliders = new Collider[20];
 
     private void Awake()
@@ -22,7 +26,7 @@ public class Projectile_Cannon : MonoBehaviour
 
     public void SetupProjectile(Vector3 newVelocity, float newDamage, ObjectPoolManager newPool)
     {
-        // ★ 防呆：確定有這個元件才清空軌跡
+        // 防呆：確定有這個元件才清空軌跡
         if (trail != null)
         {
             trail.Clear();
@@ -35,7 +39,7 @@ public class Projectile_Cannon : MonoBehaviour
 
     private void DamageEnemiesAround()
     {
-        // ★ 效能優化：改用 NonAlloc 版本，不產生額外的記憶體垃圾
+        // 效能優化：改用 NonAlloc 版本，不產生額外的記憶體垃圾
         int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, hitColliders, whatIsEnemy);
 
         for (int i = 0; i < hitCount; i++)
@@ -51,7 +55,7 @@ public class Projectile_Cannon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // ★ 關鍵防護：忽略所有「隱形的偵測圈 (Trigger)」
+        // 關鍵防護：忽略所有「隱形的偵測圈 (Trigger)」
         if (other.isTrigger)
             return;
 
@@ -63,8 +67,16 @@ public class Projectile_Cannon : MonoBehaviour
 
         DamageEnemiesAround();
 
-        // 產生爆炸特效並回收砲彈
+        // 產生爆炸特效
         objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.5f, 0));
+
+        if (explosionSound != null)
+        {
+            // 在砲彈爆炸的位置，以設定的音量播放音效
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position, explosionVolume);
+        }
+
+        // 回收砲彈
         objectPool.Remove(gameObject);
     }
 

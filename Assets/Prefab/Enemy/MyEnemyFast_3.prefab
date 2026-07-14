@@ -5241,6 +5241,8 @@ MonoBehaviour:
   currentHp: 0
   moneyReward: 10
   damageToCastle: 2
+  castleDamageSound: {fileID: 8300000, guid: ce925cac526aa0c408e3ff6eab5fd722, type: 3}
+  castleDamageVolume: 1
   turnSpeed: 10
   myWaypoints: []
   maxShield: 210

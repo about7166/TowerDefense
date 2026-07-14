@@ -12,20 +12,26 @@ public class Tower_Harpoon : Tower
     private Projectile_Harpoon currentProjectile;
 
     [Header("傷害設定")]
-    [SerializeField] private float initialDamage = 5; //撞擊時的瞬間傷害
-    [SerializeField] private float damageOverTime = 10; //持續傷害的「總量」
-    [SerializeField] private float overTimeEffectDuration = 4; //持續傷害要跑幾秒
+    [SerializeField] private float initialDamage = 5;
+    [SerializeField] private float damageOverTime = 10;
+    [SerializeField] private float overTimeEffectDuration = 4;
     [Range(0f, 1f)]
     [SerializeField] private float slowEffect = 0.7f;
+
+    // ============ 👇 新增：專門用來放導電音效的播放器 👇 ============
+    [Header("持續導電音效")]
+    public AudioSource electricLoopSound;
+    // ============ 👆 ============
 
     private bool reachedTarget;
     private bool busyWithAttack;
     private Coroutine damageOverTimeCo;
+
     public override float GetSlowPercentage() => (1f - slowEffect) * 100f;
+
     protected override void Awake()
     {
         base.Awake();
-        // 加上 true，確保即使子彈在 Inspector 裡是被關閉 (隱藏) 的狀態，也能強制找到它
         currentProjectile = GetComponentInChildren<Projectile_Harpoon>(true);
         harpoonVisuals = GetComponent<Harpoon_Visuals>();
     }
@@ -36,16 +42,17 @@ public class Tower_Harpoon : Tower
 
         if (currentEnemy != null)
         {
-            // 終極防呆：如果在開火瞬間發現子彈不見了，就立刻當場生成一顆新的！
             if (currentProjectile == null)
             {
                 CreateNewProjectile();
             }
 
             busyWithAttack = true;
-            // 讓魚叉發射，並追蹤目前的敵人
             currentProjectile.SetupProjectile(currentEnemy, projectileSpeed, this);
             harpoonVisuals.EnableChainVisuals(true, currentProjectile.GetConnectionPoint());
+
+            // 這裡可以保留之前加的 AudioManager，用來播「發射瞬間」的咻咻聲 (如果有的話)
+            AudioManager.instance?.PlaySFX(attackSfx, true);
 
             Invoke(nameof(ResetAttackIfMissed), 1);
         }
@@ -53,7 +60,6 @@ public class Tower_Harpoon : Tower
 
     public void ActivateAttack()
     {
-        // 新增防呆：如果怪物已經不見了，或者已經被收回物件池(隱藏)，就直接取消攻擊動作
         if (currentEnemy == null || currentEnemy.gameObject.activeInHierarchy == false)
             return;
 
@@ -61,34 +67,48 @@ public class Tower_Harpoon : Tower
         currentEnemy.GetComponent<Enemy_Flying>().AddObservingTower(this);
         currentEnemy.SlowEnemy(slowEffect, overTimeEffectDuration);
         harpoonVisuals.CreateElectricVFX(currentEnemy.transform);
-        
-        IDamagable damagable = currentEnemy.GetComponent<IDamagable>(); //獲取傷害介面並造成初始傷害
+
+        IDamagable damagable = currentEnemy.GetComponent<IDamagable>();
         damagable?.TakeDamage(initialDamage);
-        
-        damageOverTimeCo = StartCoroutine(DamageOverTimeCo(damagable)); //開始慢慢扣血
+
+        if (electricLoopSound != null)
+        {
+            electricLoopSound.Play();
+        }
+
+        damageOverTimeCo = StartCoroutine(DamageOverTimeCo(damagable));
     }
 
     private IEnumerator DamageOverTimeCo(IDamagable damagable)
     {
         float time = 0;
-        // 這裡在計算「多久扣一次血」以及「一次扣多少」
         float damageFrequency = overTimeEffectDuration / damageOverTime;
         float damagePerTick = damageOverTime / (overTimeEffectDuration / damageFrequency);
 
         while (time < overTimeEffectDuration)
         {
-            damagable?.TakeDamage(damagePerTick); //扣血
-            yield return new WaitForSeconds(damageFrequency); //等待頻率時間
-            time += damageFrequency; //累加時間
+            if (currentEnemy == null || !currentEnemy.gameObject.activeInHierarchy)
+            {
+                break; // 跳出迴圈，直接執行底下的 ResetAttack()
+            }
+
+            damagable?.TakeDamage(damagePerTick);
+            yield return new WaitForSeconds(damageFrequency);
+            time += damageFrequency;
         }
 
-        ResetAttack(); //持續傷害結束，重置塔的狀態
+        ResetAttack();
     }
 
     public void ResetAttack()
     {
         if (damageOverTimeCo != null)
             StopCoroutine(damageOverTimeCo);
+
+        if (electricLoopSound != null)
+        {
+            electricLoopSound.Stop();
+        }
 
         busyWithAttack = false;
         reachedTarget = false;
@@ -101,9 +121,9 @@ public class Tower_Harpoon : Tower
 
     private void CreateNewProjectile()
     {
-        GameObject newProjectile = 
+        GameObject newProjectile =
             objectPool.Get(projectilePrefab, projectileDefaultPosition.position, projectileDefaultPosition.rotation, towerHead);
-        
+
         currentProjectile = newProjectile.GetComponent<Projectile_Harpoon>();
     }
 

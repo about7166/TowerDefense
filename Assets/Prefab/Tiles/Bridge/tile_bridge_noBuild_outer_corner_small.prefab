@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 6777130459968451756}
   - component: {fileID: 8314104076732750278}
   - component: {fileID: 1477339072462104266}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: tile_bridge_outer_corner_small
   m_TagString: Untagged
   m_Icon: {fileID: 0}

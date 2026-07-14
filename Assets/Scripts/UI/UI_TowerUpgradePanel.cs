@@ -73,9 +73,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         // 1. 建立總開關 (父物件)
         GameObject indicatorObj = new GameObject("DynamicRangeIndicator");
 
-        // ★★★ 問題就出在這裡！請把這行「刪除」或「加上雙斜線註解」★★★
-        // indicatorObj.transform.SetParent(this.transform); 
-
         // 2. 製作內圈光暈 (SpriteRenderer)
         GameObject fillObj = new GameObject("Fill_Gradient");
         fillObj.transform.SetParent(indicatorObj.transform);
@@ -153,10 +150,11 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI sellRewardText;
 
     [Header("特效與音效")]
-    [SerializeField] private GameObject upgradeFX;
-    [SerializeField] private GameObject sellFX;
-    [SerializeField] private AudioClip upgradeSound;
-    [SerializeField] private AudioClip sellSound;
+    public GameObject upgradeFX;
+    public GameObject sellFX;
+    // ★ 這裡已經改成你要求的 AudioSource 播放器了
+    public AudioSource upgradeSound;
+    public AudioSource sellSound;
 
     private void Update() => DetectClickOutside();
 
@@ -201,13 +199,11 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         float radius = selectedTower.GetAttackRange();
         Vector3 center = selectedTower.transform.position + Vector3.up * 0.15f;
 
-        // --- A. 更新內圈漸層圖大小 ---
         rangeFill.transform.position = center;
         float spriteSize = rangeFill.sprite != null ? rangeFill.sprite.bounds.size.x : 1f;
         float targetScale = (radius * 2f) / spriteSize;
         rangeFill.transform.localScale = new Vector3(targetScale, targetScale, 1f);
 
-        // --- B. 更新外框線 60 個點的位置 ---
         for (int i = 0; i < 60; i++)
         {
             float angle = ((float)i / 60) * Mathf.PI * 2f;
@@ -241,7 +237,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     {
         if (selectedTower == null) return;
 
-        // ★ 動態讀取多國語系 Excel 資料
         if (towerNameText != null)
         {
             string myKey = "Tower_" + selectedTower.towerName;
@@ -378,10 +373,11 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         Destroy(towerToDestroy.gameObject);
     }
 
-    private void PlayEffects(GameObject fxPrefab, AudioClip clip, Vector3 position)
+    // ★ 幫你把這個小幫手升級了！現在它吃的是 AudioSource，並且使用 .Play()
+    private void PlayEffects(GameObject fxPrefab, AudioSource soundSource, Vector3 position)
     {
         if (fxPrefab != null) Instantiate(fxPrefab, position + Vector3.up * 0.1f, Quaternion.identity);
-        if (clip != null) AudioSource.PlayClipAtPoint(clip, position);
+        if (soundSource != null) soundSource.Play();
     }
 
     private void DetectClickOutside()

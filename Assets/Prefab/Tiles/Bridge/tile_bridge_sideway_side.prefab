@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6859999030433805617}
   - component: {fileID: 1383134531086192649}
   - component: {fileID: 4939949454384290719}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: tile_bridge_road_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}

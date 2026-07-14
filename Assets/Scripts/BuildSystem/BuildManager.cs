@@ -34,6 +34,10 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private float camShakeDuration = 0.15f;
     [SerializeField] private float camShakeMagnitude = 0.02f;
 
+    [Header("特效與音效設定")]
+    public GameObject buildFX;
+    public AudioSource buildSound;
+
     public bool isMouseOverUI;
 
     private void Awake()
@@ -54,15 +58,29 @@ public class BuildManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            // 1. 如果點到 UI (例如按鈕)，直接忽略
             if (CheckIfPointerOverUI())
                 return;
 
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
-            {
-                bool clickedNotOnBuildSlot = hit.collider.GetComponent<BuildSlot>() == null;
+            // 2. 發射「穿透射線」，取得滑鼠點下去那一條線上撞到的【所有東西】
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition), Mathf.Infinity);
 
-                if (clickedNotOnBuildSlot)
-                    CancelBuildAction();
+            bool hitValidSlot = false;
+
+            // 3. 檢查這條線上所有的碰撞體，只要裡面有一個是 BuildSlot，就算點擊成功！
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.GetComponent<BuildSlot>() != null)
+                {
+                    hitValidSlot = true;
+                    break; // 找到了！立刻停止搜尋
+                }
+            }
+
+            // 4. 只有在「確定滑鼠底下完全沒有任何 BuildSlot」的時候，才執行取消
+            if (hitValidSlot == false)
+            {
+                CancelBuildAction();
             }
         }
     }
@@ -122,6 +140,17 @@ public class BuildManager : MonoBehaviour
 
         GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
         newTower.transform.rotation = newPreviewTower.rotation;
+
+        //  修改這裡：除了播音效，也順便把特效 Instantiate (生成) 出來！
+        if (buildFX != null)
+        {
+            Instantiate(buildFX, newTower.transform.position + Vector3.up * 0.1f, Quaternion.identity);
+        }
+
+        if (buildSound != null)
+        {
+            buildSound.Play();
+        }
     }
 
     public void MouseOverUI(bool IsOverUI) => isMouseOverUI = IsOverUI;

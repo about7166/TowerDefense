@@ -8,11 +8,12 @@ public class Tower_Cannon : Tower
     [SerializeField] private float timeToTarget = 1.5f;
     [SerializeField] private ParticleSystem attackVFX;
 
-    // ★ 新增：指派那個只會上下轉的頭
+    // 新增：指派那個只會上下轉的頭
     [SerializeField] private Transform cannonHead;
 
     private Collider[] explosionBuffer = new Collider[50];
     public override float GetAttackDamage() => damage;
+
     protected override void Attack()
     {
         base.Attack();
@@ -20,18 +21,19 @@ public class Tower_Cannon : Tower
         Vector3 velocity = CalculateLaunchVelocity();
         attackVFX.Play();
 
+        // 呼叫你的音效總管，播放大砲專屬的攻擊音效！
+        AudioManager.instance?.PlaySFX(attackSfx, true);
+
         GameObject newProjectile = objectPool.Get(projectilePrefab, gunPoint.position, Quaternion.identity);
         newProjectile.GetComponent<Projectile_Cannon>().SetupProjectile(velocity, damage, objectPool);
     }
-
-    // ... (FindEnemyWithinRange 與 EnemiesAroundEnemy 保持不變)
 
     protected override void HandleRotation()
     {
         if (currentEnemy == null)
             return;
 
-        // ★ 修改：拆分兩軸旋轉邏輯
+        // 修改：拆分兩軸旋轉邏輯
         FaceLaunchDirection();
     }
 

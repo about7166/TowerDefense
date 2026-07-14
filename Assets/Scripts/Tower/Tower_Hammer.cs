@@ -36,6 +36,8 @@ public class Tower_Hammer : Tower
         base.Attack();
         hammerVisuals.PlayAttackAnimation();
 
+        AudioManager.instance?.PlaySFX(attackSfx, true);
+
         foreach (var enemy in ValidEnemyTargets())
         {
             enemy.TakeDamage(damage);

@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxHp;
     [SerializeField] private int currentHp;
 
-    // ★ 新增這兩行：這是對外開放的「唯讀通道」，讓別人只能看、不能亂改血量！
+    [Header("主堡受擊畫面抖動設定")]
+    [SerializeField] private float castleShakeDuration = 0.2f;   // 震動時間
+    [SerializeField] private float castleShakeMagnitude = 0.3f;  // 震動強度 (幅度)
+
+    // 新增這兩行：這是對外開放的「唯讀通道」，讓別人只能看、不能亂改血量！
     public int MaxHp => maxHp;
     public int CurrentHp => currentHp;
 
@@ -119,7 +123,12 @@ public class GameManager : MonoBehaviour
     {
         currentHp += value;
         inGameUI.UpdateHealthPointsUI(currentHp, maxHp);
-        inGameUI.ShakeHealthUI();
+        inGameUI.ShakeHealthUI(); // 這是原本的血條介面震動
+
+        if (value < 0)
+        {
+            cameraEffects.ScreenShake(castleShakeDuration, castleShakeMagnitude);
+        }
 
         if (currentHp <= 0 && gameLost == false)
             StartCoroutine(LevelFailedCo());

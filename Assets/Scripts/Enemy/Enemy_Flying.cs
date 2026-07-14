@@ -22,11 +22,14 @@ public class Enemy_Flying : Enemy
 
     public override void RemoveEnemy()
     {
-        foreach (var tower in observingTowers)
-            tower.ResetAttack();
-
-        foreach (var harpoon in GetComponentsInChildren<Projectile_Harpoon>())
-            objectPool.Remove(harpoon.gameObject);
+        // 你的程式碼裡應該有一個迴圈或變數在通知觀察中的魚叉塔
+        foreach (var tower in observingTowers) // (你的變數名稱可能略有不同)
+        {
+            if (tower != null)
+            {
+                tower.ResetAttack();
+            }
+        }
 
         base.RemoveEnemy();
     }
