@@ -17,11 +17,11 @@ public class Tower_Harpoon : Tower
     [SerializeField] private float overTimeEffectDuration = 4;
     [Range(0f, 1f)]
     [SerializeField] private float slowEffect = 0.7f;
-
-    // ============ 👇 新增：專門用來放導電音效的播放器 👇 ============
+   
+    // ============  新增：專門用來放導電音效的播放器  ============
     [Header("持續導電音效")]
     public AudioSource electricLoopSound;
-    // ============ 👆 ============
+    // ============  ============
 
     private bool reachedTarget;
     private bool busyWithAttack;
@@ -51,8 +51,10 @@ public class Tower_Harpoon : Tower
             currentProjectile.SetupProjectile(currentEnemy, projectileSpeed, this);
             harpoonVisuals.EnableChainVisuals(true, currentProjectile.GetConnectionPoint());
 
-            // 這裡可以保留之前加的 AudioManager，用來播「發射瞬間」的咻咻聲 (如果有的話)
-            AudioManager.instance?.PlaySFX(attackSfx, true);
+            if (attackSfx != null)
+            {
+                AudioManager.instance?.PlaySFX(attackSfx, true);
+            }
 
             Invoke(nameof(ResetAttackIfMissed), 1);
         }

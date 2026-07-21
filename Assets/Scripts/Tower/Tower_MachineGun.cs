@@ -37,7 +37,10 @@ public class Tower_MachineGun : Tower
 
             machineGunVisuals.RecoilFx(gunPoint);
 
-            AudioManager.instance?.PlaySFX(attackSfx, true);
+            if (attackSfx != null)
+            {
+                AudioManager.instance?.PlaySFX(attackSfx, true);
+            }
 
             base.Attack();
             gunPointIndex = (gunPointIndex + 1) % gunPointSet.Length;

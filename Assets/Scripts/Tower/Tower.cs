@@ -29,7 +29,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     // ★ 加入這四行，讓塔帶著自己的資料和照片！
     public string towerName = "Crossbow";
-    public int towerLevel = 1;      // 👈 就是少了這一行！補上它紅線就消失了
+    public int towerLevel = 1;      // 就是少了這一行！補上它紅線就消失了
     public Sprite towerIcon;        // 大圖示
     public Sprite attributeIcon1;   // 左下角小圖示
     public Sprite attributeIcon2;   // 右下角小圖示
@@ -328,6 +328,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             return;
 
         Vector3 directionToEnemy = DirectionToEnemyFrom(towerHead);
+
+        if (directionToEnemy == Vector3.zero) return;
 
         Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
 

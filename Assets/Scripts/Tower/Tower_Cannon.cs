@@ -22,7 +22,10 @@ public class Tower_Cannon : Tower
         attackVFX.Play();
 
         // 呼叫你的音效總管，播放大砲專屬的攻擊音效！
-        AudioManager.instance?.PlaySFX(attackSfx, true);
+        if (attackSfx != null)
+        {
+            AudioManager.instance?.PlaySFX(attackSfx, true);
+        }
 
         GameObject newProjectile = objectPool.Get(projectilePrefab, gunPoint.position, Quaternion.identity);
         newProjectile.GetComponent<Projectile_Cannon>().SetupProjectile(velocity, damage, objectPool);

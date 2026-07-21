@@ -78,6 +78,12 @@ public class LevelButton_Tile : MonoBehaviour, IPointerDownHandler, IPointerEnte
         }
 
         transform.position = defaultPosition;
+
+        // =================  新增這行  =================
+        // 點擊成功的瞬間，通知生怪器停止生怪，並關閉場上怪物的 NavMeshAgent
+        FindFirstObjectByType<MainScene_Spawner>()?.StopSpawningAndSink();
+        // =================  新增結束  =================
+
         levelManager.LoadLevelFromMenu("Level_" + levelIndex);
     }
 

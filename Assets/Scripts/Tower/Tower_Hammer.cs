@@ -12,7 +12,7 @@ public class Tower_Hammer : Tower
     [SerializeField] private float slowMultiplier = 0.4f;
     [SerializeField] private float slowDuration;
 
-    // ★ 優化 1：宣告在類別層級，重複使用這些容器，不再產生記憶體垃圾
+    //  優化 1：宣告在類別層級，重複使用這些容器，不再產生記憶體垃圾
     private Collider[] collidersBuffer = new Collider[50]; // 假設範圍內最多同時有 50 個敵人
     private List<Enemy> validTargets = new List<Enemy>();
     public override float GetSlowPercentage() => (1f - slowMultiplier) * 100f;
@@ -36,7 +36,10 @@ public class Tower_Hammer : Tower
         base.Attack();
         hammerVisuals.PlayAttackAnimation();
 
-        AudioManager.instance?.PlaySFX(attackSfx, true);
+        if (attackSfx != null)
+        {
+            AudioManager.instance?.PlaySFX(attackSfx, true);
+        }
 
         foreach (var enemy in ValidEnemyTargets())
         {

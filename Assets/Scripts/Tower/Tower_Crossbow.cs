@@ -29,7 +29,7 @@ public class Tower_Crossbow : Tower
                 towerHead.forward = lookDir; // 這樣它就永遠不會低頭了！
             }
 
-            // ============ 👇 加上安全鎖 👇 ============
+            // ============  加上安全鎖  ============
             IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
 
             // 如果射中的東西真的有血條腳本 (是活著的怪物)，才進行扣血
@@ -42,8 +42,11 @@ public class Tower_Crossbow : Tower
             visuals.CreateOnHitFX(hitInfo.point);
             visuals.PlayAttackVFX(gunPoint.position, hitInfo.point);
             visuals.PlayReloaxVFX(attackCooldown);
-            AudioManager.instance?.PlaySFX(attackSfx, true);
-            // ============ 👆 修改結束 👆 ============
+            if (attackSfx != null)
+            {
+                AudioManager.instance?.PlaySFX(attackSfx, true);
+            }
+            // ============  修改結束  ============
         }
     }
 }

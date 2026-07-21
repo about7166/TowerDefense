@@ -93,4 +93,19 @@ public class MainScene_Spawner : MonoBehaviour
             showcaseTowersParent.SetActive(false);
         }
     }
+    public void StopSpawningAndSink()
+    {
+        // 1. 停止生怪計時器，不再生出新怪物
+        StopAllCoroutines();
+
+        // 2. 關閉現存怪物的導航網格，讓牠們「放棄抵抗」，這樣動畫才能順利把牠們往下拉
+        foreach (GameObject enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                var agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                if (agent != null) agent.enabled = false;
+            }
+        }
+    }
 }
