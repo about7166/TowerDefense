@@ -52,13 +52,18 @@ public class LevelSetup : MonoBehaviour
         levelManager = FindFirstObjectByType<LevelManager>();
 
         return levelManager != null;
-     }
+    }
 
     private void DeleteExtraObjects()
     {
         foreach (var obj in extraObjectsToDelete)
         {
-            Destroy(obj);
+            if (obj != null)
+            {
+                // 解除卡死 Bug 的核心魔法：在銷毀前先強制隱藏，避免動畫系統抓錯人！
+                obj.SetActive(false);
+                Destroy(obj);
+            }
         }
     }
 
@@ -66,16 +71,15 @@ public class LevelSetup : MonoBehaviour
     {
         UI ui = FindFirstObjectByType<UI>();
 
-        // 加入這行最強防呆檢查：如果沒抓到 UI 或是按鈕系統，就不要往下執行！
         if (ui == null || ui.buildButtonsUI == null)
         {
             Debug.LogWarning("找不到 UI 總管，跳過解鎖防禦塔！(可能是因為你正在單獨測試關卡場景)");
             return;
         }
 
-        foreach (var unlockData in towerUnlocks)//找每座塔的資料
+        foreach (var unlockData in towerUnlocks)
         {
-            foreach (var buildButton in ui.buildButtonsUI.GetBuildButtons())//找按鈕
+            foreach (var buildButton in ui.buildButtonsUI.GetBuildButtons())
             {
                 buildButton.UnlockTowerIfNeeded(unlockData.towerName, unlockData.unlocked);
             }
@@ -100,8 +104,6 @@ public class LevelSetup : MonoBehaviour
         towerUnlocks.Add(new TowerUnlockData("Just Fan", false));
     }
 }
-
-
 
 [System.Serializable]
 public class TowerUnlockData

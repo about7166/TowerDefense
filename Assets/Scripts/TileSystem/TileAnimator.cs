@@ -22,7 +22,7 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private List<GameObject> mainMenuObjects = new List<GameObject>();
     [SerializeField] private GridBuilder mainSceneGrid;
     private Coroutine currentActiveCo;
-    private bool isGridMoving; //避免BuildSlot裡的游標動畫影響
+    private bool isGridMoving;
 
     [Header("地塊溶解效果設定")]
     [SerializeField] private Material dissolveMaterial;
@@ -77,15 +77,12 @@ public class TileAnimator : MonoBehaviour
 
         while (dissolvingObjects.Count > 0)
         {
-            // 🔴 加個保險：如果場景正在切換，dissolvingObjects 裡的物件被毀了，要把它們踢掉
             dissolvingObjects.RemoveAll(item => item == null);
             yield return null;
         }
 
-        // 🔴 修正第 84 行的錯誤：
         foreach (var tile in objectsToMove)
         {
-            // 檢查 tile 是否還存在 (沒有被 Destroy)
             if (tile != null)
             {
                 TileSlot slot = tile.GetComponent<TileSlot>();
@@ -158,25 +155,22 @@ public class TileAnimator : MonoBehaviour
         float startValue = showTile ? 1 : 0;
         float targetValue = showTile ? 0 : 1;
 
-        Material originalMaterial = meshRenderer.material; //抓原本的材質
+        Material originalMaterial = meshRenderer.material;
 
-        // 指派一個新的溶解材質實例（Instance），以避免修改到共用的材質（Shared Materials）
         meshRenderer.material = new Material(dissolveMaterial);
-
         Material dissolveMatInstance = meshRenderer.material;
 
         dissolveMatInstance.SetColor("_BaseColor", originalMaterial.GetColor("_BaseColor"));
-        // ================= 👇 新增這段來複製貼圖 👇 =================
+
         if (originalMaterial.HasProperty("_BaseMap"))
         {
             dissolveMatInstance.SetTexture("_BaseMap", originalMaterial.GetTexture("_BaseMap"));
         }
         else if (originalMaterial.HasProperty("_MainTex"))
         {
-            // 兼容舊版 Standard Shader 的貼圖命名
             dissolveMatInstance.SetTexture("_BaseMap", originalMaterial.GetTexture("_MainTex"));
         }
-        // ================= 👆 新增結束 👆 =================
+
         dissolveMatInstance.SetFloat("_Metallic", originalMaterial.GetFloat("_Metallic"));
         dissolveMatInstance.SetFloat("_Smoothness", originalMaterial.GetFloat("_Smoothness"));
         dissolveMatInstance.SetFloat("_Dissolve", startValue);
@@ -186,9 +180,7 @@ public class TileAnimator : MonoBehaviour
         while (time < duration)
         {
             float currentDissolveValue = Mathf.Lerp(startValue, targetValue, time / duration);
-
             dissolveMatInstance.SetFloat("_Dissolve", currentDissolveValue);
-
             time += Time.deltaTime;
             yield return null;
         }
@@ -206,11 +198,13 @@ public class TileAnimator : MonoBehaviour
             obj.transform.position += offset;
         }
     }
+
     public void EnableMainMenuGrid(bool enable)
     {
         ShowGrid(mainSceneGrid, enable);
         mainSceneGrid.GetComponent<NavMeshSurface>().enabled = enable;
     }
+
     public void EnableMainSceneObjects(bool enable)
     {
         foreach (var obj in mainMenuObjects)
@@ -218,46 +212,53 @@ public class TileAnimator : MonoBehaviour
             obj.SetActive(enable);
         }
     }
+
     private void CollectMainSceneObjects()
     {
         mainMenuObjects.AddRange(mainSceneGrid.GetTileSetup());
-        mainMenuObjects.AddRange(GetExtraObjects());
+        // 修正：必須把 mainSceneGrid 傳進去，讓程式知道只抓主場景的物件
+        mainMenuObjects.AddRange(GetExtraObjects(mainSceneGrid));
     }
 
     private List<GameObject> GetObjectsToMove(GridBuilder gridToMove, bool startWithTiles)
     {
         List<GameObject> objectsToMove = new List<GameObject>();
-        List<GameObject> extraObjexts = GetExtraObjects();
+        // 修正：必須把 gridToMove 傳進去，精準過濾該關卡的物件
+        List<GameObject> extraObjects = GetExtraObjects(gridToMove);
 
         if (startWithTiles)
         {
+            // 實作選項 A 的魔法：把地塊排在陣列前面，建築排在後面。
+            // 這樣迴圈在播放動畫時，就會完美呈現「地塊先拚完，主堡才升起」的層次感！
             objectsToMove.AddRange(gridToMove.GetTileSetup());
-            objectsToMove.AddRange(extraObjexts);
+            objectsToMove.AddRange(extraObjects);
         }
         else
         {
-            objectsToMove.AddRange(extraObjexts);
+            objectsToMove.AddRange(extraObjects);
             objectsToMove.AddRange(gridToMove.GetTileSetup());
         }
 
         return objectsToMove;
     }
 
-    private List<GameObject> GetExtraObjects()
+    // 修正：加入 GridBuilder 參數作為場景過濾雷達
+    private List<GameObject> GetExtraObjects(GridBuilder gridToMove)
     {
         List<GameObject> extraObjects = new List<GameObject>();
+        UnityEngine.SceneManagement.Scene targetScene = gridToMove.gameObject.scene;
 
-        // 搜尋生怪塔
-        extraObjects.AddRange(FindObjectsOfType<EnemyPortal>().Select(component => component.gameObject));
-        // 搜尋主堡
-        extraObjects.AddRange(FindObjectsOfType<Castle>().Select(component => component.gameObject));
+        // 嚴格比對場景！確保關卡絕對不會去抓到主選單的塔，解決卡在半空的 Bug
+        foreach (var portal in FindObjectsOfType<EnemyPortal>())
+            if (portal.gameObject.scene == targetScene) extraObjects.Add(portal.gameObject);
 
-        // ================= 👇 新增這段 👇 =================
-        // 搜尋所有帶有 MapDecoration 標籤的裝飾物
-        extraObjects.AddRange(FindObjectsOfType<MapDecoration>().Select(component => component.gameObject));
-        // ================= ===============================
+        foreach (var castle in FindObjectsOfType<Castle>())
+            if (castle.gameObject.scene == targetScene) extraObjects.Add(castle.gameObject);
 
-        return extraObjects;
+        foreach (var dec in FindObjectsOfType<MapDecoration>())
+            if (dec.gameObject.scene == targetScene) extraObjects.Add(dec.gameObject);
+
+        return extraObjects.Distinct().ToList();
     }
 
     public Coroutine GetCurrentActiveCo() => currentActiveCo;
