@@ -15,7 +15,7 @@ public class Projectile_Cannon : MonoBehaviour
     [SerializeField] private AudioClip explosionSound;
     [Range(0f, 1f)]
     [SerializeField] private float explosionVolume = 0.8f; // 預設音量 0.8，可在 Unity 自由拉動
-    
+
     private Collider[] hitColliders = new Collider[20];
 
     private void Awake()
@@ -67,17 +67,27 @@ public class Projectile_Cannon : MonoBehaviour
 
         DamageEnemiesAround();
 
-        // 產生爆炸特效
-        objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.5f, 0));
+        // 終極防呆 1：確保「爆炸特效」欄位有放東西，且「物件池」存在才執行
+        if (explosionFx != null && objectPool != null)
+        {
+            objectPool.Get(explosionFx, transform.position + new Vector3(0, 0.5f, 0));
+        }
 
+        // 終極防呆 2：確保「音效」欄位有放東西才播放，沒有放就安靜略過，絕不報錯
         if (explosionSound != null)
         {
-            // 在砲彈爆炸的位置，以設定的音量播放音效
             AudioSource.PlayClipAtPoint(explosionSound, transform.position, explosionVolume);
         }
 
-        // 回收砲彈
-        objectPool.Remove(gameObject);
+        // 終極防呆 3：確保物件池存在才回收，如果真的找不到物件池，就直接銷毀避免殘留
+        if (objectPool != null)
+        {
+            objectPool.Remove(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmos()

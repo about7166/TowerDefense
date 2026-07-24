@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             RestarCurrentLevel();
-            
+
     }
 
     public void RestarCurrentLevel() => StartCoroutine(LoadLevelCo(currentLevelName));
@@ -83,11 +83,21 @@ public class LevelManager : MonoBehaviour
         UnloadCurrentScene();
 
         tileAnimator.EnableMainSceneObjects(true);
+
+        // 需求 1：將開啟 UI 的指令移到這裡，達成同步顯示
+        ui.EnableMainMenuUI(true);
         tileAnimator.ShowMainGrid(true);
 
+        // 等待主場景地塊升起動畫完全結束
         yield return tileAnimator.GetCurrentActiveCo();
 
-        ui.EnableMainMenuUI(true);
+        // 需求 2：精準抓取主場景專屬的 Spawner，並叫它重新開始生怪！
+        MainScene_Spawner mainSpawner = FindFirstObjectByType<MainScene_Spawner>();
+        if (mainSpawner != null)
+        {
+            // 直接呼叫 BeginSpawning，跳過 Start 的等待，因為我們已經等完動畫了
+            mainSpawner.BeginSpawning();
+        }
     }
 
     private void LoadScene(string sceneNameToLoad)
@@ -100,6 +110,13 @@ public class LevelManager : MonoBehaviour
 
     private void CleanUpScene()
     {
+        // 如果是從主選單離開，也要確保主選單的生怪器停止並下沉
+        MainScene_Spawner mainSpawner = FindFirstObjectByType<MainScene_Spawner>();
+        if (mainSpawner != null)
+        {
+            mainSpawner.StopSpawningAndSink();
+        }
+
         GameManager.instance.StopMakingEnemies();
         EliminateAllEnemies();
         EliminateAllTowers();

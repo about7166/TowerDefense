@@ -412,11 +412,6 @@ public class WaveManager : MonoBehaviour
     {
         foreach (EnemyPortal portal in enemyPortals)
         {
-            // 修改重點：
-            // 如果場上還有活著的怪 (GetActiveEnemies().Count > 0)
-            // 或者 (||)
-            // 傳送門還有怪沒生出來 (portal.HasEnemiesToSpawn())
-            // 就不算贏！
             if (portal.GetActiveEnemies().Count > 0 || portal.HasEnemiesToSpawn())
                 return false;
         }
@@ -427,9 +422,6 @@ public class WaveManager : MonoBehaviour
     private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].nextGrid != null;
     private bool HasNoMoreWaves() => waveIndex >= levelWaves.Length;
 
-    // =========================================================
-    // ★ 編輯器自動化工具：一鍵將未來會變動的地塊轉為 NoBuild ★
-    // =========================================================
     [ContextMenu("一鍵標記！預計變動的地塊自動轉為 NoBuild")]
     private void AutoMarkChangingTilesAsNoBuild()
     {
@@ -449,7 +441,6 @@ public class WaveManager : MonoBehaviour
         List<GameObject> currentTiles = currentGrid.GetTileSetup();
         int changedCount = 0;
 
-        // 檢查每一波的未來地圖
         foreach (WaveDetails wave in levelWaves)
         {
             if (wave.nextGrid == null) continue;
@@ -462,19 +453,16 @@ public class WaveManager : MonoBehaviour
                 continue;
             }
 
-            // 逐一比對每個地塊
             for (int i = 0; i < currentTiles.Count; i++)
             {
                 TileSlot currentTile = currentTiles[i].GetComponent<TileSlot>();
                 TileSlot newTile = nextTiles[i].GetComponent<TileSlot>();
 
-                // 判斷是否和未來的地塊不一樣
                 bool willChange = currentTile.GetMesh() != newTile.GetMesh() ||
                                   currentTile.GetOriginalMaterial() != newTile.GetOriginalMaterial() ||
                                   currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
                                   currentTile.transform.rotation != newTile.transform.rotation;
 
-                // 如果未來會變動，且現在還不是 NoBuild 地塊，就自動幫它換成 NoBuild
                 if (willChange && currentTile.gameObject.name != tileSet.tileNoBuild.name)
                 {
                     currentTile.SwitchTile(tileSet.tileNoBuild);
@@ -483,6 +471,24 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"✅ 自動標記完成！共將 {changedCount} 個預計變動的地塊轉換為 NoBuild。");
+        Debug.Log($" 自動標記完成！共將 {changedCount} 個預計變動的地塊轉換為 NoBuild。");
+    }
+
+    // 新增：問題 2 修正，專門重置主畫面 WaveManager，完全不破壞生命週期
+    public void ResetForMainMenu()
+    {
+        waveIndex = 0;
+        makingNextWave = false;
+        gameBegun = false;
+
+        if (enemyPortals != null)
+        {
+            foreach (var portal in enemyPortals)
+            {
+                if (portal != null) portal.CanCreateNewEnemies(true);
+            }
+        }
+
+        ActivateWaveManager();
     }
 }
