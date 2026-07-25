@@ -15,18 +15,17 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private LayerMask whatToIgnore;
 
     [Header("塔的預覽材質")]
-    // ★ 舊的 attackRadiusMaterial 已經徹底移除，只留下模型半透明預覽用的材質！
     [SerializeField] private Material buildPreviewMaterial;
 
     // ==========================================
     // 預覽範圍圈設定
     // ==========================================
     [Header("預覽範圍圈設定")]
-    public Sprite rangeGradientSprite; // 內圈漸層圖片
-    public Material rangeLineMaterial; // 外圈線條材質
-    public Color rangeFillColor = new Color(0f, 1f, 0.5f, 0.3f); //內圈填充顏色
-    [ColorUsage(true, true)] public Color rangeBorderColor = new Color(0f, 1f, 0.5f, 1f); //外圈顏色
-    public float rangeBorderThickness = 0.1f; //外圈粗細
+    public Sprite rangeGradientSprite;
+    public Material rangeLineMaterial;
+    public Color rangeFillColor = new Color(0f, 1f, 0.5f, 0.3f);
+    [ColorUsage(true, true)] public Color rangeBorderColor = new Color(0f, 1f, 0.5f, 1f);
+    public float rangeBorderThickness = 0.1f;
     // ==========================================
 
     [Header("建造設定")]
@@ -58,26 +57,21 @@ public class BuildManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            // 1. 如果點到 UI (例如按鈕)，直接忽略
             if (CheckIfPointerOverUI())
                 return;
 
-            // 2. 發射「穿透射線」，取得滑鼠點下去那一條線上撞到的【所有東西】
             RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition), Mathf.Infinity);
-
             bool hitValidSlot = false;
 
-            // 3. 檢查這條線上所有的碰撞體，只要裡面有一個是 BuildSlot，就算點擊成功！
             foreach (RaycastHit hit in hits)
             {
                 if (hit.collider.GetComponent<BuildSlot>() != null)
                 {
                     hitValidSlot = true;
-                    break; // 找到了！立刻停止搜尋
+                    break;
                 }
             }
 
-            // 4. 只有在「確定滑鼠底下完全沒有任何 BuildSlot」的時候，才執行取消
             if (hitValidSlot == false)
             {
                 CancelBuildAction();
@@ -112,6 +106,14 @@ public class BuildManager : MonoBehaviour
 
     public void BuildTower(GameObject towerToBuild, int towerPrice, Transform newPreviewTower)
     {
+        //  買塔防連點鎖：在扣除金錢之前，先檢查地塊是不是已經被第一下點擊清空了
+        BuildSlot slotToUse = GetSelectedSlot();
+        if (slotToUse == null)
+        {
+            // 如果是手速過快的第二下連點，到這裡就會被擋下，絕對不會往下執行扣錢！
+            return;
+        }
+
         if (gameManager.HasEnoughCurrency(towerPrice) == false)
         {
             ui.inGameUI.ShakeCurrencyUI();
@@ -128,7 +130,8 @@ public class BuildManager : MonoBehaviour
             return;
 
         Transform previewTower = newPreviewTower;
-        BuildSlot slotToUse = GetSelectedSlot();
+
+        // 這裡會把 selectedBuildSlot 設為 null，所以第二下連點會死在最上面的防呆機制
         CancelBuildAction();
 
         slotToUse.SnapToDefaultPositionImmidiatly();
@@ -141,7 +144,6 @@ public class BuildManager : MonoBehaviour
         GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
         newTower.transform.rotation = newPreviewTower.rotation;
 
-        //  修改這裡：除了播音效，也順便把特效 Instantiate (生成) 出來！
         if (buildFX != null)
         {
             Instantiate(buildFX, newTower.transform.position + Vector3.up * 0.1f, Quaternion.identity);
@@ -227,6 +229,5 @@ public class BuildManager : MonoBehaviour
 
     public BuildSlot GetSelectedSlot() => selectedBuildSlot;
 
-    // ★ 舊的 GetAttackRadiusMaterial() 已經刪除
     public Material GetBuildPreviewMaterial() => buildPreviewMaterial;
 }

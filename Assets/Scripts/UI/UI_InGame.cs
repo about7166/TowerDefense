@@ -23,6 +23,12 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject levelCompletedUI;
 
+    // ★ 新增：用來鎖死原始座標的變數
+    private Vector3 currencyDefaultPos;
+    private Vector3 healthDefaultPos;
+    private Transform currencyParent;
+    private Transform healthParent;
+
     private void Awake()
     {
         uiAnimator = GetComponentInParent<UI_Animator>();
@@ -33,6 +39,14 @@ public class UI_InGame : MonoBehaviour
         {
             waveTimerDefaultPosition = waveTimer.localPosition;
         }
+
+        // ★ 在遊戲一開始，先把他們的「父物件(整個UI框)」抓出來
+        if (currencyText != null) currencyParent = currencyText.transform.parent;
+        if (healthPointText != null) healthParent = healthPointText.transform.parent;
+
+        // ★ 把他們剛出生的「最完美預設座標」死死記住
+        if (currencyParent != null) currencyDefaultPos = currencyParent.localPosition;
+        if (healthParent != null) healthDefaultPos = healthParent.localPosition;
     }
 
     private void Update()
@@ -58,8 +72,20 @@ public class UI_InGame : MonoBehaviour
             levelCompletedUI.SetActive(enable);
     }
 
-    public void ShakeCurrencyUI() => ui.animatorUI.Shake(currencyText.transform.parent);
-    public void ShakeHealthUI() => ui.animatorUI.Shake(healthPointText.transform.parent);
+    // ★ 修正：每次抖動前，強制把 UI 拽回原始座標，徹底解決跑位 Bug
+    public void ShakeCurrencyUI()
+    {
+        if (currencyParent != null) currencyParent.localPosition = currencyDefaultPos;
+        ui.animatorUI.Shake(currencyParent);
+    }
+
+    // ★ 修正：生命值也套用一樣的保護機制
+    public void ShakeHealthUI()
+    {
+        if (healthParent != null) healthParent.localPosition = healthDefaultPos;
+        ui.animatorUI.Shake(healthParent);
+    }
+
     //這裡是老師寫的"威脅值"
     //public void UpdateHealthPointsUI(int value, int maxValue)
     //{
@@ -87,6 +113,7 @@ public class UI_InGame : MonoBehaviour
         int seconds = Mathf.FloorToInt(value % 60f);
         waveTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
     public void EnableWaveTimer(bool enable)
     {
         // 關鍵防護：如果 UI 本身已經關閉了，或者物件正在被毀滅中，就直接跳過

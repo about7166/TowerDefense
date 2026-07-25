@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using UnityEngine.Localization.Settings; // ★ 多國語系
+using UnityEngine.Localization.Settings;
 
 public class UI_TowerUpgradePanel : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     private bool isInitialized = false;
 
     // ==========================================
-    // ★ 攻擊範圍顯示系統變數 (英雄聯盟風格)
+    //  攻擊範圍顯示系統變數 (英雄聯盟風格)
     // ==========================================
     private LineRenderer rangeBorder;
     private SpriteRenderer rangeFill;
@@ -36,12 +36,12 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [Tooltip("請放入你截圖裡的那個 Circle 材質球，或是任何 Unlit 材質球")]
     public Material lineMaterial;
 
-    [SerializeField] private Color fillColor = new Color(0f, 1f, 0.5f, 0.3f); // 內圈漸層顏色
+    [SerializeField] private Color fillColor = new Color(0f, 1f, 0.5f, 0.3f);
 
-    [ColorUsage(true, true)] // 開啟 HDR，讓這個顏色可以發光！
-    [SerializeField] private Color borderColor = new Color(0f, 1f, 0.5f, 1f); // 外框實線顏色
+    [ColorUsage(true, true)]
+    [SerializeField] private Color borderColor = new Color(0f, 1f, 0.5f, 1f);
 
-    [SerializeField] private float borderThickness = 0.1f; // 外框粗細
+    [SerializeField] private float borderThickness = 0.1f;
     // ==========================================
 
 
@@ -62,7 +62,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
 
         if (panelObject != null) panelObject.SetActive(false);
 
-        // 初始化範圍指示器
         CreateRangeIndicator();
     }
 
@@ -70,10 +69,8 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     {
         if (rangeBorder != null && rangeFill != null) return;
 
-        // 1. 建立總開關 (父物件)
         GameObject indicatorObj = new GameObject("DynamicRangeIndicator");
 
-        // 2. 製作內圈光暈 (SpriteRenderer)
         GameObject fillObj = new GameObject("Fill_Gradient");
         fillObj.transform.SetParent(indicatorObj.transform);
         fillObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
@@ -83,7 +80,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         rangeFill.color = fillColor;
         rangeFill.sortingOrder = 4;
 
-        // 3. 製作發光外框 (LineRenderer)
         GameObject borderObj = new GameObject("Border_Line");
         borderObj.transform.SetParent(indicatorObj.transform);
 
@@ -152,7 +148,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     [Header("特效與音效")]
     public GameObject upgradeFX;
     public GameObject sellFX;
-    // ★ 這裡已經改成你要求的 AudioSource 播放器了
     public AudioSource upgradeSound;
     public AudioSource sellSound;
 
@@ -183,7 +178,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
             selectedTower = null;
         }
 
-        // ★ 關閉面板時，把範圍圈父物件藏起來
         if (rangeFill != null) rangeFill.transform.parent.gameObject.SetActive(false);
 
         if (animCoroutine != null) StopCoroutine(animCoroutine);
@@ -237,6 +231,9 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     {
         if (selectedTower == null) return;
 
+        //  每次點擊塔時，確保販賣按鈕是解鎖狀態
+        if (sellButton != null) sellButton.interactable = true;
+
         if (towerNameText != null)
         {
             string myKey = "Tower_" + selectedTower.towerName;
@@ -272,7 +269,10 @@ public class UI_TowerUpgradePanel : MonoBehaviour
             if (nextLevelText != null) nextLevelText.text = "LV." + (selectedTower.towerLevel + 1);
 
             if (nextStatsGroup != null) nextStatsGroup.SetActive(true);
+
+            //  解鎖升級按鈕
             if (upgradeButton != null) upgradeButton.interactable = true;
+
             if (upgradeCostText != null) upgradeCostText.text = selectedTower.upgradeCost.ToString();
 
             if (next_Damage != null) next_Damage.gameObject.SetActive(true);
@@ -309,7 +309,10 @@ public class UI_TowerUpgradePanel : MonoBehaviour
             if (nextLevelText != null) nextLevelText.text = "";
 
             if (nextStatsGroup != null) nextStatsGroup.SetActive(false);
+
+            // ★ 滿等了，鎖死升級按鈕
             if (upgradeButton != null) upgradeButton.interactable = false;
+
             if (upgradeCostText != null) upgradeCostText.text = "MAX";
 
             if (next_Damage != null) next_Damage.gameObject.SetActive(false);
@@ -332,9 +335,15 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     {
         if (selectedTower == null || selectedTower.nextUpgradePrefab == null) return;
 
+        // ★ 防連點鎖：點下去的瞬間強制反灰，阻擋第二次點擊判定！
+        if (upgradeButton != null) upgradeButton.interactable = false;
+        if (sellButton != null) sellButton.interactable = false;
+
+        // HasEnoughCurrency 裡面已經實作扣錢邏輯了
         if (GameManager.instance.HasEnoughCurrency(selectedTower.upgradeCost))
         {
-            GameManager.instance.UpdateCurrency(-selectedTower.upgradeCost);
+            // ❌ 刪除原本在這裡的 GameManager.instance.UpdateCurrency(...) 解決雙重扣款 Bug！
+
             PlayEffects(upgradeFX, upgradeSound, selectedTower.transform.position);
 
             Tower oldTower = selectedTower;
@@ -345,6 +354,10 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         }
         else
         {
+            // 如果錢不夠被擋下來了，就把按鈕重新解鎖，讓玩家可以繼續操作
+            if (upgradeButton != null) upgradeButton.interactable = true;
+            if (sellButton != null) sellButton.interactable = true;
+
             if (GameManager.instance.inGameUI != null) GameManager.instance.inGameUI.ShakeCurrencyUI();
         }
     }
@@ -352,6 +365,10 @@ public class UI_TowerUpgradePanel : MonoBehaviour
     public void SellSelectedTower()
     {
         if (selectedTower == null) return;
+
+        // ★ 防連點鎖：點下去的瞬間強制反灰
+        if (upgradeButton != null) upgradeButton.interactable = false;
+        if (sellButton != null) sellButton.interactable = false;
 
         GameManager.instance.UpdateCurrency(selectedTower.sellReward);
         PlayEffects(sellFX, sellSound, selectedTower.transform.position);
@@ -373,7 +390,6 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         Destroy(towerToDestroy.gameObject);
     }
 
-    // ★ 幫你把這個小幫手升級了！現在它吃的是 AudioSource，並且使用 .Play()
     private void PlayEffects(GameObject fxPrefab, AudioSource soundSource, Vector3 position)
     {
         if (fxPrefab != null) Instantiate(fxPrefab, position + Vector3.up * 0.1f, Quaternion.identity);
