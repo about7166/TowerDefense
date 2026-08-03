@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation; // ★ 新增：需要引入這個來控制 NavMeshSurface
 
 public class MainScene_Spawner : MonoBehaviour
 {
@@ -51,8 +52,16 @@ public class MainScene_Spawner : MonoBehaviour
 
     public void BeginSpawning()
     {
-        GridBuilder grid = FindFirstObjectByType<GridBuilder>();
-        if (grid != null) grid.UpdateNavMesh();
+        // ★ 修改 1：精準取得「主選單專屬」的 GridBuilder，不亂抓關卡的
+        GridBuilder grid = GetMySceneGrid();
+        if (grid != null)
+        {
+            // 確保元件開啟並重新烘焙
+            NavMeshSurface surface = grid.GetComponent<NavMeshSurface>();
+            if (surface != null) surface.enabled = true;
+
+            grid.UpdateNavMesh();
+        }
 
         StartCoroutine(SpawnRoutine());
     }
@@ -92,7 +101,11 @@ public class MainScene_Spawner : MonoBehaviour
         {
             showcaseTowersParent.SetActive(false);
         }
+
+        // ★ 修改 2：清理時，徹底拔除幽靈導航網格
+        DisableShowcaseNavMesh();
     }
+
     public void StopSpawningAndSink()
     {
         // 1. 停止生怪計時器，不再生出新怪物
@@ -105,6 +118,39 @@ public class MainScene_Spawner : MonoBehaviour
             {
                 var agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
                 if (agent != null) agent.enabled = false;
+            }
+        }
+
+        // ★ 修改 2：怪物沉下去時，徹底拔除幽靈導航網格
+        DisableShowcaseNavMesh();
+    }
+
+    // ================= 新增的場景隔離邏輯 =================
+
+    // 嚴格比對：只回傳跟這個生怪器在「同一個 Scene (MainScene)」的 GridBuilder
+    private GridBuilder GetMySceneGrid()
+    {
+        GridBuilder[] allGrids = FindObjectsByType<GridBuilder>(FindObjectsSortMode.None);
+        foreach (var grid in allGrids)
+        {
+            if (grid.gameObject.scene == this.gameObject.scene)
+            {
+                return grid;
+            }
+        }
+        return null;
+    }
+
+    // 關閉主選單的 NavMeshSurface，Unity 就會自動將它的導航網格從遊戲世界中抹除！
+    private void DisableShowcaseNavMesh()
+    {
+        GridBuilder myGrid = GetMySceneGrid();
+        if (myGrid != null)
+        {
+            NavMeshSurface surface = myGrid.GetComponent<NavMeshSurface>();
+            if (surface != null)
+            {
+                surface.enabled = false;
             }
         }
     }

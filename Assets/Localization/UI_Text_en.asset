@@ -257,6 +257,10 @@ MonoBehaviour:
     m_Localized: NEXT WAVE
     m_Metadata:
       m_Items: []
+  - m_Id: 23903886862069760
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

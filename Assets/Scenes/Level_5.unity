@@ -4577,6 +4577,8 @@ MonoBehaviour:
   currency: 500
   maxHp: 100
   currentHp: 0
+  castleShakeDuration: 0.2
+  castleShakeMagnitude: 0.3
 --- !u!4 &770065647
 Transform:
   m_ObjectHideFlags: 0
@@ -16844,7 +16846,7 @@ PrefabInstance:
       objectReference: {fileID: 1150395579}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: levelCurrency
-      value: 10000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: myWaveManager

@@ -261,6 +261,10 @@ MonoBehaviour:
     m_Localized: PROSSIMA ONDATA
     m_Metadata:
       m_Items: []
+  - m_Id: 23903886862069760
+    m_Localized: Caricamento...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

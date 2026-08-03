@@ -39,6 +39,10 @@ public class UI : MonoBehaviour
     // 跨場景記憶卡，防止進入關卡時重複播放動畫
     private static bool hasPlayedStartup = false;
 
+    // 用來追蹤與中斷協程的變數
+    private Coroutine startupCo;
+    private Coroutine textAnimCo;
+
     private void Awake()
     {
         buildButtonsUI = GetComponentInChildren<UI_BuildButtonsHolder>(true);
@@ -63,15 +67,60 @@ public class UI : MonoBehaviour
             if (loadingScreenUI != null) GetOrAddCanvasGroup(loadingScreenUI).alpha = 0f;
 
             SwitchTo(null);
-            StartCoroutine(StartupSequenceCo());
+
+            // 將協程存入變數，方便我們隨時砍掉它
+            startupCo = StartCoroutine(StartupSequenceCo());
         }
         else
         {
-            // 如果已經啟動過遊戲，強迫把這些遮擋畫面的 UI 全部關閉
             if (logoScreenUI != null) logoScreenUI.SetActive(false);
             if (loadingScreenUI != null) loadingScreenUI.SetActive(false);
             if (fadeImageUI != null) fadeImageUI.gameObject.SetActive(false);
         }
+    }
+
+    // ★ 修改：現在只偵測「Z」鍵來跳過開場
+    private void Update()
+    {
+        if (startupCo != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                SkipStartupSequence();
+            }
+        }
+    }
+
+    // 強制中斷所有等待，瞬間進入主介面
+    private void SkipStartupSequence()
+    {
+        // 1. 停止所有的等待協程
+        if (startupCo != null) StopCoroutine(startupCo);
+        if (textAnimCo != null) StopCoroutine(textAnimCo);
+        startupCo = null;
+
+        // 2. 強制關閉遮擋畫面的 UI
+        if (logoScreenUI != null)
+        {
+            GetOrAddCanvasGroup(logoScreenUI).alpha = 0f;
+            logoScreenUI.SetActive(false);
+        }
+        if (loadingScreenUI != null)
+        {
+            GetOrAddCanvasGroup(loadingScreenUI).alpha = 0f;
+            loadingScreenUI.SetActive(false);
+        }
+
+        // 3. 恢復時間與正常流程
+        Time.timeScale = 1f;
+
+        SwitchTo(settingUI.gameObject);
+        SwitchTo(mainMenuUI.gameObject);
+
+        if (GameManager.instance.IsTestingLevel())
+            SwitchTo(inGameUI.gameObject);
+
+        ActivateFadeEffect(true);
     }
 
     private CanvasGroup GetOrAddCanvasGroup(GameObject obj)
@@ -99,7 +148,7 @@ public class UI : MonoBehaviour
         {
             loadingScreenUI.SetActive(true);
 
-            Coroutine textAnimCo = null;
+            // 將文字動畫存入變數，以便跳過時能一起停掉
             if (loadingTextTMP != null) textAnimCo = StartCoroutine(AnimateLoadingTextCo());
 
             yield return StartCoroutine(FadeCanvasGroup(GetOrAddCanvasGroup(loadingScreenUI), 0f, 1f, loadingFadeInDuration));
@@ -110,6 +159,8 @@ public class UI : MonoBehaviour
             loadingScreenUI.SetActive(false);
         }
 
+        // 如果順利播完沒有被玩家跳過，在這裡清空變數
+        startupCo = null;
         Time.timeScale = 1f;
 
         SwitchTo(settingUI.gameObject);

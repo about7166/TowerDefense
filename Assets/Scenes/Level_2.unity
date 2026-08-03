@@ -51315,6 +51315,8 @@ MonoBehaviour:
   currency: 500
   maxHp: 100
   currentHp: 0
+  castleShakeDuration: 0.2
+  castleShakeMagnitude: 0.3
 --- !u!4 &770065647
 Transform:
   m_ObjectHideFlags: 0
@@ -59804,11 +59806,18 @@ MonoBehaviour:
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 0
-  attackRadiusMaterial: {fileID: 2100000, guid: b5abd7850c6c23d4291399da85cab314, type: 2}
   buildPreviewMaterial: {fileID: 2100000, guid: a7c02028ee50744459ef4797266a8da2, type: 2}
+  rangeGradientSprite: {fileID: 0}
+  rangeLineMaterial: {fileID: 0}
+  rangeFillColor: {r: 0, g: 1, b: 0.5, a: 0.3}
+  rangeBorderColor: {r: 0, g: 1, b: 0.5, a: 1}
+  rangeBorderThickness: 0.1
   towerCenterY: 0.5
   camShakeDuration: 0.15
   camShakeMagnitude: 0.02
+  buildFX: {fileID: 0}
+  buildSound: {fileID: 0}
+  isMouseOverUI: 0
 --- !u!4 &902541685
 Transform:
   m_ObjectHideFlags: 0

@@ -28206,6 +28206,8 @@ MonoBehaviour:
   currency: 500
   maxHp: 100
   currentHp: 0
+  castleShakeDuration: 0.2
+  castleShakeMagnitude: 0.3
 --- !u!4 &770065647
 Transform:
   m_ObjectHideFlags: 0
@@ -32081,11 +32083,18 @@ MonoBehaviour:
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 0
-  attackRadiusMaterial: {fileID: 2100000, guid: b5abd7850c6c23d4291399da85cab314, type: 2}
   buildPreviewMaterial: {fileID: 2100000, guid: a7c02028ee50744459ef4797266a8da2, type: 2}
+  rangeGradientSprite: {fileID: 0}
+  rangeLineMaterial: {fileID: 0}
+  rangeFillColor: {r: 0, g: 1, b: 0.5, a: 0.3}
+  rangeBorderColor: {r: 0, g: 1, b: 0.5, a: 1}
+  rangeBorderThickness: 0.1
   towerCenterY: 0.5
   camShakeDuration: 0.15
   camShakeMagnitude: 0.02
+  buildFX: {fileID: 0}
+  buildSound: {fileID: 0}
+  isMouseOverUI: 0
 --- !u!4 &902541685
 Transform:
   m_ObjectHideFlags: 0
@@ -81394,6 +81403,10 @@ PrefabInstance:
       propertyPath: 'extraObjectsToDelete.Array.data[11]'
       value: 
       objectReference: {fileID: 2551959638299569652}
+    - target: {fileID: 6340331646000366281, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
+      propertyPath: towerUnlocks.Array.data[2].unlocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7731653516642423262, guid: 606c52ee24d4a1445a6d2449ab0d7308, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.549156

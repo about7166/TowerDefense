@@ -258,6 +258,10 @@ MonoBehaviour:
     m_Localized: "PR\xD3XIMA ONDA"
     m_Metadata:
       m_Items: []
+  - m_Id: 23903886862069760
+    m_Localized: Carregando...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

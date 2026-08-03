@@ -130,9 +130,15 @@ public class WaveManager : MonoBehaviour
     public void StartNewWave()
     {
         UpdateNavMeshes();
-        //currentGrid.DisableShadowsIfNeeded();
         GiveEnemiesToPortals();
         EnableWaveTimer(false);
+
+        //  新增防護：按下下一波時，強制把計時器 UI 的位置瞬間歸位，防止一路往下掉
+        if (inGameUI != null)
+        {
+            inGameUI.SnapTimerToDefaultPosition();
+        }
+
         makingNextWave = false;
     }
     private void HandleWaveTimer()
@@ -201,27 +207,15 @@ public class WaveManager : MonoBehaviour
             {
                 tilesToRemove.Add(currentTile);
 
-                // ============ 👇 修改這段 👇 ============
-
-                // 1. 先抓取舊地塊的位置 (保留 X 和 Z)
                 Vector3 correctPosition = currentTile.transform.position;
-
-                // 2. 🚀 關鍵：把 Y 軸高度替換成「新地塊」原本設定好的高度！
                 correctPosition.y = referenceNewTile.transform.position.y;
 
-                // 3. 在這個融合了新舊座標的精準位置上生成地塊
                 GameObject spawnedNewTile = Instantiate(referenceNewTile.gameObject, correctPosition, referenceNewTile.transform.rotation);
-
-                // ============ 👆 修改結束 👆 ============
 
                 TileSlot actualNewTile = spawnedNewTile.GetComponent<TileSlot>();
 
-                // 讓新地塊一開始是隱藏的
                 spawnedNewTile.SetActive(false);
-
                 tilesToAdd.Add(actualNewTile);
-
-                // 將新地塊更新到目前的陣列中
                 grid[i] = spawnedNewTile;
             }
         }
@@ -254,7 +248,6 @@ public class WaveManager : MonoBehaviour
         newTile.transform.position = targetPosition + new Vector3(0, -yOffset, 0);
         newTile.gameObject.SetActive(true);
 
-        // 🚀 新增這段：如果這個新地塊是 Can Build，告訴它正確的預設位置是 targetPosition！
         BuildSlot buildSlot = newTile.GetComponent<BuildSlot>();
         if (buildSlot != null)
         {
@@ -471,10 +464,9 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        Debug.Log($" 自動標記完成！共將 {changedCount} 個預計變動的地塊轉換為 NoBuild。");
+        Debug.Log($"自動標記完成！共將 {changedCount} 個預計變動的地塊轉換為 NoBuild。");
     }
 
-    // 新增：問題 2 修正，專門重置主畫面 WaveManager，完全不破壞生命週期
     public void ResetForMainMenu()
     {
         waveIndex = 0;

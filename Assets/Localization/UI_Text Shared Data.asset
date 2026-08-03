@@ -251,6 +251,10 @@ MonoBehaviour:
     m_Key: PLAY_NEXT WAVE
     m_Metadata:
       m_Items: []
+  - m_Id: 23903886862069760
+    m_Key: LoadingScreen_UI
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

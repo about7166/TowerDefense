@@ -259,6 +259,10 @@ MonoBehaviour:
     m_Localized: VAGUE SUIVANTE
     m_Metadata:
       m_Items: []
+  - m_Id: 23903886862069760
+    m_Localized: Chargement...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

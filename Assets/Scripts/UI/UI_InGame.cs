@@ -23,7 +23,7 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject levelCompletedUI;
 
-    // ★ 新增：用來鎖死原始座標的變數
+    // 用來鎖死原始座標的變數
     private Vector3 currencyDefaultPos;
     private Vector3 healthDefaultPos;
     private Transform currencyParent;
@@ -40,19 +40,31 @@ public class UI_InGame : MonoBehaviour
             waveTimerDefaultPosition = waveTimer.localPosition;
         }
 
-        // ★ 在遊戲一開始，先把他們的「父物件(整個UI框)」抓出來
         if (currencyText != null) currencyParent = currencyText.transform.parent;
         if (healthPointText != null) healthParent = healthPointText.transform.parent;
 
-        // ★ 把他們剛出生的「最完美預設座標」死死記住
         if (currencyParent != null) currencyDefaultPos = currencyParent.localPosition;
         if (healthParent != null) healthDefaultPos = healthParent.localPosition;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F10))
+        // 判斷：如果遊戲已經進入結算畫面，就直接返回，禁止使用 ESC 叫出暫停選單
+        if (IsGameEnded()) return;
+
+        // ★ 修改：將 F10 改成 ESC 鍵 (Escape)
+        if (Input.GetKeyDown(KeyCode.Escape))
             ui.SwitchTo(uiPause.gameObject);
+    }
+
+    // 判斷現在是不是處於「結算狀態」
+    private bool IsGameEnded()
+    {
+        bool isGameOver = gameOverUI != null && gameOverUI.activeSelf;
+        bool isVictory = victoryUI != null && victoryUI.activeSelf;
+        bool isLevelCompleted = levelCompletedUI != null && levelCompletedUI.activeSelf;
+
+        return isGameOver || isVictory || isLevelCompleted;
     }
 
     public void EnableGameOverUI(bool enable)
@@ -60,6 +72,7 @@ public class UI_InGame : MonoBehaviour
         if (gameOverUI != null)
             gameOverUI.SetActive(enable);
     }
+
     public void EnableVictoryUI(bool enable)
     {
         if (victoryUI != null)
@@ -72,41 +85,28 @@ public class UI_InGame : MonoBehaviour
             levelCompletedUI.SetActive(enable);
     }
 
-    // ★ 修正：每次抖動前，強制把 UI 拽回原始座標，徹底解決跑位 Bug
     public void ShakeCurrencyUI()
     {
         if (currencyParent != null) currencyParent.localPosition = currencyDefaultPos;
         ui.animatorUI.Shake(currencyParent);
     }
 
-    // ★ 修正：生命值也套用一樣的保護機制
     public void ShakeHealthUI()
     {
         if (healthParent != null) healthParent.localPosition = healthDefaultPos;
         ui.animatorUI.Shake(healthParent);
     }
 
-    //這裡是老師寫的"威脅值"
-    //public void UpdateHealthPointsUI(int value, int maxValue)
-    //{
-    //int newValue = maxValue - value;
-    //healthPointText.text = "Threat :" + newValue + "/" + maxValue;
-    //}
-
-    //"威脅值"改成"血量
-    // 1. 去掉 "Health : "，只保留純數字顯示 (例如 20/20)
     public void UpdateHealthPointsUI(int currentHp, int maxHp)
     {
         healthPointText.text = currentHp + "/" + maxHp;
     }
 
-    // 2. 去掉 "$ "，只保留純金錢數字 (例如 1000)
     public void UpdateCurrencyUI(int value)
     {
         currencyText.text = value.ToString();
     }
 
-    // 3. 將原本的 "Seconds : 20" 升級成精緻的倒數計時格式 (例如 00:20)
     public void UpdateWaveTimerUI(float value)
     {
         int minutes = Mathf.FloorToInt(value / 60f);
@@ -116,7 +116,6 @@ public class UI_InGame : MonoBehaviour
 
     public void EnableWaveTimer(bool enable)
     {
-        // 關鍵防護：如果 UI 本身已經關閉了，或者物件正在被毀滅中，就直接跳過
         if (this == null || !gameObject.activeInHierarchy)
             return;
 
@@ -126,7 +125,6 @@ public class UI_InGame : MonoBehaviour
         float yOffset = enable ? -waveTimerOffset : waveTimerOffset;
         Vector3 offset = new Vector3(0, yOffset);
 
-        // 防護：確保 uiAnimator 還活著
         if (uiAnimator == null) uiAnimator = GetComponentInParent<UI_Animator>();
         if (uiAnimator == null) return;
 
