@@ -257,7 +257,7 @@ MonoBehaviour:
   castleDamageVolume: 1
   turnSpeed: 10
   myWaypoints: []
-  maxShield: 105
+  maxShield: 1100
   currentShield: 0
   shieldObject: {fileID: 5959753614180967397}
 --- !u!114 &7496697580161364147
