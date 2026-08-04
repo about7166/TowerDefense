@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower_MachineGun
   currentEnemy: {fileID: 0}
-  dynamicTargetChange: 0
+  dynamicTargetChange: 1
   attackCooldown: 0.08
   enemyPriorityType: 7
   towerHead: {fileID: 118655822763040545}
@@ -308,7 +308,7 @@ MonoBehaviour:
   upgradeCost: 0
   sellReward: 875
   projectilePrefab: {fileID: 1931165734540889600, guid: c887a3a679905894e8a900b00abf1aeb, type: 3}
-  damage: 14
+  damage: 10
   projectileSpeed: 15
   rotationOffset: {x: 0, y: 0.7, z: 0}
   gunPointSet:

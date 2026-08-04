@@ -29731,7 +29731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  dynamicTargetChange: 0
+  dynamicTargetChange: 1
   attackCooldown: 1.8
   enemyPriorityType: 7
   towerHead: {fileID: 0}
@@ -29763,7 +29763,7 @@ MonoBehaviour:
   nextUpgradePrefab: {fileID: 0}
   upgradeCost: 0
   sellReward: 630
-  damage: 45
+  damage: 30
   slowMultiplier: 0.7
   slowDuration: 5
 --- !u!114 &2416955901318766432

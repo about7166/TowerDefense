@@ -118,10 +118,20 @@ public class MainScene_Spawner : MonoBehaviour
             {
                 var agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
                 if (agent != null) agent.enabled = false;
+
+                //  關鍵修復 1：立刻關閉碰撞體！這樣關卡裡的塔就絕對「看不見」牠們了
+                var collider = enemy.GetComponent<Collider>();
+                if (collider != null) collider.enabled = false;
+
+                //  關鍵修復 2：讓怪物往下沉 2 秒後，徹底從場景中銷毀 (Destroy)
+                Destroy(enemy, 2f);
             }
         }
 
-        // ★ 修改 2：怪物沉下去時，徹底拔除幽靈導航網格
+        //  關鍵修復 3：清空名單，避免殘留記憶體
+        spawnedEnemies.Clear();
+
+        //  修改 2：怪物沉下去時，徹底拔除幽靈導航網格
         DisableShowcaseNavMesh();
     }
 

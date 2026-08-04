@@ -5370,7 +5370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower_MachineGun
   currentEnemy: {fileID: 0}
-  dynamicTargetChange: 0
+  dynamicTargetChange: 1
   attackCooldown: 0.15
   enemyPriorityType: 7
   towerHead: {fileID: 8822294229785883814}

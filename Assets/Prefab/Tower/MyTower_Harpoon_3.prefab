@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  dynamicTargetChange: 0
+  dynamicTargetChange: 1
   attackCooldown: 1.2
   enemyPriorityType: 5
   towerHead: {fileID: 3768158094773744296}
@@ -395,7 +395,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8499971205692400993, guid: 6f7700e264a6cd54cb199aa18c01741d, type: 3}
   projectileDefaultPosition: {fileID: 93786905050003918}
   projectileSpeed: 15
-  initialDamage: 120
+  initialDamage: 100
   damageOverTime: 3
   overTimeEffectDuration: 120
   slowEffect: 0.5

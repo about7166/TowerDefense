@@ -5178,7 +5178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  dynamicTargetChange: 0
+  dynamicTargetChange: 1
   attackCooldown: 2.5
   enemyPriorityType: 0
   towerHead: {fileID: 1217917440477915568}
@@ -5204,7 +5204,7 @@ MonoBehaviour:
     m_Bits: 128
   whatIsTargetable:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 128
   towerAttacksForward: 0
   attackSfx: {fileID: 8896945742790670205}
   nextUpgradePrefab: {fileID: 3794050761155688985, guid: 371dd162fdd6fc1438359bb28e4c9072, type: 3}

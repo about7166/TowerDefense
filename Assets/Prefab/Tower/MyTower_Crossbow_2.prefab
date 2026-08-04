@@ -77,10 +77,10 @@ MonoBehaviour:
   attackRange: 5
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   whatIsTargetable:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 1152
   towerAttacksForward: 0
   attackSfx: {fileID: 1861938428725481234}
   nextUpgradePrefab: {fileID: 5266948705210908534, guid: 0da860479606744409f7f50471329edf, type: 3}
