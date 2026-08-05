@@ -123,6 +123,17 @@ public class Enemy : MonoBehaviour, IDamagable
 
     protected void ResetEnemy()
     {
+        // 新增這段：尋找並拔除身上所有的魚叉子彈
+        Projectile_Harpoon[] attachedHarpoons = GetComponentsInChildren<Projectile_Harpoon>();
+        foreach (Projectile_Harpoon harpoon in attachedHarpoons)
+        {
+            // 魚叉是從物件池拿出來的，所以我們也要把它還給物件池
+            if (objectPool != null)
+                objectPool.Remove(harpoon.gameObject);
+            else
+                Destroy(harpoon.gameObject);
+        }
+
         gameObject.layer = originalLayerIndex;
         visuals.MakeTransparent(false);
         currentHp = maxHp;

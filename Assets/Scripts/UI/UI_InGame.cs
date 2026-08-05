@@ -9,6 +9,8 @@ public class UI_InGame : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI healthPointText;
     [SerializeField] private TextMeshProUGUI currencyText;
+    [Header("波次進度 (如 1/6)")]
+    [SerializeField] private TextMeshProUGUI waveProgressText;
     [Space]
     [SerializeField] private TextMeshProUGUI waveTimerText;
     [SerializeField] private float waveTimerOffset;
@@ -107,6 +109,14 @@ public class UI_InGame : MonoBehaviour
         currencyText.text = value.ToString();
     }
 
+    public void UpdateWaveProgressUI(int currentWave, int maxWaves)
+    {
+        if (waveProgressText != null)
+        {
+            // 將傳進來的數字組合成 "1/6" 的格式
+            waveProgressText.text = currentWave + "/" + maxWaves;
+        }
+    }
     public void UpdateWaveTimerUI(float value)
     {
         int minutes = Mathf.FloorToInt(value / 60f);

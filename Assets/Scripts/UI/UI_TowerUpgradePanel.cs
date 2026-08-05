@@ -50,6 +50,21 @@ public class UI_TowerUpgradePanel : MonoBehaviour
         ForceInit();
     }
 
+    // 新增防呆機制：當面板被系統強制隱藏（例如退回主選單）時，自動清理殘留的視覺效果
+    private void OnDisable()
+    {
+        if (selectedTower != null)
+        {
+            selectedTower.ToggleHighlight(false);
+            selectedTower = null;
+        }
+
+        if (rangeFill != null && rangeFill.transform.parent != null)
+        {
+            rangeFill.transform.parent.gameObject.SetActive(false);
+        }
+    }
+
     public void ForceInit()
     {
         if (isInitialized) return;

@@ -28,7 +28,7 @@ public class Tower_Harpoon : Tower
     private Coroutine damageOverTimeCo;
 
     public override float GetSlowPercentage() => (1f - slowEffect) * 100f;
-
+    public override float GetAttackDamage() => initialDamage;
     protected override void Awake()
     {
         base.Awake();

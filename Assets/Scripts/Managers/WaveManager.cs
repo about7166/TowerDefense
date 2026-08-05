@@ -93,15 +93,25 @@ public class WaveManager : MonoBehaviour
 
         HandleWaveTimer();
     }
-
     [ContextMenu("啟動波次管理")]
     public void ActivateWaveManager()
     {
         gameBegun = true;
         inGameUI = gameManager.inGameUI;
         EnableWaveTimer(true);
-    }
 
+        UpdateWaveProgress(); // 新增這行：啟動時初始化 UI 顯示
+    }
+    private void UpdateWaveProgress()
+    {
+        if (inGameUI != null && levelWaves != null)
+        {
+            // 因為 waveIndex 是從 0 開始算的（0代表第一波），所以顯示時要 +1
+            // 使用 Mathf.Min 是為了防呆，確保通關時數字不會變成 7/6
+            int currentDisplayWave = Mathf.Min(waveIndex + 1, levelWaves.Length);
+            inGameUI.UpdateWaveProgressUI(currentDisplayWave, levelWaves.Length);
+        }
+    }
     public void DeactivateWaveManager() => gameBegun = false;
 
     public void CheckIfWaveCompleted()
@@ -113,7 +123,9 @@ public class WaveManager : MonoBehaviour
             return;
 
         makingNextWave = true;
-        waveIndex++;
+        waveIndex++; //  原本的程式碼
+
+        UpdateWaveProgress(); //  新增這行：波次推進時更新 UI 顯示
 
         if (HasNoMoreWaves())
         {

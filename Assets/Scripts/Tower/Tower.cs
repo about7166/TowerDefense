@@ -140,6 +140,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             // 為每個零件製造一個發光分身
             foreach (Renderer r in towerRenderers)
             {
+                // 新增這行：如果零件已經被銷毀了 (例如射出去的魚叉)，就直接跳過它！
+                if (r == null) continue;
+
                 if (r is ParticleSystemRenderer) continue; // 略過粒子特效
 
                 // 1. 製造一個空的分身物件
