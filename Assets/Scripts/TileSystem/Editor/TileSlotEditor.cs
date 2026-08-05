@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor.SceneManagement; // ★ 新增：用於標記場景變動
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(TileSlot)), CanEditMultipleObjects]
 public class TileSlotEditor : Editor

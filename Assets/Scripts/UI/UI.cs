@@ -1,8 +1,8 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class UI : MonoBehaviour
 {
@@ -79,16 +79,17 @@ public class UI : MonoBehaviour
         }
     }
 
-    // ★ 修改：現在只偵測「Z」鍵來跳過開場
+    // 修改：現在只偵測「Z」鍵來跳過開場
     private void Update()
     {
-        if (startupCo != null)
+        /* (startupCo != null)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 SkipStartupSequence();
             }
         }
+        */
     }
 
     // 強制中斷所有等待，瞬間進入主介面
@@ -233,8 +234,13 @@ public class UI : MonoBehaviour
 
     public void QuitButton()
     {
-        if (EditorApplication.isPlaying) EditorApplication.isPlaying = false;
-        else Application.Quit();
+#if UNITY_EDITOR
+        // 在 Unity 編輯器中按下離開時執行這個
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // 在真正打包出來的遊戲中按下離開時執行這個
+        Application.Quit();
+#endif
     }
 
     public void ActivateFadeEffect(bool fadeIn)

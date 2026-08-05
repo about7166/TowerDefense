@@ -27,9 +27,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxPitch = 85f;
 
     [Header("縮放設定")]
-    [SerializeField] private float zoomSpeed = 10;
+    [SerializeField] private float zoomSpeed = 15;
     [SerializeField] private float minZoom = 3;
-    [SerializeField] private float maxZoom = 15;
+    [SerializeField] private float maxZoom = 20;
 
     private float smoothTime = 0.1f;
     private Vector3 movementVelocity = Vector3.zero;
@@ -50,8 +50,12 @@ public class CameraController : MonoBehaviour
 
         HandleRotation();
         HandleZoom();
-        //HandleEdgeMovement();
         HandleMouseMovement();
+
+        // 已經被註解的邊緣移動
+        //HandleEdgeMovement();
+
+        // 把前面的 // 刪掉，WASD 和方向鍵的移動功能就回來了！
         HandleMovement();
 
         focusPoint.position = transform.position + (transform.forward * GetFocusPointDistane());
@@ -59,25 +63,32 @@ public class CameraController : MonoBehaviour
 
     public void EnableCameraControlls(bool enable) => canControll = enable;
 
-    public float AdjustPitchValue(float value) => pitch = value;
+    public void AdjustPitchValue(float value) { pitch = value; }
 
     //跟UI_Setting的鍵盤、滑鼠靈敏度有關
-    public float AdjustKeyboardSensitivity(float value) => movementSpeed = value;
-    public float AdjustMouseSensitivity(float value) => mouseMovementSpeed = value;
+    public void AdjustKeyboardSensitivity(float value) { movementSpeed = value; }
+    public void AdjustMouseSensitivity(float value) { mouseMovementSpeed = value; }
 
     private void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        // 關鍵 1：如果沒有滾動滑鼠，就直接跳出，不要讓程式往下執行「原地煞車」的動作
+        if (scroll == 0)
+            return;
+
         Vector3 zoomDirection = transform.forward * scroll * zoomSpeed;
         Vector3 targetPosition = transform.position + zoomDirection;
 
-        if (transform.position.y < minZoom && scroll > 0)
+        // 預判下一步會不會超過限制
+        if (targetPosition.y < minZoom && scroll > 0)
             return;
 
-        if (transform.position.y > maxZoom && scroll < 0)
+        if (targetPosition.y > maxZoom && scroll < 0)
             return;
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref zoomVelocity, smoothTime);
+        // 關鍵 2：滾輪是一瞬間的指令，直接改變位置才能忠實反映你設定的 zoomSpeed
+        transform.position = targetPosition;
     }
 
     private float GetFocusPointDistane()

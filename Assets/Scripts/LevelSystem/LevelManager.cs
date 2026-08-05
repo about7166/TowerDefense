@@ -27,6 +27,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+        /* ★ 封印所有開發測試用的快捷鍵 ★
         if (Input.GetKeyDown(KeyCode.J))
             LoadLevelFromMenu("Level_1");
 
@@ -35,7 +36,7 @@ public class LevelManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             RestarCurrentLevel();
-
+        */
     }
 
     public void RestarCurrentLevel() => StartCoroutine(LoadLevelCo(currentLevelName));

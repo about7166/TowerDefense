@@ -75,6 +75,7 @@ public class UI_BuildButtonsHolder : MonoBehaviour
         if (isBuildMenuActive == false)
             return;
 
+        /* ★ 將以下快捷鍵功能全部封印 ★
         for (int i = 0; i < unlockedButtons.Count; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
@@ -98,6 +99,7 @@ public class UI_BuildButtonsHolder : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
                 RotateTarget(previewTower, 90);
         }
+        */
     }
 
     private void RotateTarget(Transform target, float angel)
