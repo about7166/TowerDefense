@@ -102,16 +102,23 @@ public class MainScene_Spawner : MonoBehaviour
             showcaseTowersParent.SetActive(false);
         }
 
-        // ★ 修改 2：清理時，徹底拔除幽靈導航網格
         DisableShowcaseNavMesh();
+
+        // 把這段打掃邏輯也複製貼上到這裡！
+        Projectile_Cannon[] leftoverProjectiles = FindObjectsByType<Projectile_Cannon>(FindObjectsSortMode.None);
+        foreach (var proj in leftoverProjectiles)
+        {
+            if (proj != null && proj.gameObject.scene == this.gameObject.scene)
+            {
+                proj.ForceRecycleSafe();
+            }
+        }
     }
 
     public void StopSpawningAndSink()
     {
-        // 1. 停止生怪計時器，不再生出新怪物
         StopAllCoroutines();
 
-        // 2. 關閉現存怪物的導航網格，讓牠們「放棄抵抗」，這樣動畫才能順利把牠們往下拉
         foreach (GameObject enemy in spawnedEnemies)
         {
             if (enemy != null)
@@ -119,22 +126,27 @@ public class MainScene_Spawner : MonoBehaviour
                 var agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
                 if (agent != null) agent.enabled = false;
 
-                //  關鍵修復 1：立刻關閉碰撞體！這樣關卡裡的塔就絕對「看不見」牠們了
                 var collider = enemy.GetComponent<Collider>();
                 if (collider != null) collider.enabled = false;
 
-                //  關鍵修復 2：讓怪物往下沉 2 秒後，徹底從場景中銷毀 (Destroy)
                 Destroy(enemy, 2f);
             }
         }
 
-        //  關鍵修復 3：清空名單，避免殘留記憶體
         spawnedEnemies.Clear();
-
-        //  修改 2：怪物沉下去時，徹底拔除幽靈導航網格
         DisableShowcaseNavMesh();
-    }
 
+        // 修改：找出場景中殘留的主場景子彈，呼叫安全回收方法，保護物件池不壞掉
+        Projectile_Cannon[] leftoverProjectiles = FindObjectsByType<Projectile_Cannon>(FindObjectsSortMode.None);
+        foreach (var proj in leftoverProjectiles)
+        {
+            if (proj != null && proj.gameObject.scene == this.gameObject.scene)
+            {
+                // 用剛剛寫好的安全方法來回收，而不是暴力的 Destroy！
+                proj.ForceRecycleSafe();
+            }
+        }
+    }
     // ================= 新增的場景隔離邏輯 =================
 
     // 嚴格比對：只回傳跟這個生怪器在「同一個 Scene (MainScene)」的 GridBuilder

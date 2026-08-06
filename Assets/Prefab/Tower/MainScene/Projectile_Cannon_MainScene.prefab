@@ -53,9 +53,7 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
-  explosionFx: {fileID: 5072045690011629040, guid: 0ce7fe204e0f6ce46ae422b7f5333eb9, type: 3}
-  explosionSound: {fileID: 0}
-  explosionVolume: 0.8
+  explosionFx: {fileID: 5072045690011629040, guid: d00c111f8e72fb340801601bc72a08b2, type: 3}
 --- !u!33 &2724562643102680627
 MeshFilter:
   m_ObjectHideFlags: 0
