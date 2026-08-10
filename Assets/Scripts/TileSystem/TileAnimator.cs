@@ -29,6 +29,20 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private float dissolveDuration = 1.2f;
     [SerializeField] private List<Transform> dissolvingObjects = new List<Transform>();
 
+    // 終極防護：防止關卡內自帶的測試用 TileAnimator 在打包後詐屍搗亂
+    private void Awake()
+    {
+        TileAnimator[] animators = FindObjectsByType<TileAnimator>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        // 如果場景裡有超過一個 TileAnimator，且這個腳本不在主選單，代表它是測試用的分身
+        if (animators.Length > 1 && gameObject.scene.name != "MainScene")
+        {
+            gameObject.SetActive(false); // 立刻關閉，防止 Start 被執行
+            Destroy(gameObject);
+            return;
+        }
+    }
+
     private void Start()
     {
         if (GameManager.instance.IsTestingLevel())
@@ -45,6 +59,8 @@ public class TileAnimator : MonoBehaviour
 
     public void ShowGrid(GridBuilder gridToMove, bool showGrid)
     {
+        if (gridToMove == null) return;
+
         List<GameObject> objectsToMove = GetObjectsToMove(gridToMove, showGrid);
 
         if (gridToMove.IsOnFirstLoad())
@@ -68,7 +84,6 @@ public class TileAnimator : MonoBehaviour
                 continue;
 
             Transform tile = objectsToMove[i].transform;
-
             Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
 
             DissolveTile(showGrid, tile);
@@ -80,6 +95,8 @@ public class TileAnimator : MonoBehaviour
             dissolvingObjects.RemoveAll(item => item == null);
             yield return null;
         }
+
+        yield return new WaitForSeconds(tileMoveDuration + 0.2f);
 
         foreach (var tile in objectsToMove)
         {
@@ -106,10 +123,8 @@ public class TileAnimator : MonoBehaviour
     public IEnumerator MoveTileCo(Transform objectToMove, Vector3 targetPosition, float delay = 0, float? newDuration = null)
     {
         yield return new WaitForSeconds(delay);
-
         float time = 0;
         Vector3 startPosition = objectToMove.position;
-
         float duration = newDuration ?? defaultMoveDuration;
 
         while (time < duration)
@@ -118,7 +133,6 @@ public class TileAnimator : MonoBehaviour
                 break;
 
             objectToMove.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
-
             time += Time.deltaTime;
             yield return null;
         }
@@ -130,7 +144,6 @@ public class TileAnimator : MonoBehaviour
     public void DissolveTile(bool showtTile, Transform tile)
     {
         MeshRenderer[] meshRenderers = tile.GetComponentsInChildren<MeshRenderer>();
-
         if (tile.GetComponent<TileSlot>() != null)
         {
             foreach (MeshRenderer mesh in meshRenderers)
@@ -151,25 +164,18 @@ public class TileAnimator : MonoBehaviour
         }
 
         dissolvingObjects.Add(meshRenderer.transform);
-
         float startValue = showTile ? 1 : 0;
         float targetValue = showTile ? 0 : 1;
 
         Material originalMaterial = meshRenderer.material;
-
         meshRenderer.material = new Material(dissolveMaterial);
         Material dissolveMatInstance = meshRenderer.material;
 
         dissolveMatInstance.SetColor("_BaseColor", originalMaterial.GetColor("_BaseColor"));
-
         if (originalMaterial.HasProperty("_BaseMap"))
-        {
             dissolveMatInstance.SetTexture("_BaseMap", originalMaterial.GetTexture("_BaseMap"));
-        }
         else if (originalMaterial.HasProperty("_MainTex"))
-        {
             dissolveMatInstance.SetTexture("_BaseMap", originalMaterial.GetTexture("_MainTex"));
-        }
 
         dissolveMatInstance.SetFloat("_Metallic", originalMaterial.GetFloat("_Metallic"));
         dissolveMatInstance.SetFloat("_Smoothness", originalMaterial.GetFloat("_Smoothness"));
@@ -186,7 +192,6 @@ public class TileAnimator : MonoBehaviour
         }
 
         meshRenderer.material = originalMaterial;
-
         if (meshRenderer != null)
             dissolvingObjects.Remove(meshRenderer.transform);
     }
@@ -195,6 +200,14 @@ public class TileAnimator : MonoBehaviour
     {
         foreach (var obj in objectsToMove)
         {
+            if (obj == null) continue;
+
+            // 用絕對物理座標防護，在地底就不再推
+            if (obj.transform.position.y < -2f)
+            {
+                continue;
+            }
+
             obj.transform.position += offset;
         }
     }
@@ -216,20 +229,16 @@ public class TileAnimator : MonoBehaviour
     private void CollectMainSceneObjects()
     {
         mainMenuObjects.AddRange(mainSceneGrid.GetTileSetup());
-        // 修正：必須把 mainSceneGrid 傳進去，讓程式知道只抓主場景的物件
         mainMenuObjects.AddRange(GetExtraObjects(mainSceneGrid));
     }
 
     private List<GameObject> GetObjectsToMove(GridBuilder gridToMove, bool startWithTiles)
     {
         List<GameObject> objectsToMove = new List<GameObject>();
-        // 修正：必須把 gridToMove 傳進去，精準過濾該關卡的物件
         List<GameObject> extraObjects = GetExtraObjects(gridToMove);
 
         if (startWithTiles)
         {
-            // 實作選項 A 的魔法：把地塊排在陣列前面，建築排在後面。
-            // 這樣迴圈在播放動畫時，就會完美呈現「地塊先拚完，主堡才升起」的層次感！
             objectsToMove.AddRange(gridToMove.GetTileSetup());
             objectsToMove.AddRange(extraObjects);
         }
@@ -242,20 +251,18 @@ public class TileAnimator : MonoBehaviour
         return objectsToMove;
     }
 
-    // 修正：加入 GridBuilder 參數作為場景過濾雷達
     private List<GameObject> GetExtraObjects(GridBuilder gridToMove)
     {
         List<GameObject> extraObjects = new List<GameObject>();
         UnityEngine.SceneManagement.Scene targetScene = gridToMove.gameObject.scene;
 
-        // 嚴格比對場景！確保關卡絕對不會去抓到主選單的塔，解決卡在半空的 Bug
-        foreach (var portal in FindObjectsOfType<EnemyPortal>())
+        foreach (var portal in FindObjectsByType<EnemyPortal>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             if (portal.gameObject.scene == targetScene) extraObjects.Add(portal.gameObject);
 
-        foreach (var castle in FindObjectsOfType<Castle>())
+        foreach (var castle in FindObjectsByType<Castle>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             if (castle.gameObject.scene == targetScene) extraObjects.Add(castle.gameObject);
 
-        foreach (var dec in FindObjectsOfType<MapDecoration>())
+        foreach (var dec in FindObjectsByType<MapDecoration>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             if (dec.gameObject.scene == targetScene) extraObjects.Add(dec.gameObject);
 
         return extraObjects.Distinct().ToList();

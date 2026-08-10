@@ -14,8 +14,11 @@ public class GridBuilder : MonoBehaviour
 
     [SerializeField] private List<GameObject> createdTiles;
     public void UpdateNavMesh() => myNacMesh.BuildNavMesh();
-    public List<GameObject> GetTileSetup() => createdTiles;
 
+    public List<GameObject> GetTileSetup()
+    {
+        return createdTiles;
+    }
 
     private bool hadFristLoad;
 
@@ -46,13 +49,12 @@ public class GridBuilder : MonoBehaviour
         {
             for (int z = 0; z < griWidth; z++)
             {
-                CreateTile(x,z);
+                CreateTile(x, z);
             }
         }
     }
 
     [ContextMenu("清除地板網格")]
-
     private void ClearGrid()
     {
         foreach (GameObject tile in createdTiles)
@@ -65,7 +67,7 @@ public class GridBuilder : MonoBehaviour
 
     private void CreateTile(float xPosition, float zPosition)
     {
-        Vector3 newPosition = new Vector3 (xPosition, 0, zPosition);
+        Vector3 newPosition = new Vector3(xPosition, 0, zPosition);
         GameObject newTile = Instantiate(mainPrefab, newPosition, Quaternion.identity, transform);
 
         createdTiles.Add(newTile);
