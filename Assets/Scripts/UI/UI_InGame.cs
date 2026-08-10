@@ -49,12 +49,19 @@ public class UI_InGame : MonoBehaviour
         if (healthParent != null) healthDefaultPos = healthParent.localPosition;
     }
 
+    // ★ 新增修復：每次這個 UI 介面被打開時，強制把所有結算畫面隱藏！
+    private void OnEnable()
+    {
+        EnableGameOverUI(false);
+        EnableVictoryUI(false);
+        EnableLevelCompletedUI(false);
+    }
+
     private void Update()
     {
         // 判斷：如果遊戲已經進入結算畫面，就直接返回，禁止使用 ESC 叫出暫停選單
         if (IsGameEnded()) return;
 
-        // ★ 修改：將 F10 改成 ESC 鍵 (Escape)
         if (Input.GetKeyDown(KeyCode.Escape))
             ui.SwitchTo(uiPause.gameObject);
     }
