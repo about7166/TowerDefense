@@ -299,8 +299,11 @@ public class Enemy : MonoBehaviour, IDamagable
         Vector3 diractionToTarget = newTarget - transform.position;
         diractionToTarget.y = 0;
 
-        Quaternion newRotation = Quaternion.LookRotation(diractionToTarget);
+        // 【修正點】：加上這行安全檢查，防止 Look rotation 報錯
+        if (diractionToTarget.sqrMagnitude < 0.001f)
+            return;
 
+        Quaternion newRotation = Quaternion.LookRotation(diractionToTarget);
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.deltaTime);
     }
 
@@ -337,16 +340,27 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public virtual void TakeDamage(float damage)
     {
+        if (!this.gameObject.activeInHierarchy || isDead)
+        {
+            return;
+        }
+
         if (currentShield > 0)
         {
             currentShield -= damage;
 
             if (shieldObject != null)
-                shieldObject.ActivateShieldImpact();
-
-            if (currentShield <= 0 && shieldObject != null)
-                shieldObject.gameObject.SetActive(false);
-
+            {
+                // 【修正點】：護盾破了就直接關，沒破才播特效，避免協程在 Inactive 物件上啟動
+                if (currentShield <= 0)
+                {
+                    shieldObject.gameObject.SetActive(false);
+                }
+                else
+                {
+                    shieldObject.ActivateShieldImpact();
+                }
+            }
             return;
         }
 
