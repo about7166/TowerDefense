@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class UI_Animator : MonoBehaviour
 {
     [Header("UI回饋 - 晃動效果")]
-    [SerializeField] private float shakeMagnitude;//XY晃動
+    [SerializeField] private float shakeMagnitude; //XY晃動
     [SerializeField] private float shakeDuration;
-    [SerializeField] private float shakeRotationMagnitude;//Z旋轉
+    [SerializeField] private float shakeRotationMagnitude; //Z旋轉
     [Space]
-    [SerializeField] private float defaultUIScale = 1.5f;//縮放
-    [SerializeField] private bool scaleChangeAvailable;//縮放開關
+    [SerializeField] private float defaultUIScale = 1.5f; //縮放
+    [SerializeField] private bool scaleChangeAvailable; //縮放開關
 
     public void Shake(Transform transformToShake)
     {
@@ -21,34 +22,60 @@ public class UI_Animator : MonoBehaviour
     {
         float time = 0;
         Vector3 originalPosition = rectTransform.anchoredPosition;
-        float currentScale = rectTransform.localScale.x;//縮放
+        float currentScale = rectTransform.localScale.x; //縮放
 
         if (scaleChangeAvailable)
-            StartCoroutine(ChangeScaleCo(rectTransform, currentScale * 1.1f, shakeDuration / 2));//縮放
+            StartCoroutine(ChangeScaleCo(rectTransform, currentScale * 1.1f, shakeDuration / 2)); //縮放
 
         while (time < shakeDuration)
         {
-            
-            float xOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XY晃動
-            float yOffset = Random.Range(-shakeMagnitude, shakeMagnitude);//XY晃動            
-            float randomRotation = Random.Range(-shakeRotationMagnitude, shakeRotationMagnitude);//Z旋轉
+            float xOffset = Random.Range(-shakeMagnitude, shakeMagnitude); //XY晃動
+            float yOffset = Random.Range(-shakeMagnitude, shakeMagnitude); //XY晃動            
+            float randomRotation = Random.Range(-shakeRotationMagnitude, shakeRotationMagnitude); //Z旋轉
 
 
-            rectTransform.anchoredPosition = originalPosition + new Vector3(xOffset, yOffset);//XY晃動
-            rectTransform.localRotation = Quaternion.Euler(0, 0, randomRotation);//Z旋轉
+            rectTransform.anchoredPosition = originalPosition + new Vector3(xOffset, yOffset); //XY晃動
+            rectTransform.localRotation = Quaternion.Euler(0, 0, randomRotation); //Z旋轉
 
             time += Time.deltaTime;
             yield return null;
         }
-        
-        rectTransform.anchoredPosition = originalPosition;//XY晃動
-        rectTransform.localRotation = Quaternion.Euler(Vector3.zero);//Z旋轉
+
+        rectTransform.anchoredPosition = originalPosition; //XY晃動
+        rectTransform.localRotation = Quaternion.Euler(Vector3.zero); //Z旋轉
 
         if (scaleChangeAvailable)
-            StartCoroutine(ChangeScaleCo(rectTransform, defaultUIScale, shakeDuration / 2));//縮放
+            StartCoroutine(ChangeScaleCo(rectTransform, defaultUIScale, shakeDuration / 2)); //縮放
     }
 
+    // ==========================================
+    // 新增：移動到絕對目標位置的方法 (解決中斷會飄移的問題)
+    // ==========================================
+    public void MoveToAbsolutePosition(Transform transform, Vector3 targetPosition, float duration = 0.1f)
+    {
+        RectTransform rectTransform = transform.GetComponent<RectTransform>();
+        StartCoroutine(MoveToAbsolutePositionCo(rectTransform, targetPosition, duration));
+    }
 
+    public IEnumerator MoveToAbsolutePositionCo(RectTransform rectTransform, Vector3 targetPosition, float duration = 0.1f)
+    {
+        float time = 0;
+        Vector3 initialPosition = rectTransform.anchoredPosition;
+
+        while (time < duration)
+        {
+            rectTransform.anchoredPosition = Vector3.Lerp(initialPosition, targetPosition, time / duration);
+            // 使用 unscaledDeltaTime，這樣暫停遊戲時 UI 還是能正常滑動
+            time += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = targetPosition;
+    }
+    // ==========================================
+
+
+    // 舊的相對位移方法 (如果有其他不常中斷的 UI 還在用，就保留著)
     public void ChangePosition(Transform transform, Vector3 offset, float duration = 0.1f)
     {
         RectTransform rectTransform = transform.GetComponent<RectTransform>();
@@ -78,6 +105,7 @@ public class UI_Animator : MonoBehaviour
         RectTransform rectTransform = transform.GetComponent<RectTransform>();
         StartCoroutine(ChangeScaleCo(rectTransform, targetScale, duration));
     }
+
     public IEnumerator ChangeScaleCo(RectTransform rectTransform, float newScale, float duration = 0.25f)
     {
         float time = 0;

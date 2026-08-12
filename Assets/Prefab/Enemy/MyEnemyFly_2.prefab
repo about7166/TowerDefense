@@ -341,6 +341,7 @@ Transform:
   m_Children:
   - {fileID: 8833074132307514246}
   - {fileID: 794841817886733249}
+  - {fileID: 5109499120250558613}
   - {fileID: 1993921974237945691}
   - {fileID: 9149833594366688865}
   - {fileID: 61602609804802808}
@@ -364,7 +365,7 @@ MonoBehaviour:
   currentHp: 0
   moneyReward: 15
   damageToCastle: 2
-  castleDamageSound: {fileID: 8300000, guid: ce925cac526aa0c408e3ff6eab5fd722, type: 3}
+  castleDamageSound: {fileID: 7305498282726141715}
   castleDamageVolume: 1
   turnSpeed: 10
   myWaypoints: []
@@ -790,4 +791,71 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6637805797372538177, guid: 66639d2f942badc42a8aacf74e108440, type: 3}
   m_PrefabInstance: {fileID: 2514279736402924320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8294483242301164534
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3452733685401411179}
+    m_Modifications:
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.7668505
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.109
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.19673
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977033003778302640, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+      propertyPath: m_Name
+      value: CastleDamege_sfx
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+--- !u!4 &5109499120250558613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3887586078831285091, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+  m_PrefabInstance: {fileID: 8294483242301164534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7305498282726141715 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1619531611229168869, guid: f2d7750aecd46cb47b3df7c50503ba4b, type: 3}
+  m_PrefabInstance: {fileID: 8294483242301164534}
   m_PrefabAsset: {fileID: 0}

@@ -24492,7 +24492,7 @@ PrefabInstance:
       objectReference: {fileID: 732683012}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: timeBetweenWaves
-      value: 15
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8983922427767695249, guid: c10cee21bb7fc5442a04c26ea18492d0, type: 3}
       propertyPath: levelWaves.Array.size

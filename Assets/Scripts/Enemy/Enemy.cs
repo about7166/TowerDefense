@@ -29,7 +29,8 @@ public class Enemy : MonoBehaviour, IDamagable
     [SerializeField] private int damageToCastle = 1;
 
     [Header("主堡受擊音效設定")]
-    [SerializeField] private AudioClip castleDamageSound;
+    // 【修改這裡】：將 AudioClip 改成 AudioSource
+    [SerializeField] private AudioSource castleDamageSound;
     [Range(0f, 1f)]
     [SerializeField] private float castleDamageVolume = 1f;
 
@@ -385,20 +386,41 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public void ReachCastleAndDealDamage()
     {
-        // 防呆保護：確定有 GameManager 才扣血
         if (gameManager != null)
             gameManager.UpdateHp(-damageToCastle);
         else
             Debug.LogWarning($"警告：場景中找不到 GameManager！怪物 {gameObject.name} 無法對主堡造成傷害！");
 
-        if (castleDamageSound != null)
+        // 確保你有綁定音效組件，且裡面真的有放音檔
+        if (castleDamageSound != null && castleDamageSound.clip != null)
         {
-            AudioSource.PlayClipAtPoint(castleDamageSound, Camera.main.transform.position, castleDamageVolume);
+            // 1. 產生一個獨立的隱形空物件，並掛上 AudioSource
+            GameObject tempAudioObj = new GameObject("Temp_CastleHit_SFX");
+            tempAudioObj.transform.position = Camera.main.transform.position;
+            AudioSource tempSource = tempAudioObj.AddComponent<AudioSource>();
+
+            // 2. 完美複製你在 Prefab 裡做好的設定 (包含音檔跟 AudioMixer)
+            tempSource.clip = castleDamageSound.clip;
+            tempSource.outputAudioMixerGroup = castleDamageSound.outputAudioMixerGroup;
+            tempSource.volume = castleDamageSound.volume;
+
+            // 3. 呼叫 AudioManager 播放（這樣依然享有音量控制）
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.PlaySFX(tempSource, false);
+            }
+            else
+            {
+                tempSource.Play();
+            }
+
+            // 4. 設定在音效播完之後 (加上 0.1 秒緩衝)，自動銷毀這個暫時物件
+            Destroy(tempAudioObj, tempSource.clip.length + 0.1f);
         }
 
         visuals.CreateOnDeathVFX();
 
-        // 撞到主堡後，將自己從場上移除
+        // 現在怪物可以安心下班了，音效已經交給暫時物件負責處理
         RemoveEnemy();
     }
 
