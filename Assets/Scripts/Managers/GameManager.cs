@@ -75,9 +75,30 @@ public class GameManager : MonoBehaviour
 
     public bool IsTestingLevel() => levelManager == null;
 
+    public void ForceClearBuildPreview()
+    {
+        // 1. 呼叫大總管，走正式流程取消地塊選取、清空記憶並關閉選單
+        BuildManager buildManager = FindFirstObjectByType<BuildManager>();
+        if (buildManager != null)
+        {
+            buildManager.CancelBuildAction();
+        }
+
+        // 2. 作為雙重保險，依然強制關閉場上可能殘留的預覽範圍圈
+        TowerPreview preview = FindFirstObjectByType<TowerPreview>();
+        if (preview != null)
+        {
+            preview.ShowPreview(false, Vector3.zero);
+            preview.gameObject.SetActive(false);
+        }
+    }
     public IEnumerator LevelFailedCo()
     {
         gameLost = true;
+
+        // 【新增這行】：遊戲一失敗，立刻強制收起預覽與選單
+        ForceClearBuildPreview();
+
         currentActiveWaveManager.DeactivateWaveManager();
         cameraEffects.FocusOnCastle();
 
@@ -87,8 +108,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void LevelCompleted() => StartCoroutine(LevelCompletedCo());
+
     private IEnumerator LevelCompletedCo()
     {
+        // 【新增這行】：遊戲勝利時也一樣要清場
+        ForceClearBuildPreview();
+
         cameraEffects.FocusOnCastle();
 
         yield return cameraEffects.GetActiveCamCo();
@@ -99,11 +124,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);//1是true 0是false
+            PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
             inGameUI.EnableLevelCompletedUI(true);
         }
     }
-
     public void PrepareLevel(int levelCurrency, WaveManager newWaveManager)
     {
         gameLost = false;
